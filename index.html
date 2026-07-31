@@ -3,1170 +3,937 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>财务女生自律成长工作台</title>
+<title>清新每一天 · 2026财务成长工作台</title>
 <style>
 :root{
-  --bg:#f7f5f1; --bg-soft:#fffdf9; --bg-card:#ffffff;
-  --text:#2c2c2c; --text-secondary:#6b6b6b; --text-light:#9a9a9a;
-  --accent:#6b8e7f; --accent-deep:#4a6b5c; --accent-soft:#e8efe9;
-  --gold:#c4a882; --gold-soft:#f0e6d6;
-  --border:#e5e0d8; --radius:12px; --radius-sm:8px;
-  --shadow:0 1px 3px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.03);
-  --font:'-apple-system','PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;
+  --bg:#f5f7f4;--bg-soft:#fefdfa;--bg-card:#ffffff;
+  --text:#2c2c2c;--text-2:#6b6b6b;--text-3:#a0a0a0;
+  --green:#7baa8e;--green-deep:#4a7c5e;--green-soft:#e4efe7;
+  --apricot:#d4a574;--apricot-soft:#f5ebe0;
+  --cream:#f0ebe2;--border:#e5e0d8;--radius:14px;--radius-sm:8px;
+  --shadow:0 1px 4px rgba(0,0,0,.04),0 6px 16px rgba(0,0,0,.03);
+  --font:'-apple-system','PingFang SC','Microsoft YaHei',sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;}
-.app{display:flex;min-height:100vh;}
-/* 左侧菜单 */
-.sidebar{width:210px;flex-shrink:0;background:var(--bg-soft);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:10;}
-.sidebar-header{padding:24px 20px 20px;border-bottom:1px solid var(--border);}
-.sidebar-header h1{font-size:15px;font-weight:600;color:var(--accent-deep);letter-spacing:.5px;line-height:1.4;}
-.sidebar-header .sub{font-size:11px;color:var(--text-light);margin-top:4px;}
-.menu{flex:1;overflow-y:auto;padding:10px 0;}
-.menu-item{display:flex;align-items:center;padding:11px 20px;cursor:pointer;color:var(--text-secondary);font-size:13px;transition:all .2s;border-left:3px solid transparent;gap:10px;}
-.menu-item:hover{background:var(--accent-soft);color:var(--accent-deep);}
-.menu-item.active{background:var(--accent-soft);color:var(--accent-deep);font-weight:600;border-left-color:var(--accent);}
-.menu-item .num{font-size:10px;color:var(--text-light);width:18px;text-align:center;flex-shrink:0;}
-.menu-item.active .num{color:var(--accent);}
-.sidebar-footer{padding:12px 20px;border-top:1px solid var(--border);font-size:10px;color:var(--text-light);text-align:center;}
-/* 右侧内容 */
-.main{flex:1;margin-left:210px;padding:32px 40px;max-width:920px;}
-.panel{display:none;}
-.panel.active{display:block;animation:fade .3s ease;}
-@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-.panel-title{font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px;}
-.panel-desc{font-size:12px;color:var(--text-light);margin-bottom:24px;}
-/* 通用卡片 */
-.card{background:var(--bg-card);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);margin-bottom:16px;border:1px solid var(--border);}
-.card-title{font-size:13px;font-weight:600;color:var(--accent-deep);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-.card-title .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.app{display:flex;min-height:100vh}
+/* 侧栏 */
+.sidebar{width:210px;flex-shrink:0;background:var(--bg-soft);border-right:1px solid var(--border);position:fixed;top:0;left:0;bottom:0;z-index:10;display:flex;flex-direction:column}
+.sidebar-hd{padding:22px 18px 16px;border-bottom:1px solid var(--border)}
+.sidebar-hd h1{font-size:14px;font-weight:700;color:var(--green-deep);letter-spacing:.3px;line-height:1.4}
+.sidebar-hd .sub{font-size:10px;color:var(--text-3);margin-top:4px}
+.menu{flex:1;overflow-y:auto;padding:8px 0}
+.menu-item{display:flex;align-items:center;gap:8px;padding:10px 18px;cursor:pointer;color:var(--text-2);font-size:12.5px;transition:all .15s;border-left:3px solid transparent}
+.menu-item:hover{background:var(--green-soft);color:var(--green-deep)}
+.menu-item.active{background:var(--green-soft);color:var(--green-deep);font-weight:600;border-left-color:var(--green)}
+.menu-item .mi-num{font-size:9px;color:var(--text-3);width:16px;text-align:center;flex-shrink:0}
+.menu-item.active .mi-num{color:var(--green)}
+.sidebar-ft{padding:10px 18px;border-top:1px solid var(--border);font-size:9px;color:var(--text-3);text-align:center}
+/* 主区 */
+.main{flex:1;margin-left:210px;padding:28px 36px;max-width:960px}
+.panel{display:none}.panel.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.pt{font-size:19px;font-weight:700;color:var(--text);margin-bottom:3px}
+.pd{font-size:11.5px;color:var(--text-3);margin-bottom:22px}
+/* 卡片 */
+.card{background:var(--bg-card);border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow);margin-bottom:14px;border:1px solid var(--border)}
+.card-t{font-size:12.5px;font-weight:600;color:var(--green-deep);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.card-t .dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
 /* 进度条 */
-.progress-wrap{background:var(--bg);border-radius:20px;height:6px;overflow:hidden;margin-top:6px;}
-.progress-fill{height:100%;background:var(--accent);border-radius:20px;transition:width .4s;}
-.progress-label{font-size:11px;color:var(--text-light);margin-top:4px;}
+.pw{background:var(--bg);border-radius:20px;height:6px;overflow:hidden}
+.pf{height:100%;background:var(--green);border-radius:20px;transition:width .4s}
+.pl{font-size:10.5px;color:var(--text-3);margin-top:3px}
+/* 按钮 */
+.btn{padding:6px 14px;border-radius:var(--radius-sm);font-size:11.5px;cursor:pointer;transition:all .15s;border:none;white-space:nowrap}
+.btn-g{background:var(--green);color:#fff}.btn-g:hover{background:var(--green-deep)}
+.btn-o{background:transparent;border:1px solid var(--border);color:var(--text-2)}.btn-o:hover{border-color:var(--green);color:var(--green-deep)}
+.btn-s{background:var(--green-soft);color:var(--green-deep)}.btn-s:hover{background:var(--green);color:#fff}
+.btn-mini{padding:3px 10px;font-size:10.5px;border-radius:6px;cursor:pointer;transition:all .15s;border:none}
+.btn-mini.copy{background:var(--green-soft);color:var(--green-deep)}.btn-mini.copy:hover{background:var(--green);color:#fff}
+.btn-mini.fav{background:var(--apricot-soft);color:#b07830}.btn-mini.fav:hover{background:var(--apricot);color:#fff}
+.btn-mini.fav.active{background:var(--apricot);color:#fff}
+.btn-mini.link{background:var(--cream);color:var(--text-2)}.btn-mini.link:hover{background:var(--green-soft);color:var(--green-deep)}
 /* Todo */
-.todo-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .15s;}
-.todo-item:last-child{border-bottom:none;}
-.todo-item:hover{padding-left:4px;}
-.todo-checkbox{width:18px;height:18px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;transition:all .2s;cursor:pointer;}
-.todo-checkbox.checked{background:var(--accent);border-color:var(--accent);position:relative;}
-.todo-checkbox.checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
-.todo-item.done .todo-text{text-decoration:line-through;color:var(--text-light);}
-.todo-content{flex:1;}
-.todo-text{font-size:13px;line-height:1.5;}
-.todo-tag{display:inline-block;font-size:10px;padding:1px 8px;border-radius:10px;margin-top:4px;}
-.tag-video{background:rgba(180,100,100,.1);color:#a06060;}
-.tag-study{background:rgba(100,100,160,.1);color:#6868a0;}
-.tag-english{background:rgba(200,130,60,.12);color:#b07830;}
-.tag-exercise{background:rgba(80,150,100,.12);color:#4a8a5a;}
-.tag-hot{background:rgba(180,100,100,.1);color:#a06060;}
-/* 选题卡片 */
-.topic-card{background:var(--bg-card);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:12px;border:1px solid var(--border);border-left:3px solid var(--accent);transition:all .2s;}
-.topic-card:hover{border-left-color:var(--gold);transform:translateX(2px);}
-.topic-cat{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:600;display:inline-block;margin-bottom:6px;}
-.cat-tax{background:var(--accent-soft);color:var(--accent-deep);}
-.cat-hot{background:rgba(180,100,100,.1);color:#a06060;}
-.cat-exam{background:rgba(100,100,160,.1);color:#6868a0;}
-.cat-growth{background:var(--gold-soft);color:#9b7d5a;}
-.topic-title{font-size:14px;font-weight:600;line-height:1.5;margin-bottom:6px;}
-.topic-desc{font-size:12px;color:var(--text-secondary);line-height:1.6;}
-.topic-meta{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
-.topic-badge{font-size:10px;padding:2px 7px;border-radius:8px;background:var(--bg);color:var(--text-secondary);}
-.copy-block{margin-top:10px;padding:10px 12px;background:var(--bg);border-radius:var(--radius-sm);border-left:2px solid var(--gold);}
-.copy-label{font-size:10px;font-weight:600;color:var(--gold);margin-bottom:4px;letter-spacing:.5px;}
-.copy-text{font-size:12px;line-height:1.6;color:var(--text-secondary);}
-.copy-text strong{color:var(--text);}
-/* 脚本卡片 */
-.script-card{background:var(--bg-card);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);margin-bottom:16px;border:1px solid var(--border);}
-.script-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-.script-title{font-size:14px;font-weight:600;color:var(--accent-deep);}
-.script-tag{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--gold-soft);color:#9b7d5a;}
-.script-section{margin-bottom:14px;}
-.script-section-title{font-size:11px;font-weight:600;color:var(--accent);margin-bottom:6px;letter-spacing:.5px;}
-.script-section-content{font-size:12px;line-height:1.7;color:var(--text-secondary);}
-.shot-table{width:100%;border-collapse:collapse;font-size:11px;}
-.shot-table th{text-align:left;padding:6px 8px;background:var(--bg);color:var(--text-light);font-weight:600;border-bottom:1px solid var(--border);font-size:10px;}
-.shot-table td{padding:8px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
-.shot-table td:first-child{white-space:nowrap;color:var(--accent);font-weight:600;}
-/* 复盘 */
-.review-field{margin-bottom:16px;}
-.review-field label{display:block;font-size:12px;font-weight:600;color:var(--accent-deep);margin-bottom:6px;}
-.review-field textarea{width:100%;min-height:80px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:13px;resize:vertical;background:var(--bg-soft);color:var(--text);line-height:1.6;}
-.review-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
-/* 女性故事 */
-.woman-card{margin-bottom:16px;}
-.woman-name{font-size:16px;font-weight:600;color:var(--accent-deep);}
-.woman-title{font-size:12px;color:var(--gold);margin-bottom:10px;}
-.woman-story{font-size:13px;line-height:1.8;color:var(--text-secondary);}
-.woman-quote{margin-top:14px;padding:12px 16px;background:var(--gold-soft);border-radius:var(--radius-sm);font-size:13px;color:var(--text);font-style:italic;border-left:3px solid var(--gold);}
-.thought-input{margin-top:14px;width:100%;min-height:60px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:12px;resize:vertical;background:var(--bg-soft);}
-.thought-input:focus{outline:none;border-color:var(--accent);}
-/* 会计备考 */
-.exam-countdown{text-align:center;padding:20px;background:var(--accent-soft);border-radius:var(--radius);margin-bottom:16px;}
-.exam-countdown .days{font-size:42px;font-weight:700;color:var(--accent-deep);line-height:1;}
-.exam-countdown .label{font-size:12px;color:var(--text-secondary);margin-top:6px;}
-.phase-tabs{display:flex;gap:8px;margin-bottom:16px;}
-.phase-tab{flex:1;padding:10px;text-align:center;border-radius:var(--radius-sm);font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--bg-soft);transition:all .2s;}
-.phase-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
-.phase-tab .phase-sub{font-size:10px;color:var(--text-light);margin-top:2px;}
-.phase-tab.active .phase-sub{color:rgba(255,255,255,.7);}
-.chapter-task{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
-.chapter-task:last-child{border-bottom:none;}
-.chapter-dot{width:8px;height:8px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:4px;cursor:pointer;transition:all .2s;}
-.chapter-dot.done{background:var(--accent);border-color:var(--accent);}
-.chapter-content{flex:1;}
-.chapter-name{font-size:13px;font-weight:500;}
-.chapter-points{font-size:11px;color:var(--text-light);margin-top:2px;}
-.study-log{display:flex;gap:10px;margin-top:14px;}
-.study-log input{flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;}
-.study-log button{padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-size:12px;cursor:pointer;white-space:nowrap;}
-.study-log button:hover{background:var(--accent-deep);}
-/* 英语 */
-.english-card{text-align:center;padding:28px 24px;}
-.english-sentence{font-size:20px;font-weight:500;color:var(--text);line-height:1.5;margin-bottom:6px;}
-.english-translation{font-size:13px;color:var(--text-secondary);margin-bottom:16px;}
-.english-words{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
-.english-word{font-size:11px;padding:3px 10px;border-radius:10px;background:var(--gold-soft);color:#9b7d5a;}
-.tts-btn{padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-size:13px;cursor:pointer;transition:all .2s;}
-.tts-btn:hover{background:var(--accent-deep);}
-.tts-btn:disabled{opacity:.5;cursor:default;}
-.english-count{font-size:11px;color:var(--text-light);margin-top:14px;}
-.checkin-btn{padding:8px 20px;border:1px solid var(--accent);color:var(--accent-deep);background:transparent;border-radius:20px;font-size:12px;cursor:pointer;transition:all .2s;margin-top:10px;}
-.checkin-btn:hover{background:var(--accent);color:#fff;}
-.checkin-btn.done{background:var(--accent);color:#fff;}
+.todo-item{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .12s}
+.todo-item:last-child{border-bottom:none}
+.todo-item:hover{padding-left:3px}
+.todo-cb{width:17px;height:17px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;transition:all .15s;cursor:pointer}
+.todo-cb.checked{background:var(--green);border-color:var(--green);position:relative}
+.todo-cb.checked::after{content:'';position:absolute;left:3px;top:0;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.todo-item.done .todo-tx{text-decoration:line-through;color:var(--text-3)}
+.todo-ct{flex:1}.todo-tx{font-size:13px;line-height:1.5}
+.tag{display:inline-block;font-size:9.5px;padding:1px 7px;border-radius:8px;margin-top:3px}
+.tg-hot{background:rgba(180,100,100,.1);color:#a06060}.tg-video{background:rgba(180,100,100,.08);color:#a06060}
+.tg-study{background:rgba(100,100,160,.1);color:#6868a0}.tg-english{background:rgba(200,130,60,.1);color:#b07830}.tg-exercise{background:rgba(80,150,100,.1);color:#4a8a5a}
+/* 首页快捷入口 */
+.dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dash-card{background:var(--bg-card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:all .2s;text-align:center}
+.dash-card:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 4px 16px rgba(123,170,142,.15)}
+.dash-icon{font-size:24px;margin-bottom:6px}
+.dash-name{font-size:12px;font-weight:600;color:var(--text)}
+.dash-desc{font-size:10px;color:var(--text-3);margin-top:2px}
+/* 爆款榜 */
+.rank-list{list-style:none}
+.rank-item{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.rank-item:last-child{border-bottom:none}
+.rank-num{width:24px;height:24px;border-radius:50%;background:var(--green-soft);color:var(--green-deep);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rank-item:nth-child(1) .rank-num{background:var(--apricot);color:#fff}
+.rank-item:nth-child(2) .rank-num{background:var(--green);color:#fff}
+.rank-item:nth-child(3) .rank-num{background:#b07830;color:#fff}
+.rank-body{flex:1;min-width:0}
+.rank-title{font-size:13px;font-weight:600;line-height:1.5}
+.rank-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;align-items:center}
+.rank-badge{font-size:9px;padding:2px 7px;border-radius:6px;background:var(--cream);color:var(--text-2)}
+.rank-badge.tax{background:var(--green-soft);color:var(--green-deep)}
+.rank-badge.hot{background:rgba(180,100,100,.08);color:#a06060}
+.rank-badge.exam{background:rgba(100,100,160,.08);color:#6868a0}
+.rank-badge.growth{background:var(--apricot-soft);color:#b07830}
+.rank-score{font-size:11px;font-weight:700;color:var(--apricot)}
+.rank-reason{font-size:11.5px;color:var(--text-2);margin-top:5px;line-height:1.5}
+.rank-reason strong{color:var(--text)}
+.rank-actions{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+/* 分页tab */
+.sub-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.sub-tab{padding:7px 14px;border-radius:var(--radius-sm);font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--bg-soft);color:var(--text-2);transition:all .15s}
+.sub-tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+.sub-tab:hover:not(.active){border-color:var(--green);color:var(--green-deep)}
+/* 选题卡 */
+.topic-card{background:var(--bg-card);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:10px;border:1px solid var(--border);border-left:3px solid var(--green);transition:all .15s}
+.topic-card:hover{border-left-color:var(--apricot);transform:translateX(2px)}
+.tc-cat{font-size:9px;padding:2px 7px;border-radius:6px;font-weight:600;display:inline-block;margin-bottom:5px}
+.tc-cat.tax{background:var(--green-soft);color:var(--green-deep)}.tc-cat.hot{background:rgba(180,100,100,.08);color:#a06060}.tc-cat.exam{background:rgba(100,100,160,.08);color:#6868a0}.tc-cat.growth{background:var(--apricot-soft);color:#b07830}
+.tc-title{font-size:13px;font-weight:600;line-height:1.5;margin-bottom:5px}
+.tc-desc{font-size:11.5px;color:var(--text-2);line-height:1.6}
+.tc-meta{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;align-items:center}
+.tc-badge{font-size:9px;padding:2px 6px;border-radius:5px;background:var(--bg);color:var(--text-3)}
+.tc-time{font-size:9px;color:var(--apricot);font-weight:600}
+.tc-color{font-size:9px;padding:1px 6px;border-radius:4px;color:#fff}
+/* 脚本 */
+.script-card{background:var(--bg-card);border-radius:var(--radius);padding:18px 22px;box-shadow:var(--shadow);margin-bottom:14px;border:1px solid var(--border)}
+.sc-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sc-title{font-size:13px;font-weight:600;color:var(--green-deep)}
+.sc-tag{font-size:9px;padding:2px 8px;border-radius:6px;background:var(--apricot-soft);color:#b07830}
+.sc-sec{margin-bottom:12px}
+.sc-st{font-size:10.5px;font-weight:600;color:var(--green);margin-bottom:5px;letter-spacing:.3px}
+.sc-sv{font-size:12px;line-height:1.7;color:var(--text-2)}
+.shot-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.shot-tbl th{text-align:left;padding:6px 7px;background:var(--bg);color:var(--text-3);font-weight:600;border-bottom:1px solid var(--border);font-size:10px}
+.shot-tbl td{padding:7px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.4}
+.shot-tbl td:first-child{white-space:nowrap;color:var(--green);font-weight:600;font-size:10px}
+/* 英语数据卡 */
+.en-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.en-stat{background:var(--bg-card);border-radius:var(--radius);padding:14px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border)}
+.en-stat .val{font-size:22px;font-weight:700;color:var(--green-deep)}
+.en-stat .lbl{font-size:10px;color:var(--text-3);margin-top:3px}
+.en-btns{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.en-card{background:var(--bg-card);border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border)}
+.en-sentence{font-size:18px;font-weight:500;color:var(--text);line-height:1.5;margin-bottom:5px}
+.en-trans{font-size:12px;color:var(--text-2);margin-bottom:14px}
+.en-words{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.en-word{font-size:10.5px;padding:3px 9px;border-radius:10px;background:var(--apricot-soft);color:#b07830}
+.tts-btn{padding:9px 22px;background:var(--green);color:#fff;border:none;border-radius:18px;font-size:12.5px;cursor:pointer;transition:all .15s}
+.tts-btn:hover{background:var(--green-deep)}
+.tts-btn:disabled{opacity:.5}
+.ck-btn{padding:7px 18px;border:1px solid var(--green);color:var(--green-deep);background:transparent;border-radius:16px;font-size:11.5px;cursor:pointer;transition:all .15s;margin-top:10px}
+.ck-btn:hover{background:var(--green);color:#fff}.ck-btn.done{background:var(--green);color:#fff}
+/* 会计倒计时 */
+.exam-cd{text-align:center;padding:18px;background:var(--green-soft);border-radius:var(--radius);margin-bottom:14px}
+.exam-cd .days{font-size:38px;font-weight:700;color:var(--green-deep);line-height:1}
+.exam-cd .lbl{font-size:11px;color:var(--text-2);margin-top:5px}
+.phase-tabs{display:flex;gap:7px;margin-bottom:14px}
+.phase-tab{flex:1;padding:9px;text-align:center;border-radius:var(--radius-sm);font-size:11.5px;cursor:pointer;border:1px solid var(--border);background:var(--bg-soft);transition:all .15s}
+.phase-tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+.phase-tab .ps{font-size:9.5px;color:var(--text-3);margin-top:2px}
+.phase-tab.active .ps{color:rgba(255,255,255,.7)}
+.chap-task{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.chap-task:last-child{border-bottom:none}
+.chap-dot{width:8px;height:8px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:4px;cursor:pointer;transition:all .15s}
+.chap-dot.done{background:var(--green);border-color:var(--green)}
+.chap-ct{flex:1}.chap-nm{font-size:12.5px;font-weight:500}
+.chap-pt{font-size:10.5px;color:var(--text-3);margin-top:2px}
+.exam-point{background:var(--apricot-soft);border-radius:var(--radius-sm);padding:12px 14px;margin:10px 0}
+.exam-point .ept{font-size:11px;font-weight:600;color:#b07830;margin-bottom:5px}
+.exam-point .epv{font-size:12px;color:var(--text-2);line-height:1.6}
+.quiz-item{background:var(--bg);border-radius:var(--radius-sm);padding:12px 14px;margin-top:8px}
+.quiz-q{font-size:12px;font-weight:500;margin-bottom:5px}
+.quiz-a{font-size:11.5px;color:var(--green-deep);font-style:italic;display:none;margin-top:5px;padding-top:5px;border-top:1px dashed var(--border)}
+.quiz-a.show{display:block}
 /* 运动 */
-.sport-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.sport-card{background:var(--bg-card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border:1px solid var(--border);}
-.sport-name{font-size:14px;font-weight:600;color:var(--accent-deep);margin-bottom:8px;}
-.sport-link{display:block;font-size:11px;color:var(--accent);text-decoration:none;margin-bottom:6px;padding:6px 10px;background:var(--bg);border-radius:var(--radius-sm);transition:all .15s;}
-.sport-link:hover{background:var(--accent-soft);}
-.sport-weekly{margin-top:12px;}
-.weekly-dots{display:flex;gap:6px;margin-top:6px;}
-.weekly-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-light);cursor:pointer;transition:all .2s;}
-.weekly-dot.done{background:var(--accent);border-color:var(--accent);color:#fff;}
-.weekly-dot.today{border-color:var(--gold);}
+.sport-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sport-card{background:var(--bg-card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.sport-nm{font-size:13px;font-weight:600;color:var(--green-deep);margin-bottom:8px}
+.sport-link{display:block;font-size:10.5px;color:var(--green);text-decoration:none;margin-bottom:5px;padding:5px 9px;background:var(--bg);border-radius:var(--radius-sm);transition:all .12s}
+.sport-link:hover{background:var(--green-soft)}
+.wk-dots{display:flex;gap:5px;margin-top:8px}
+.wk-dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--text-3);cursor:pointer;transition:all .15s}
+.wk-dot.done{background:var(--green);border-color:var(--green);color:#fff}
+.wk-dot.today{border-color:var(--apricot)}
 /* 统计 */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
-.stat-card{background:var(--bg-card);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border);}
-.stat-value{font-size:24px;font-weight:700;color:var(--accent-deep);}
-.stat-label{font-size:11px;color:var(--text-light);margin-top:4px;}
-.stat-rate{font-size:10px;margin-top:6px;padding:2px 8px;border-radius:8px;display:inline-block;}
-.rate-high{background:var(--accent-soft);color:var(--accent-deep);}
-.rate-mid{background:var(--gold-soft);color:#9b7d5a;}
-.rate-low{background:rgba(180,100,100,.1);color:#a06060;}
-.streak-banner{background:var(--accent-soft);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;}
-.streak-number{font-size:32px;font-weight:700;color:var(--accent-deep);}
-.streak-text{flex:1;}
-.streak-label{font-size:13px;font-weight:600;color:var(--text);}
-.streak-sub{font-size:11px;color:var(--text-secondary);margin-top:2px;}
-.streak-warn{display:none;padding:10px 14px;background:rgba(180,100,100,.08);border-radius:var(--radius-sm);font-size:12px;color:#a06060;margin-bottom:12px;}
-.streak-warn.show{display:block;}
-.monthly-bar-item{margin-bottom:10px;}
-.monthly-bar-label{font-size:12px;color:var(--text-secondary);margin-bottom:4px;display:flex;justify-content:space-between;}
-.monthly-bar-track{background:var(--bg);border-radius:20px;height:8px;overflow:hidden;}
-.monthly-bar-fill{height:100%;border-radius:20px;transition:width .4s;}
-.bar-study{background:var(--accent);}
-.bar-english{background:var(--gold);}
-.bar-sport{background:#4a8a5a;}
-.bar-review{background:#6868a0;}
-.bar-todo{background:#a06060;}
-.history-table{width:100%;border-collapse:collapse;font-size:12px;}
-.history-table th{text-align:left;padding:8px;background:var(--bg);color:var(--text-light);font-weight:600;border-bottom:1px solid var(--border);font-size:11px;}
-.history-table td{padding:8px;border-bottom:1px solid var(--border);}
-.history-table tr.today-row{background:var(--accent-soft);}
-.cell-yes{color:var(--accent);font-weight:600;}
-.cell-no{color:var(--text-light);}
+.streak-banner{background:var(--green-soft);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.streak-num{font-size:30px;font-weight:700;color:var(--green-deep)}
+.streak-warn{display:none;padding:9px 13px;background:rgba(180,100,100,.06);border-radius:var(--radius-sm);font-size:11.5px;color:#a06060;margin-bottom:10px}
+.streak-warn.show{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:var(--bg-card);border-radius:var(--radius);padding:14px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border)}
+.stat-val{font-size:20px;font-weight:700;color:var(--green-deep)}
+.stat-lbl{font-size:9.5px;color:var(--text-3);margin-top:3px}
+.stat-rate{font-size:9px;margin-top:4px;padding:1px 7px;border-radius:6px;display:inline-block}
+.r-high{background:var(--green-soft);color:var(--green-deep)}.r-mid{background:var(--apricot-soft);color:#b07830}.r-low{background:rgba(180,100,100,.08);color:#a06060}
+.mb-item{margin-bottom:8px}
+.mb-lbl{font-size:11px;color:var(--text-2);margin-bottom:3px;display:flex;justify-content:space-between}
+.mb-track{background:var(--bg);border-radius:20px;height:7px;overflow:hidden}
+.mb-fill{height:100%;border-radius:20px;transition:width .4s}
+.b-study{background:var(--green)}.b-english{background:var(--apricot)}.b-sport{background:#4a8a5a}.b-review{background:#6868a0}.b-todo{background:#a06060}
+.hist-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.hist-tbl th{text-align:left;padding:7px;background:var(--bg);color:var(--text-3);font-weight:600;border-bottom:1px solid var(--border);font-size:10px}
+.hist-tbl td{padding:7px;border-bottom:1px solid var(--border)}
+.hist-tbl tr.tod-row{background:var(--green-soft)}
+.c-yes{color:var(--green);font-weight:600}.c-no{color:var(--text-3)}
+/* 女性故事 */
+.wm-name{font-size:16px;font-weight:700;color:var(--green-deep)}
+.wm-title{font-size:11.5px;color:var(--apricot);margin-bottom:10px}
+.wm-story{font-size:12.5px;line-height:1.8;color:var(--text-2)}
+.wm-quote{margin-top:12px;padding:11px 15px;background:var(--apricot-soft);border-radius:var(--radius-sm);font-size:12.5px;font-style:italic;border-left:3px solid var(--apricot)}
+/* 日历 */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+.cal-hd{text-align:center;font-size:10px;color:var(--text-3);font-weight:600;padding:5px 0}
+.cal-day{aspect-ratio:1;border-radius:var(--radius-sm);border:1px solid var(--border);padding:4px;font-size:10px;cursor:pointer;transition:all .12s;display:flex;flex-direction:column;justify-content:flex-start;background:var(--bg-soft)}
+.cal-day:hover{border-color:var(--green)}
+.cal-day.empty{border:none;background:transparent;cursor:default}
+.cal-day.today{border-color:var(--apricot);border-width:2px}
+.cal-day .cd-num{font-weight:600;color:var(--text)}
+.cal-day .cd-dots{display:flex;gap:2px;margin-top:2px;flex-wrap:wrap}
+.cal-day .cd-dot{width:5px;height:5px;border-radius:50%}
+.cal-day .cd-dot.study{background:var(--green)}.cal-day .cd-dot.english{background:var(--apricot)}.cal-day .cd-dot.sport{background:#4a8a5a}.cal-day .cd-dot.review{background:#6868a0}
+.cal-day.broken{background:rgba(180,100,100,.05)}
+.cal-legend{display:flex;gap:14px;margin-top:12px;font-size:10px;color:var(--text-3);flex-wrap:wrap}
+.cal-legend span{display:flex;align-items:center;gap:4px}
+.cal-legend .lg-dot{width:7px;height:7px;border-radius:50%}
+/* 记账 */
+.acct-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.acct-table th{text-align:left;padding:7px;background:var(--bg);color:var(--text-3);font-weight:600;border-bottom:1px solid var(--border);font-size:10px}
+.acct-table td{padding:7px;border-bottom:1px solid var(--border)}
+.acct-table .amt-in{color:var(--green-deep);font-weight:600}
+.acct-table .amt-out{color:#a06060}
+.acct-form{display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:8px;margin-bottom:14px}
+.acct-form input,.acct-form select{padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:11.5px;font-family:var(--font)}
+.acct-form input:focus,.acct-form select:focus{outline:none;border-color:var(--green)}
+.acct-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.acct-sum-card{background:var(--bg-card);border-radius:var(--radius);padding:12px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border)}
+.acct-sum-val{font-size:18px;font-weight:700}
+.acct-sum-lbl{font-size:9.5px;color:var(--text-3);margin-top:2px}
+/* 饮食 */
+.meal-card{margin-bottom:12px}
+.meal-t{font-size:12px;font-weight:600;color:var(--green-deep);margin-bottom:6px}
+.meal-input{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12px;font-family:var(--font);background:var(--bg-soft);resize:vertical;min-height:50px}
+.meal-input:focus{outline:none;border-color:var(--green)}
+/* 复盘 */
+.rv-field{margin-bottom:14px}
+.rv-field label{display:block;font-size:11.5px;font-weight:600;color:var(--green-deep);margin-bottom:5px}
+.rv-field textarea{width:100%;min-height:70px;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:12.5px;resize:vertical;background:var(--bg-soft);line-height:1.6}
+.rv-field textarea:focus{outline:none;border-color:var(--green)}
+/* 目标 */
+.goal-card{background:var(--bg-card);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:12px;border:1px solid var(--border);border-left:3px solid var(--green)}
+.goal-name{font-size:13px;font-weight:600;color:var(--green-deep);margin-bottom:5px}
+.goal-progress{display:flex;align-items:center;gap:10px;margin-top:8px}
+.goal-bar{flex:1;background:var(--bg);border-radius:20px;height:8px;overflow:hidden}
+.goal-fill{height:100%;border-radius:20px;transition:width .4s}
+.goal-pct{font-size:12px;font-weight:700;color:var(--green-deep);min-width:36px;text-align:right}
+.goal-detail{font-size:11px;color:var(--text-3);margin-top:5px}
 /* 博客 */
-.blog-card{background:var(--bg-card);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);margin-bottom:12px;border:1px solid var(--border);transition:all .2s;}
-.blog-card:hover{border-color:var(--accent);}
-.blog-source{font-size:10px;color:var(--gold);margin-bottom:4px;}
-.blog-title{font-size:13px;font-weight:600;line-height:1.5;margin-bottom:4px;}
-.blog-summary{font-size:12px;color:var(--text-secondary);line-height:1.6;}
-/* 通用按钮 */
-.btn{padding:8px 16px;border-radius:var(--radius-sm);font-size:12px;cursor:pointer;transition:all .2s;border:none;}
-.btn-primary{background:var(--accent);color:#fff;}
-.btn-primary:hover{background:var(--accent-deep);}
-.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text-secondary);}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);}
-/* 灵感备忘 */
-.memo-area{width:100%;min-height:100px;padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:12px;resize:vertical;background:var(--bg-soft);line-height:1.6;}
-.memo-area:focus{outline:none;border-color:var(--accent);}
-.section-divider{height:1px;background:var(--border);margin:20px 0;}
-.hidden{display:none;}
-/* 响应式 */
+.blog-card{background:var(--bg-card);border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow);margin-bottom:10px;border:1px solid var(--border);transition:all .15s}
+.blog-card:hover{border-color:var(--green)}
+.blog-src{font-size:9.5px;color:var(--apricot);margin-bottom:3px}
+.blog-title{font-size:13px;font-weight:600;line-height:1.5;margin-bottom:3px}
+.blog-summary{font-size:11.5px;color:var(--text-2);line-height:1.6}
+/* 运营知识卡 */
+.op-card{background:var(--bg-card);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:12px;border:1px solid var(--border)}
+.op-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.op-content{font-size:12px;color:var(--text-2);line-height:1.7}
+.op-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+/* 热点 */
+.hot-item{background:var(--bg);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;border-left:3px solid var(--apricot)}
+.hot-title{font-size:12.5px;font-weight:600;color:var(--text)}
+.hot-desc{font-size:11px;color:var(--text-2);margin-top:3px}
+/* 备忘录 */
+.memo-area{width:100%;min-height:80px;padding:11px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:11.5px;resize:vertical;background:var(--bg-soft);line-height:1.6}
+.memo-area:focus{outline:none;border-color:var(--green)}
+.hidden{display:none}
 @media(max-width:768px){
-  .sidebar{position:relative;width:100%;height:auto;flex-direction:row;overflow-x:auto;}
-  .sidebar-header,.sidebar-footer{display:none;}
-  .menu{flex-direction:row;padding:0;}
-  .menu-item{white-space:nowrap;border-left:none;border-bottom:3px solid transparent;}
-  .menu-item.active{border-bottom-color:var(--accent);}
-  .main{margin-left:0;padding:20px;}
-  .stats-grid{grid-template-columns:repeat(2,1fr);}
-  .sport-grid{grid-template-columns:1fr;}
+  .sidebar{position:relative;width:100%;height:auto;flex-direction:row;overflow-x:auto}
+  .sidebar-hd,.sidebar-ft{display:none}
+  .menu{flex-direction:row;padding:0}.menu-item{white-space:nowrap;border-left:none;border-bottom:3px solid transparent;padding:10px 14px}
+  .menu-item.active{border-bottom-color:var(--green)}
+  .main{margin-left:0;padding:18px}
+  .dash-grid,.en-stats,.stats-grid,.acct-summary{grid-template-columns:repeat(2,1fr)}
+  .sport-grid{grid-template-columns:1fr}
+  .acct-form{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
 <div class="app">
   <div class="sidebar">
-    <div class="sidebar-header">
-      <h1>财务女生<br>自律成长工作台</h1>
+    <div class="sidebar-hd">
+      <h1>清新每一天<br>2026财务成长版</h1>
       <div class="sub" id="todayDate"></div>
     </div>
     <div class="menu" id="menuList"></div>
-    <div class="sidebar-footer">每日零点自动刷新</div>
+    <div class="sidebar-ft">每日零点自动刷新</div>
   </div>
   <div class="main" id="mainContent"></div>
 </div>
-
 <script>
-/* ============================================================
-   财务女生自律成长工作台 — 全新重构
-   ============================================================ */
+/* ========== 工具 ========== */
+function getTodayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function dateSeed(off){var d=new Date();d.setDate(d.getDate()+(off||0));return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()}
+function sRand(s){var x=Math.sin(s)*10000;return x-Math.floor(x)}
+function pickFrom(arr,n,soff){var pool=arr.slice(),res=[],seed=dateSeed(soff||0);for(var i=0;i<n&&pool.length>0;i++){var idx=Math.floor(sRand(seed+i*7.3)*pool.length);res.push(pool.splice(idx,1)[0])}return res}
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function debounce(fn,w){var t;return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a)},w)}}
+function rateCls(p){return p>=80?'r-high':p>=50?'r-mid':'r-low'}
 
-/* ========== 工具函数 ========== */
-function getTodayStr(){
-  var d=new Date();
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-}
-function dateSeed(offset){
-  var d=new Date(); d.setDate(d.getDate()+(offset||0));
-  return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
-}
-function seededRand(seed){
-  var x=Math.sin(seed)*10000; return x-Math.floor(x);
-}
-function pickFromArray(arr,n,seedOffset){
-  var pool=arr.slice(), result=[], seed=dateSeed(seedOffset||0);
-  for(var i=0;i<n&&pool.length>0;i++){
-    var idx=Math.floor(seededRand(seed+i*7.3)*pool.length);
-    result.push(pool.splice(idx,1)[0]);
-  }
-  return result;
-}
-function lsGet(key){ try{return localStorage.getItem(key);}catch(e){return null;} }
-function lsSet(key,val){ try{localStorage.setItem(key,val);}catch(e){} }
-function debounce(fn,wait){
-  var t; return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},wait);};
-}
-
-/* ========== 菜单定义 ========== */
+/* ========== 菜单 ========== */
 var MENU=[
-  {id:'plan',name:'每日核心计划'},
-  {id:'media',name:'财税自媒体创作库'},
-  {id:'review',name:'每日复盘日记'},
+  {id:'home',name:'首页总览'},
+  {id:'plan',name:'每日待办计划'},
+  {id:'goals',name:'成长项目总览'},
+  {id:'diet',name:'日常饮食记录'},
+  {id:'calendar',name:'月度日历打卡'},
+  {id:'account',name:'个人收支记账'},
+  {id:'media',name:'财税自媒体爆款库'},
+  {id:'english',name:'日常口语英语学习'},
   {id:'women',name:'伟大女性故事打卡'},
   {id:'accounting',name:'中级会计单科备考'},
-  {id:'english',name:'日常口语英语打卡'},
   {id:'sport',name:'运动打卡专区'},
   {id:'stats',name:'打卡数据统计总览'},
   {id:'blog',name:'财经博客精选推送'}
 ];
+var curPanel='home';
+function renderMenu(){var c=document.getElementById('menuList');c.innerHTML='';MENU.forEach(function(m,i){var el=document.createElement('div');el.className='menu-item'+(m.id===curPanel?' active':'');el.innerHTML='<span class="mi-num">'+(i+1)+'</span><span>'+m.name+'</span>';el.onclick=function(){switchPanel(m.id)};c.appendChild(el)})}
+function switchPanel(id){curPanel=id;renderMenu();renderPanel(id);window.scrollTo(0,0)}
+function renderPanel(id){var main=document.getElementById('mainContent');main.innerHTML='';var fn=renderers[id];if(fn)fn(main)}
 
-var currentPanel='plan';
-
-function renderMenu(){
-  var c=document.getElementById('menuList');
-  c.innerHTML='';
-  MENU.forEach(function(m,i){
-    var el=document.createElement('div');
-    el.className='menu-item'+(m.id===currentPanel?' active':'');
-    el.innerHTML='<span class="num">'+(i+1)+'</span><span>'+m.name+'</span>';
-    el.onclick=function(){switchPanel(m.id);};
-    c.appendChild(el);
+/* ========== 面板1: 首页 ========== */
+function renderHome(main){
+  var html='<div class="pt">清新每一天 · 2026财务成长版</div><div class="pd">全板块快捷入口 · 点击进入对应功能</div>';
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>工作台总介绍</div><div style="font-size:12.5px;color:var(--text-2);line-height:1.8">这是一套专为财务女生打造的自律成长工作台，涵盖<strong style="color:var(--green-deep)">每日计划、自媒体创作、备考打卡、英语学习、运动记录、数据统计</strong>等13个核心板块。每日零点自动刷新内容，所有打卡数据本地存储，陪伴你每一天的成长。</div></div>';
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>全板块快捷入口</div><div class="dash-grid">';
+  var icons={'plan':'📋','goals':'🎯','diet':'🥗','calendar':'📅','account':'💰','media':'🔥','english':'🗣️','women':'🌟','accounting':'📚','sport':'🏃','stats':'📊','blog':'📰'};
+  var descs={'plan':'5项核心任务','goals':'4大长期目标','diet':'三餐+身体状态','calendar':'可视化打卡日历','account':'收支台账','media':'爆款榜单+选题+脚本','english':'口语+词汇+TTS','women':'每日1位女性故事','accounting':'单科27章备考','sport':'八段锦+帕梅拉','stats':'连续天数+完成率','blog':'每日3篇精选'};
+  MENU.slice(1).forEach(function(m){
+    html+='<div class="dash-card" onclick="switchPanel(\''+m.id+'\')"><div class="dash-icon">'+(icons[m.id]||'📌')+'</div><div class="dash-name">'+m.name+'</div><div class="dash-desc">'+(descs[m.id]||'')+'</div></div>';
   });
-}
-
-function switchPanel(id){
-  currentPanel=id;
-  renderMenu();
-  renderPanel(id);
-}
-
-function renderPanel(id){
-  var main=document.getElementById('mainContent');
-  main.innerHTML='';
-  switch(id){
-    case 'plan': renderPlan(main); break;
-    case 'media': renderMedia(main); break;
-    case 'review': renderReview(main); break;
-    case 'women': renderWomen(main); break;
-    case 'accounting': renderAccounting(main); break;
-    case 'english': renderEnglish(main); break;
-    case 'sport': renderSport(main); break;
-    case 'stats': renderStats(main); break;
-    case 'blog': renderBlog(main); break;
-  }
-}
-
-/* ========== 面板1: 每日核心计划 ========== */
-var TODO_DEFS=[
-  {text:'查看当日自媒体热点、整理选题素材',tag:'hot'},
-  {text:'完成当日短视频拍摄或更新',tag:'video'},
-  {text:'中级会计单科当日学习+刷题打卡',tag:'study'},
-  {text:'日常英语口语+词汇音频跟读打卡',tag:'english'},
-  {text:'本周运动打卡跟进',tag:'exercise'}
-];
-var TODO_LABELS={hot:'热点',video:'自媒体',study:'备考',english:'英语',exercise:'运动'};
-
-function renderPlan(main){
+  html+='</div></div>';
+  /* 今日概览 */
   var today=getTodayStr();
-  var key='fw_'+today+'_todos';
-  var stored=lsGet(key);
-  var todos;
-  if(stored){ try{todos=JSON.parse(stored);}catch(e){todos=generateTodos();} }
-  else{ todos=generateTodos(); lsSet(key,JSON.stringify(todos)); }
-
-  var done=todos.filter(function(t){return t.done;}).length;
-  var pct=todos.length>0?Math.round(done/todos.length*100):0;
-
-  var html='<div class="panel-title">每日核心计划</div>'+
-    '<div class="panel-desc">极简5项 · 自媒体 + 备考 + 英语 + 运动</div>'+
-    '<div class="card">'+
-      '<div class="card-title"><span class="dot"></span>今日进度 '+done+'/'+todos.length+'</div>'+
-      '<div class="progress-wrap"><div class="progress-fill" style="width:'+pct+'%"></div></div>'+
-      '<div class="progress-label">完成率 '+pct+'%</div>'+
-      '<div style="margin-top:12px;" id="todoList"></div>'+
-    '</div>';
+  var todoDone=0,todoTotal=5;
+  var td=lsGet('fw_'+today+'_todos');
+  if(td){try{var arr=JSON.parse(td);todoDone=arr.filter(function(t){return t.done}).length;todoTotal=arr.length}catch(e){}}
+  var enDone=lsGet('fw_'+today+'_english_done')?1:0;
+  var spDone=lsGet('fw_'+today+'_sport_done')?1:0;
+  var rvDone=lsGet('fw_'+today+'_review')?1:0;
+  var stDone=lsGet('fw_'+today+'_study_done')?1:0;
+  var total=todoDone+enDone+spDone+rvDone+stDone;
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>今日打卡速览</div>';
+  html+='<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;">';
+  html+='<span>计划 '+todoDone+'/'+todoTotal+'</span>';
+  html+="<span style=\"color:"+(stDone?"var(--green-deep)":"var(--text-3)")+"\">备考 "+(stDone?"✓":"○")+"</span>";
+  html+="<span style=\"color:"+(enDone?"var(--green-deep)":"var(--text-3)")+"\">英语 "+(enDone?"✓":"○")+"</span>";
+  html+="<span style=\"color:"+(spDone?"var(--green-deep)":"var(--text-3)")+"\">运动 "+(spDone?"✓":"○")+"</span>";
+  html+="<span style=\"color:"+(rvDone?"var(--green-deep)":"var(--text-3)")+"\">复盘 "+(rvDone?"✓":"○")+"</span>";
+  html+='</div><div class="pw" style="margin-top:10px"><div class="pf" style="width:'+Math.round(total/9*100)+'%"></div></div><div class="pl">今日总进度 '+Math.round(total/9*100)+'%</div></div>';
   main.innerHTML=html;
+}
 
+/* ========== 面板2: 每日计划 ========== */
+var TODO_DEFS=[
+  {text:'查看当日全网热点、整理自媒体选题素材',tag:'hot'},
+  {text:'完成当日短视频拍摄/剪辑更新',tag:'video'},
+  {text:'中级会计单科当日章节学习+刷题打卡',tag:'study'},
+  {text:'日常英语口语+词汇音频跟读打卡',tag:'english'},
+  {text:'本周运动打卡进度跟进',tag:'exercise'}
+];
+var TAG_LABELS={hot:'热点',video:'自媒体',study:'备考',english:'英语',exercise:'运动'};
+function renderPlan(main){
+  var today=getTodayStr();var key='fw_'+today+'_todos';
+  var stored=lsGet(key);var todos;
+  if(stored){try{todos=JSON.parse(stored)}catch(e){todos=genTodos()}}else{todos=genTodos();lsSet(key,JSON.stringify(todos))}
+  var done=todos.filter(function(t){return t.done}).length;var pct=todos.length>0?Math.round(done/todos.length*100):0;
+  main.innerHTML='<div class="pt">每日待办计划</div><div class="pd">极度精简 · 固定5项核心成长任务</div>'+
+    '<div class="card"><div class="card-t"><span class="dot"></span>今日进度 '+done+'/'+todos.length+'</div><div class="pw"><div class="pf" style="width:'+pct+'%"></div></div><div class="pl">完成率 '+pct+'%</div><div style="margin-top:10px" id="todoList"></div></div>';
   var list=document.getElementById('todoList');
   todos.forEach(function(todo,idx){
-    var item=document.createElement('div');
-    item.className='todo-item'+(todo.done?' done':'');
-    item.innerHTML='<div class="todo-checkbox'+(todo.done?' checked':'')+'"></div>'+
-      '<div class="todo-content"><div class="todo-text">'+todo.text+'</div>'+
-      '<span class="todo-tag tag-'+todo.tag+'">'+TODO_LABELS[todo.tag]+'</span></div>';
-    item.onclick=function(){
-      todos[idx].done=!todos[idx].done;
-      lsSet(key,JSON.stringify(todos));
-      renderPlan(main);
-    };
+    var item=document.createElement('div');item.className='todo-item'+(todo.done?' done':'');
+    item.innerHTML='<div class="todo-cb'+(todo.done?' checked':'')+'"></div><div class="todo-ct"><div class="todo-tx">'+todo.text+'</div><span class="tag tg-'+todo.tag+'">'+TAG_LABELS[todo.tag]+'</span></div>';
+    item.onclick=function(){todos[idx].done=!todos[idx].done;lsSet(key,JSON.stringify(todos));renderPlan(main)};
     list.appendChild(item);
   });
 }
+function genTodos(){return TODO_DEFS.map(function(t){return{text:t.text,tag:t.tag,done:false}})}
 
-function generateTodos(){
-  return TODO_DEFS.map(function(t){return{text:t.text,tag:t.tag,done:false};});
+/* ========== 面板3: 成长目标 ========== */
+var GOALS=[
+  {name:'自媒体变现目标',cur:0,target:50000,unit:'元',color:'var(--green)',detail:'2026年自媒体副业收入目标5万元，含广告、课程、咨询'},
+  {name:'中级通关目标',cur:0,target:27,unit:'章',color:'#6868a0',detail:'《中级会计实务》27章全部学完，9月考试通关'},
+  {name:'英语流利目标',cur:0,target:365,unit:'天',color:'var(--apricot)',detail:'每日口语跟读打卡，全年365天不间断'},
+  {name:'年度运动目标',cur:0,target:156,unit:'次',color:'#4a8a5a',detail:'每周3次运动，全年156次打卡'}
+];
+function renderGoals(main){
+  /* 动态计算当前进度 */
+  var now=new Date();var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  /* 自媒体变现：从记账里统计副业收入 */
+  var mediaIncome=0;
+  for(var j=1;j<=now.getDate();j++){var ds=ym+'-'+String(j).padStart(2,'0');var ac=lsGet('fw_'+ds+'_accounts');if(ac){try{JSON.parse(ac).forEach(function(r){if(r.cat==='副业收入')mediaIncome+=parseFloat(r.amount||0)})}catch(e){}}}
+  GOALS[0].cur=mediaIncome;
+  /* 中级通关 */
+  var chapDone=0;STUDY_CHAPTERS.forEach(function(c){if(lsGet('fw_chapter_done_'+c.name))chapDone++});
+  GOALS[1].cur=chapDone;
+  /* 英语打卡天数 */
+  var enDays=0;for(var i=0;i<365;i++){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(lsGet('fw_'+ds+'_english_done'))enDays++;else break}
+  GOALS[2].cur=enDays;
+  /* 运动打卡次数 */
+  var spDays=0;var y=now.getFullYear();for(var m=0;m<=now.getMonth();m++){var daysInM=new Date(y,m+1,0).getDate();var maxD=m===now.getMonth()?now.getDate():daysInM;for(var j=1;j<=maxD;j++){var ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(j).padStart(2,'0');if(lsGet('fw_'+ds+'_sport_done'))spDays++}}
+  GOALS[3].cur=spDays;
+  main.innerHTML='<div class="pt">成长项目总览</div><div class="pd">四大长期目标 · 持续追踪</div>';
+  GOALS.forEach(function(g){
+    var pct=Math.min(Math.round(g.cur/g.target*100),100);
+    main.innerHTML+='<div class="goal-card"><div class="goal-name">'+g.name+'</div><div class="goal-detail">'+g.detail+'</div><div class="goal-progress"><div class="goal-bar"><div class="goal-fill" style="width:'+pct+'%;background:'+g.color+'"></div></div><div class="goal-pct">'+pct+'%</div></div><div style="font-size:11px;color:var(--text-3);margin-top:4px">当前 '+g.cur+' / '+g.target+' '+g.unit+'</div></div>';
+  });
 }
 
-/* ========== 面板2: 财税自媒体创作库 ========== */
-var TOPIC_POOL=[
-  /* 财税 */
-  {title:'你的公司还在用纸质发票？2026年数电票全面推行后不改就晚了',desc:'数电发票已成主流，纸质发票加速退出。企业如何3步完成平稳过渡，避免报销和抵扣出问题。',tags:['数电发票','2026新规'],cat:'tax',
-   titles:['干货版：数电发票操作指南，3步搞定企业切换','共情版：财务人崩溃瞬间——又一张发票不能报销了','吐槽版：2026年了还在手开发票？老板你醒醒','Vlog版：我帮公司切换数电票的全过程记录']},
-  {title:'金税四期下这5件事千万别再做，大数据全程监控',desc:'公转私、虚列工资、买卖发票在金税四期下无所遁形。哪些红线绝对不能碰？',tags:['金税四期','税务稽查'],cat:'tax',
-   titles:['干货版：金税四期5大监控红线清单','共情版：做财务最怕接到税务约谈电话','吐槽版：还敢公转私？系统比你老板更清楚','Vlog版：从税务稽查现场学到的3个教训']},
-  {title:'小微企业年利润100万以内实际税负5%，手把手算给你看',desc:'小微优惠延续到2027年底，用真实案例算省了多少税，附申报操作要点。',tags:['小微企业','所得税优惠'],cat:'tax',
-   titles:['干货版：小微企业5%税率计算全流程','共情版：创业第三年，终于靠这个政策省了10万','吐槽版：利润100万和101万，税差6万你敢信','Vlog版：我帮5家小微企业做税务优化的复盘']},
-  {title:'增值税法2026年实施，企业和个人必须关注的3个变化',desc:'税率结构、征收范围、留抵退税重大调整，影响每个人的钱包。',tags:['增值税法','2026新规'],cat:'tax',
-   titles:['干货版：增值税法3大变化逐条解读','共情版：新法来了，小老板慌了——我该怎么做','吐槽版：增值税立法改了啥？一条视频说人话','Vlog版：用新法帮客户重新算了税，结果惊了']},
-  {title:'研发费用加计扣除100%，但90%企业踩了这些坑',desc:'加计扣除力度加码，但备查资料不完善、费用归集不准导致被剔除。常见错误清单。',tags:['研发费用','加计扣除'],cat:'tax',
-   titles:['干货版：研发费用加计扣除备查资料清单','共情版：财务经理深夜加班整理研发台账的崩溃','吐槽版：加计扣除是福利还是坑？看你怎么做','Vlog版：带审计师走访研发车间实地取证']},
-  {title:'老板把公司钱转给自己，3种方式税负最低',desc:'分红、工资、借款各有税务 implications，哪种最安全？法律边界在哪？',tags:['公转私','税务筹划'],cat:'tax',
-   titles:['干货版：公转私3种合规方式税负对比表','共情版：老板娘问我能不能直接转钱到私人卡','吐槽版：公司是你的但钱不是——公转私代价','Vlog版：帮老板设计薪酬结构的全过程']},
-  /* 热点 */
-  {title:'某明星又因偷漏税被罚几个亿，普通人能学到什么？',desc:'从专业角度拆解明星税务翻车案例，企业和个人如何避免重蹈覆辙。',tags:['明星税务','热点'],cat:'hot',
-   titles:['干货版：明星偷税案中的3个税务知识点','共情版：看到热搜又一明星翻车，财务人的思考','吐槽版：几亿的税都敢逃，胆子是真大','Vlog版：从明星税务案看高收入人群税务规划']},
-  {title:'AI会取代会计吗？财务人未来5年生存指南',desc:'ChatGPT做账、AI报税上线，财务人真的要失业？这3个方向反而更值钱。',tags:['AI','财务未来'],cat:'hot',
-   titles:['干货版：财务人不可被AI替代的3个核心能力','共情版：做了8年会计，AI让我重新思考职业','吐槽版：别慌，AI暂时还不会替老板背锅','Vlog版：我用AI工具提升10倍效率的实操']},
-  {title:'直播带货主播补税潮来了，搞直播到底要交多少税？',desc:'头部主播接连补税，直播行业税务监管全面收紧。个人主播和MCN有何不同？',tags:['直播带货','税务监管'],cat:'hot',
-   titles:['干货版：直播带货税务合规3步自查','共情版：全职做直播的第一年，税务怎么搞','吐槽版：赚了几百万不交税，补的时候哭都来不及','Vlog版：帮一个主播梳理全年税务的全过程']},
-  {title:'考公还是考证？财务人的终极选择',desc:'体制内稳定vs专业证书加薪，从投入产出比、天花板、性格三维度分析。',tags:['职业选择','考公'],cat:'hot',
-   titles:['干货版：考公vs考证ROI对比分析','共情版：28岁财务女该考公还是考CPA','吐槽版：别什么都考，先想清楚你要什么','Vlog版：我选了考证不考公，3年后回头看']},
-  {title:'延迟退休来了，80后90后你的养老金够花吗？',desc:'延迟退休渐进推进，退休年龄怎么算？现在该做什么准备？',tags:['延迟退休','养老金'],cat:'hot',
-   titles:['干货版：延迟退休政策解读+养老金计算','共情版：90后女生看到延迟退休新闻后的反应','吐槽版：干到65岁退休，养老金够吃外卖吗','Vlog版：25岁开始规划养老，我做了这3件事']},
-  {title:'灵活就业破2亿，自由职业者社保怎么交最划算？',desc:'自己交vs挂靠vs灵活就业参保，三种方式成本对比，哪种最合适？',tags:['灵活就业','社保'],cat:'hot',
-   titles:['干货版：灵活就业社保3种方式成本对比','共情版：辞职做自由职业第一个月，社保怎么办','吐槽版：自由职业最大的坑不是没收入是没社保','Vlog版：我作为自由职业者交社保的真实账单']},
-  /* 备考 */
-  {title:'中级会计实务怎么学？在职3个月通关攻略',desc:'在职备考3个月过实务，靠的不是熬夜而是高效方法。章节优先级+时间分配+刷题策略。',tags:['中级会计','备考攻略'],cat:'exam',
-   titles:['干货版：中级实务3个月备考时间表','共情版：白天上班晚上带娃，我是怎么考过中级的','吐槽版：长投合并报表收入准则，三座大山怎么翻','Vlog版：我的中级备考书桌和每日学习Vlog']},
-  {title:'中级会计实务最难章节能不能放弃？得分技巧',desc:'长期股权投资、合并报表、收入准则怎么啃？哪些必须拿下，哪些可战略放弃？',tags:['中级会计','实务难点'],cat:'exam',
-   titles:['干货版：实务各章节分值分布+战略放弃指南','共情版：长投学了3遍还是不会，我快崩溃了','吐槽版：合并报表这道大题，我战略性放弃了','Vlog版：我是怎么从长投0基础到做对综合题的']},
-  {title:'中级会计备考打卡Day1：今天你学了吗？',desc:'备考路上最怕一个人坚持不下去。每日打卡系列，互相监督一起上岸。',tags:['中级会计','打卡'],cat:'exam',
-   titles:['干货版：备考每日打卡模板+进度管理','共情版：备考第30天，想放弃但又舍不得','吐槽版：说好的每天3小时，实际刷手机2小时','Vlog版：备考Vlog第1天——从零开始记录']},
-  {title:'在职备考中级会计，每天2小时怎么安排？',desc:'工作日2小时+周末6小时高效备考时间表。通勤听课、午休刷题、晚上复盘。',tags:['中级会计','时间管理'],cat:'exam',
-   titles:['干货版：在职备考每日时间分配表','共情版：通勤地铁上听课的那些日子','吐槽版：白天被老板榨干晚上还要看书，太难了','Vlog版：我的一天——上班+备考+做自媒体']},
-  {title:'中级会计历年真题怎么做最有效？三刷法',desc:'一刷摸底、二刷查漏、三刷计时。用对方法，一套顶三套。',tags:['中级会计','真题'],cat:'exam',
-   titles:['干货版：真题三刷法操作指南','共情版：第一次做真题只考了40分的崩溃','吐槽版：真题做了3遍，考试还是不会，为什么','Vlog版：计时做真题全过程+错题复盘']},
-  {title:'中级会计经济法法条背诵太痛苦？试试记忆框架',desc:'用"关键词+场景+数字"三步记忆法，把枯燥法条变成有逻辑的故事。',tags:['中级会计','经济法'],cat:'exam',
-   titles:['干货版：经济法法条记忆框架3步法','共情版：背法条背到睡着是种什么体验','吐槽版：经济法就是——背了忘忘了背的循环','Vlog版：我用记忆宫殿法背完经济法的']},
-  /* 女生成长 */
-  {title:'30岁女生如何实现财务自由？不是靠省钱是靠这3个思维',desc:'财务自由不是节衣缩食，而是建立正确的财富思维。收入结构、资产配置到自我投资。',tags:['女生成长','财务自由'],cat:'growth',
-   titles:['干货版：3个财富思维模型详解','共情版：30岁存款刚过6位数，我悟了','吐槽版：别再跟我说省杯奶茶就能理财了','Vlog版：我从月光族到有存款的365天记录']},
-  {title:'做财务的女生，如何从月薪6千到年薪30万？',desc:'从代账小职员到财税顾问5年职业跃迁，核心不是考证而是3个关键选择。',tags:['女生成长','职业规划'],cat:'growth',
-   titles:['干货版：财务人涨薪3个关键转折点','共情版：毕业3年月薪还是6千，我该跳槽吗','吐槽版：财务岗天花板低？那是你没找对方向','Vlog版：我涨薪3倍的面试准备全过程']},
-  {title:'女生搞钱之前，先搞清楚这5个财务常识',desc:'资产与负债的区别、现金流管理、复利思维，一次讲透，让每分钱有去处。',tags:['女生成长','理财入门'],cat:'growth',
-   titles:['干货版：5个必懂财务常识清单','共情版：月入过万却存不下钱，问题出在这','吐槽版：你的消费不是投资，别骗自己了','Vlog版：我用50-30-20法则管理工资的3个月']},
-  {title:'副业收入要不要交税？女生搞钱必知税务知识',desc:'做自媒体、开网店、接私活，副业收入怎么交税？起征点多少？不交的后果。',tags:['女生成长','副业','税务'],cat:'growth',
-   titles:['干货版：副业收入税务处理完全指南','共情版：第一次接广告赚了2000块，要交税吗','吐槽版：副业赚的钱还没捂热就要交税了','Vlog版：我做自媒体副业第一年的税务清单']},
-  {title:'从拖延到自律：一个财务人的时间管理法',desc:'考证、工作、做自媒体三不误，靠的不是意志力而是系统。3年时间管理方法论。',tags:['女生成长','自律'],cat:'growth',
-   titles:['干货版：在职备考+做副业的时间管理系统','共情版：从重度拖延到自律的180天','吐槽版：别买手账了，你缺的不是本子是执行力','Vlog版：我的每日时间管理实操Vlog']},
-  {title:'女生独立第一步：拥有自己的银行账户和保险',desc:'经济独立从管理自己的钱开始。基本账户体系+保险配置，给刚工作的女生一份清单。',tags:['女生成长','独立'],cat:'growth',
-   titles:['干货版：女生必备的账户体系+保险清单','共情版：毕业第一年我学会了管自己的钱','吐槽版：经济独立不是口号，是从开户开始的','Vlog版：我给自己买的第一份保险选了3个月']},
-  {title:'我为什么劝女生一定要学点财税知识？',desc:'不是为了当会计，而是为了不被骗、不交冤枉钱。懂财税的女生更有底气。',tags:['女生成长','财税入门'],cat:'growth',
-   titles:['干货版：非财务专业女生必学的5个财税点','共情版：被不靠谱代账坑了之后我决定自己学','吐槽版：不懂税的女生，钱包迟早被掏空','Vlog版：我零基础学财税3个月的心得']}
-];
+/* ========== 面板4: 饮食记录 ========== */
+function renderDiet(main){
+  var today=getTodayStr();
+  var key='fw_'+today+'_diet';
+  var data=lsGet(key);var diet={breakfast:'',lunch:'',dinner:'',snack:'',status:''};
+  if(data){try{diet=JSON.parse(data)}catch(e){}}
+  main.innerHTML='<div class="pt">日常饮食记录</div><div class="pd">三餐记录 · 身体状态</div><div class="card">'+
+    '<div class="meal-card"><div class="meal-t">🌅 早餐</div><textarea class="meal-input" id="dietBreakfast" placeholder="记录早餐内容...">'+diet.breakfast+'</textarea></div>'+
+    '<div class="meal-card"><div class="meal-t">☀️ 午餐</div><textarea class="meal-input" id="dietLunch" placeholder="记录午餐内容...">'+diet.lunch+'</textarea></div>'+
+    '<div class="meal-card"><div class="meal-t">🌙 晚餐</div><textarea class="meal-input" id="dietDinner" placeholder="记录晚餐内容...">'+diet.dinner+'</textarea></div>'+
+    '<div class="meal-card"><div class="meal-t">🍪 加餐/零食</div><textarea class="meal-input" id="dietSnack" placeholder="加餐记录（可选）...">'+diet.snack+'</textarea></div>'+
+    '<div class="meal-card"><div class="meal-t">💭 身体状态</div><textarea class="meal-input" id="dietStatus" placeholder="今日身体感受：精力/疲劳/消化等...">'+diet.status+'</textarea></div>'+
+    '<button class="btn btn-g" id="dietSave">保存记录</button> <span id="dietSaved" style="font-size:11px;color:var(--green);margin-left:8px"></span></div>';
+  document.getElementById('dietSave').onclick=function(){
+    var d={breakfast:val('dietBreakfast'),lunch:val('dietLunch'),dinner:val('dietDinner'),snack:val('dietSnack'),status:val('dietStatus')};
+    lsSet(key,JSON.stringify(d));var el=document.getElementById('dietSaved');el.textContent='已保存 ✓';setTimeout(function(){el.textContent=''},2000);
+  };
+}
+function val(id){var el=document.getElementById(id);return el?el.value:''}
 
-var SCRIPT_POOL=[
-  {
-    theme:'财税政策解读类',
-    hook:'老板们注意了！2026年起这个新规直接影响你的钱包——（停顿1秒）你不会还不知道吧？',
-    fullScript:'今天必须跟你讲一件大事。从2026年开始，数电发票全面推行，纸质发票正式进入倒计时。什么意思？就是你公司以后开发票、收发票、报销、抵扣，全都在税务系统里实时跑数据。以前那种"先开票后补合同"的操作，行不通了。系统会自动比对发票品名、金额、频次和你的经营范围。一旦对不上，轻则约谈，重则稽查。我给你3个建议：第一，现在就把你公司的开票流程理一遍，确保每张开票申请都有对应的业务合同和收款记录；第二，检查你手上的纸质发票存量，尽快用完或做废号处理；第三，让财务去电子税务局注册数电票账号，提前跑通流程。别等到最后一天手忙脚乱。记住，政策不等人，越早准备越主动。',
-    subtitle:'数电发票｜2026全面推行｜企业3步过渡指南',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'正面近景，手持A4纸写"2026新规"大字',detail:'A4纸举到胸前，眼神直视镜头，语速快'},
-      {scene:'3-15s 痛点',action:'侧身45度，放下A4纸',detail:'表情严肃，停顿1秒后提问"你还在用纸质发票吗？"'},
-      {scene:'15-35s 核心',action:'正面，手指比数字1-2-3',detail:'每说一点竖一个手指，配合字幕弹数字'},
-      {scene:'35-50s 案例',action:'侧面，手持计算器',detail:'按计算器配音效，金额用字幕弹出'},
-      {scene:'50-60s CTA',action:'正面近景，手指镜头',detail:'语气回轻松，号召转发+关注双CTA'}
-    ],
-    bgm:'节奏感强的轻商务BGM，开场2秒重音强调',
-    cta:'赶紧转发给你们公司财务对照检查！关注我，每天一个财税干货。',
-    benchmark:'对标：@财税老司机、@会计教练Amy 的政策解读类视频'
-  },
-  {
-    theme:'热点嫁接+财务视角类',
-    hook:'最近全网都在刷这个事——（放手机）但你可能没注意到背后的财务逻辑。',
-    fullScript:'某明星又因为税务问题翻车了，补税加罚款好几个亿。大家都在吃瓜，但如果你是做企业的、做副业的，这件事跟你有什么关系？我给你拆解一下。第一，税务稽查现在靠的是大数据比对，不是人工抽查。你的银行流水、支付宝收入、开票数据全部联网，一旦异常自动预警。第二，很多明星的问题出在"阴阳合同"和"核定征收"滥用上。个人收入硬包装成企业经营所得，用核定征收逃避累进税率——这条路现在已经基本堵死了。第三，对普通人的启示是：不要心存侥幸。不管是工资、副业还是投资收益，该申报就申报，该交税就交税。合规的成本远低于被查的代价。你在评论区告诉我，你觉得下一个会是谁？',
-    subtitle:'明星税务案｜大数据稽查｜普通人能学到什么',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'手持手机展示热搜页面（打码）',detail:'手机画面停留2秒，然后放下手机看镜头'},
-      {scene:'3-15s 转折',action:'放下手机，正面半身',detail:'语气从八卦转严肃，"但这件事跟你有关"'},
-      {scene:'15-40s 解读',action:'正面+白板（提前写好3点）',detail:'边说边指白板，每点配合字幕'},
-      {scene:'40-55s 总结',action:'正面近景，双手交叠',detail:'语气诚恳，"合规是底线"'},
-      {scene:'55-60s 互动',action:'正面微笑，手指评论区',detail:'轻松收尾，引导评论互动'}
-    ],
-    bgm:'悬疑感开场BGM，15秒后转入沉稳叙事节奏',
-    cta:'评论区告诉我你的看法。关注我，用财务视角看热点。',
-    benchmark:'对标：@张口说税、@财务小师妹 的热点解读类视频'
-  },
-  {
-    theme:'中级备考打卡+自律类',
-    hook:'备考中级第30天——（深呼吸）今天差点不想学了。',
-    fullScript:'今天真的很累。白天加了班，晚上回家看到桌上那本实务教材，差点直接躺下。但我想了想，已经坚持了30天，不能断。今天学的是长期股权投资这一章，说实话第一次看完全看不懂。我的方法是这样：第一遍快速过教材，不纠结细节，只标记看不懂的地方；第二遍看视频课，老师讲一遍比自己看三遍管用；第三遍直接做题，做错的地方回去翻对应知识点。今天做了15道选择题，对了11道。虽然不完美，但至少比昨天进步了。如果你也在备考，记住一句话：不要追求完美，要追求持续。今天学了就是赢。你在备考什么？评论区打卡，我们互相监督。',
-    subtitle:'备考Day30｜长投章节｜在职学习记录',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'侧面，手撑头，桌上摊开教材',detail:'真实疲惫状态，不化妆，光线自然'},
-      {scene:'3-15s 情绪',action:'正面近景，对着镜头说话',detail:'语气真实不矫情，"差点放弃但没"'},
-      {scene:'15-35s 方法',action:'俯拍桌面，手指教材+笔记',detail:'展示三遍学习法的实际笔记'},
-      {scene:'35-50s 成果',action:'手机展示做题记录截图',detail:'15道题对11道的截图，真实数据'},
-      {scene:'50-60s CTA',action:'正面微笑，举起教材',detail:'"今天学了就是赢"，号召评论区打卡'}
-    ],
-    bgm:'温暖钢琴BGM，节奏舒缓，营造陪伴感',
-    cta:'评论区打卡你的备考进度，我们一起上岸。关注我，见证上岸全过程。',
-    benchmark:'对标：@备考日记、@自律的阿May 的学习打卡Vlog'
-  },
-  {
-    theme:'女生成长+搞钱思维类',
-    hook:'月入1万的女生和月入3万的女生，差距真的只在收入吗？',
-    fullScript:'我发现一个很有意思的现象。我认识的女生里，月入1万的有人每年能存5万，月入3万的有人反而月光。差距在哪？不是收入，是财务认知。我总结了3个搞钱思维。第一，分清资产和负债。你花3万买个包，那是负债——它会贬值、还会让你想买更多。你花3万学一门技能，那是资产——它能帮你赚回10万。第二，建立多个收入来源。工资只是其中一条腿，副业、投资、知识变现，腿越多走得越稳。第三，学会用杠杆。不是让你借钱投资，而是用时间杠杆——把同一份时间卖多次，比如做一个课程、写一篇文章。女生搞钱，第一步不是去找副业，而是先升级你的财富思维。你现在有几个收入来源？评论区告诉我。',
-    subtitle:'女生搞钱｜3个财富思维｜资产vs负债',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'正面半身，双手抱胸',detail:'提问式开场，字幕弹出两个数字对比'},
-      {scene:'3-15s 痛点',action:'侧身，手机展示购物车',detail:'"买包是负债"这句话配合字幕放大'},
-      {scene:'15-40s 方法',action:'正面+白板（画3个圈）',detail:'边画边讲，每个圈代表一个思维'},
-      {scene:'40-50s 金句',action:'正面近景，认真看镜头',detail:'"先升级思维再升级收入"，字幕加粗'},
-      {scene:'50-60s CTA',action:'微笑，手指评论区',detail:'轻松收尾，引导互动'}
-    ],
-    bgm:'轻快ins风BGM，营造知性女生氛围',
-    cta:'评论区告诉我你有几个收入来源。关注我，一起搞钱一起成长。',
-    benchmark:'对标：@搞钱女孩、@副业实验室 的成长类内容'
-  },
-  {
-    theme:'职场吐槽+财务日常类',
-    hook:'做财务最崩溃的瞬间——（深呼吸）老板说"这个月能不能多交点税"。',
-    fullScript:'我跟你说，做财务8年，最怕听到老板说这句话："这个月利润太高了，能不能想办法多交点税？"每次听到我血压就上来。多交税？老板你认真的吗？第一，合法节税是我们的专业能力，但你让我"想办法"——这个词很危险。第二，老板真正的意思其实是"能不能把利润做低一点"，但做低利润不等于做假账。合规的做法是：该计提的费用计提足，该摊销的成本摊销掉，该享受的优惠全享受。第三，我见过太多企业为了少交税搞虚假成本，最后被稽查补税+罚款+滞纳金，省了10万赔了50万。所以每次老板说"想办法"，我就把合规方案和不合规的后果一起摆给他看。让他自己选。做财务的姐妹们，你们有没有类似的崩溃瞬间？评论区说说。',
-    subtitle:'财务日常｜老板语录｜合规底线',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'正面近景，表情无奈',detail:'模仿老板说话的语气，制造反差喜感'},
-      {scene:'3-15s 崩溃',action:'双手扶额，桌上堆满凭证',detail:'真实工作场景，不收拾'},
-      {scene:'15-35s 专业',action:'正面，切到严肃表情',detail:'语气转专业，"合规做法是"配合字幕'},
-      {scene:'35-50s 案例',action:'侧面，手持计算器',detail:'"省10万赔50万"数字用红色字幕'},
-      {scene:'50-60s 互动',action:'正面微笑',detail:'"财务姐妹们评论区集合"，号召互动'}
-    ],
-    bgm:'轻喜剧BGM，前半段搞笑后半段转正经',
-    cta:'做财务的姐妹评论区集合！关注我，每天一个财务人的真实日常。',
-    benchmark:'对标：@会计日常、@财务喵姐 的职场吐槽类视频'
-  },
-  {
-    theme:'实操教程+手把手类',
-    hook:'手把手教你3分钟搞定个税汇算清缴——能退几千块的那种。',
-    fullScript:'又到了个税汇算清缴的时候，很多人不知道，其实能退不少钱。今天手把手教你操作。第一步，打开个人所得税APP，点"综合所得年度汇算"。第二步，确认你的收入信息和专项附加扣除。重点来了——你有没有漏填的？子女教育每月2000、赡养老人每月2000（独生子女3000）、房贷利息每月1000、住房租金每月1500。如果你符合条件但去年没填，现在补上还来得及。第三步，选择计税方式。年终奖可以选择"单独计税"或"全部并入综合所得"。收入低的选并入更划算，收入高的选单独更划算。你不确定就两种都试一下，系统会自动算。最后点提交，等着收钱就行。去年我帮朋友操作退了4200块，他激动得请我吃了顿火锅。赶紧去操作，别让钱白白溜走。',
-    subtitle:'个税汇算｜退税实操｜专项附加扣除',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'手机展示退税到账截图',detail:'真实截图打码，"退了4200"大字字幕'},
-      {scene:'3-15s 步骤1',action:'俯拍手机操作界面',detail:'分步截屏+手指指引，配解说'},
-      {scene:'15-30s 步骤2',action:'正面+手机交替',detail:'重点讲专项附加扣除，字幕列出金额'},
-      {scene:'30-45s 步骤3',action:'手机展示两种计税方式对比',detail:'两种结果截图对比，"选哪个划算"'},
-      {scene:'45-60s CTA',action:'正面微笑',detail:'"赶紧去操作"，号召转发给家人朋友'}
-    ],
-    bgm:'轻快教程BGM，节奏明快不拖沓',
-    cta:'赶紧转发给你的家人朋友，能退一笔钱。关注我，更多实用财税教程。',
-    benchmark:'对标：@财税实操君、@税法小课堂 的教程类视频'
-  },
-  {
-    theme:'女生独立+理财规划类',
-    hook:'女生经济独立的第一步，不是赚更多钱——是管好你手里的钱。',
-    fullScript:'很多女生觉得，等我月入3万了我再开始理财。错了。理财不是有钱了才做的事，是管好手里的每一分钱。我给你一套简单的方法，就三步。第一步，把你的收入分成三份：50%生活必需、30%品质生活、20%强制储蓄。不管你月入5000还是5万，这个比例都适用。第二步，开三个银行账户。一个日常开销账户绑微信支付宝，一个储蓄账户不绑任何支付软件（让你不轻易动它），一个投资账户放基金定投。第三步，给自己买一份基础保险。百万医疗一年300块，意外险一年150块，重疾险根据预算。经济独立不是口号，是从管好第一个100块开始的。你现在有几个银行账户？评论区告诉我。',
-    subtitle:'女生理财｜50-30-20法则｜三账户体系',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'正面近景，手指镜头',detail:'"不是赚更多钱"停顿"是管好手里的钱"'},
-      {scene:'3-15s 认知',action:'白板画饼图',detail:'50-30-20比例图，边画边讲'},
-      {scene:'15-35s 方法',action:'俯拍桌面，三张银行卡',detail:'真实银行卡（打码）展示三账户'},
-      {scene:'35-50s 保险',action:'手机展示保险对比',detail:'"一年300块"字幕放大强调'},
-      {scene:'50-60s CTA',action:'正面微笑',detail:'"从第一个100块开始"，引导评论互动'}
-    ],
-    bgm:'温柔女声BGM，营造知性独立感',
-    cta:'评论区告诉我你有几个账户。关注我，做经济独立的女生。',
-    benchmark:'对标：@她理财、@女生的理财课 的理财规划类内容'
-  },
-  {
-    theme:'备考干货+学习方法类',
-    hook:'中级会计实务110分的大题——我教你一个万能答题模板。',
-    fullScript:'实务的综合题一般15-20分一道，很多人一看到就慌。其实它有套路。我给你一个万能答题框架：判断→定性→处理→列示。第一步，判断经济事项的类型。是投资？是收入？是资产减值？先归类。第二步，定性。适用哪个准则？用什么会计科目？第三步，做会计处理。写分录，注意借贷方向和金额。第四步，列示。在报表里怎么填？影响哪个项目？比如题目说"甲公司购入乙公司30%股权，能施加重大影响"，你马上反应：长期股权投资、权益法。初始投资成本=支付对价公允价值+直接相关费用。调整：如果初始成本<享有被投资方可辨认净资产公允价值份额，差额调增长投，计入营业外收入。这个模板练熟了，大题至少拿70%的分数。我把这个框架做成了思维导图，评论区扣1我发你。',
-    subtitle:'实务综合题｜万能答题模板｜4步法',
-    shots:[
-      {scene:'0-3s 黄金钩子',action:'手持真题试卷，指着大题',detail:'试卷真实（打码），"15分"字幕标红'},
-      {scene:'3-15s 框架',action:'白板写4步法',detail:'判断→定性→处理→列示，边写边讲'},
-      {scene:'15-40s 实操',action:'俯拍桌面，手写分录',detail:'真实手写答题过程，配解说'},
-      {scene:'40-50s 技巧',action:'正面近景',detail:'"练熟了至少拿70%"字幕加粗'},
-      {scene:'50-60s CTA',action:'手指评论区',detail:'"扣1发思维导图"，引导互动'}
-    ],
-    bgm:'专注学习BGM，轻节拍不分散注意力',
-    cta:'评论区扣1，我发你答题框架思维导图。关注我，备考路上不孤单。',
-    benchmark:'对标：@中级通关计划、@会计岛 的备考干货类视频'
+/* ========== 面板5: 月度日历 ========== */
+function renderCalendar(main){
+  var now=new Date();var year=now.getFullYear();var month=now.getMonth();var today=now.getDate();
+  var firstDay=new Date(year,month,1).getDay();if(firstDay===0)firstDay=7;
+  var daysInMonth=new Date(year,month+1,0).getDate();
+  var ym=year+'-'+String(month+1).padStart(2,'0');
+  var weekdays=['一','二','三','四','五','六','日'];
+  var html='<div class="pt">月度日历打卡</div><div class="pd">'+year+'年'+(month+1)+'月 · 可视化打卡记录</div><div class="card"><div class="card-t"><span class="dot"></span>本月打卡日历</div>';
+  html+='<div class="cal-grid">';
+  weekdays.forEach(function(w){html+='<div class="cal-hd">周'+w+'</div>'});
+  for(var i=1;i<firstDay;i++){html+='<div class="cal-day empty"></div>'}
+  var brokenDays=[];
+  for(var d=1;d<=daysInMonth;d++){
+    var ds=ym+'-'+String(d).padStart(2,'0');
+    var isToday=(d===today);
+    var isPast=d<today;
+    var st=!!lsGet('fw_'+ds+'_study_done');
+    var en=!!lsGet('fw_'+ds+'_english_done');
+    var sp=!!lsGet('fw_'+ds+'_sport_done');
+    var rv=!!lsGet('fw_'+ds+'_review');
+    var cnt=[st,en,sp,rv].filter(function(x){return x}).length;
+    var broken=isPast&&cnt<2&&d!==today;
+    if(broken)brokenDays.push(d);
+    html+='<div class="cal-day'+(isToday?' today':'')+(broken?' broken':'')+'" data-date="'+ds+'"><div class="cd-num">'+d+'</div><div class="cd-dots">';
+    if(st)html+='<div class="cd-dot study"></div>';
+    if(en)html+='<div class="cd-dot english"></div>';
+    if(sp)html+='<div class="cd-dot sport"></div>';
+    if(rv)html+='<div class="cd-dot review"></div>';
+    html+='</div></div>';
   }
+  html+='</div>';
+  html+='<div class="cal-legend"><span><div class="lg-dot" style="background:var(--green)"></div>备考</span><span><div class="lg-dot" style="background:var(--apricot)"></div>英语</span><span><div class="lg-dot" style="background:#4a8a5a"></div>运动</span><span><div class="lg-dot" style="background:#6868a0"></div>复盘</span><span style="color:#a06060">⚠ 断卡日（&lt;2项）</span></div>';
+  if(brokenDays.length>0){html+='<div style="margin-top:10px;font-size:11px;color:#a06060">本月断卡日期：'+brokenDays.join('、')+'日</div>'}
+  html+='</div>';
+  main.innerHTML=html;
+}
+
+/* ========== 面板6: 收支记账 ========== */
+function renderAccount(main){
+  var today=getTodayStr();
+  var key='fw_'+today+'_accounts';
+  var records=lsGet(key);try{records=records?JSON.parse(records):[]}catch(e){records=[]}
+  var totalIn=0,totalOut=0;
+  records.forEach(function(r){if(r.type==='收入')totalIn+=parseFloat(r.amount||0);else totalOut+=parseFloat(r.amount||0)});
+  var balance=totalIn-totalOut;
+  main.innerHTML='<div class="pt">个人收支记账</div><div class="pd">日常收支记录台账 · 今日明细</div>';
+  main.innerHTML+='<div class="acct-summary"><div class="acct-sum-card"><div class="acct-sum-val" style="color:var(--green-deep)">+'+totalIn.toFixed(2)+'</div><div class="acct-sum-lbl">今日收入</div></div><div class="acct-sum-card"><div class="acct-sum-val" style="color:#a06060">-'+totalOut.toFixed(2)+'</div><div class="acct-sum-lbl">今日支出</div></div><div class="acct-sum-card"><div class="acct-sum-val" style="color:'+(balance>=0?'var(--green-deep)':'#a06060')+'">'+(balance>=0?'+':'')+balance.toFixed(2)+'</div><div class="acct-sum-lbl">今日结余</div></div></div>';
+  main.innerHTML+='<div class="card"><div class="card-t"><span class="dot"></span>新增记录</div><div class="acct-form"><select id="acctType"><option value="支出">支出</option><option value="收入">收入</option></select><input type="number" id="acctAmount" placeholder="金额" step="0.01" min="0"><select id="acctCat"><option>餐饮</option><option>交通</option><option>购物</option><option>学习</option><option>生活</option><option>其他</option><option>副业收入</option><option>工资</option></select><input type="text" id="acctNote" placeholder="备注"><button class="btn btn-g" id="acctAdd">添加</button></div></div>';
+  main.innerHTML+='<div class="card"><div class="card-t"><span class="dot"></span>今日明细（'+records.length+'条）</div>';
+  if(records.length===0){main.innerHTML+='<div style="font-size:12px;color:var(--text-3);text-align:center;padding:16px 0">暂无记录</div>'}
+  else{
+    main.innerHTML+='<table class="acct-table"><tr><th>类型</th><th>金额</th><th>分类</th><th>备注</th><th>操作</th></tr>';
+    records.forEach(function(r,i){
+      main.innerHTML+='<tr><td>'+r.type+'</td><td class="'+(r.type==='收入'?'amt-in':'amt-out')+'">'+(r.type==='收入'?'+':'-')+parseFloat(r.amount).toFixed(2)+'</td><td>'+r.cat+'</td><td>'+r.note+'</td><td><button class="btn-mini" style="background:rgba(180,100,100,.08);color:#a06060" onclick="delAcct('+i+')">删除</button></td></tr>';
+    });
+    main.innerHTML+='</table>';
+  }
+  main.innerHTML+='</div>';
+  /* 重新渲染完整（因为上面拼接方式需要修正） */
+  var fullHtml='<div class="pt">个人收支记账</div><div class="pd">日常收支记录台账 · 今日明细</div>';
+  fullHtml+='<div class="acct-summary"><div class="acct-sum-card"><div class="acct-sum-val" style="color:var(--green-deep)">+'+totalIn.toFixed(2)+'</div><div class="acct-sum-lbl">今日收入</div></div><div class="acct-sum-card"><div class="acct-sum-val" style="color:#a06060">-'+totalOut.toFixed(2)+'</div><div class="acct-sum-lbl">今日支出</div></div><div class="acct-sum-card"><div class="acct-sum-val" style="color:'+(balance>=0?'var(--green-deep)':'#a06060')+'">'+(balance>=0?'+':'')+balance.toFixed(2)+'</div><div class="acct-sum-lbl">今日结余</div></div></div>';
+  fullHtml+='<div class="card"><div class="card-t"><span class="dot"></span>新增记录</div><div class="acct-form"><select id="acctType"><option value="支出">支出</option><option value="收入">收入</option></select><input type="number" id="acctAmount" placeholder="金额" step="0.01" min="0"><select id="acctCat"><option>餐饮</option><option>交通</option><option>购物</option><option>学习</option><option>生活</option><option>其他</option><option>副业收入</option><option>工资</option></select><input type="text" id="acctNote" placeholder="备注"><button class="btn btn-g" id="acctAdd">添加</button></div></div>';
+  fullHtml+='<div class="card"><div class="card-t"><span class="dot"></span>今日明细（'+records.length+'条）</div>';
+  if(records.length===0){fullHtml+='<div style="font-size:12px;color:var(--text-3);text-align:center;padding:16px 0">暂无记录，在上方添加第一笔</div>'}
+  else{
+    fullHtml+='<table class="acct-table"><tr><th>类型</th><th>金额</th><th>分类</th><th>备注</th><th>操作</th></tr>';
+    records.forEach(function(r,i){
+      fullHtml+='<tr><td>'+r.type+'</td><td class="'+(r.type==='收入'?'amt-in':'amt-out')+'">'+(r.type==='收入'?'+':'-')+parseFloat(r.amount).toFixed(2)+'</td><td>'+r.cat+'</td><td>'+r.note+'</td><td><button class="btn-mini" style="background:rgba(180,100,100,.08);color:#a06060" onclick="delAcct('+i+')">删除</button></td></tr>';
+    });
+    fullHtml+='</table>';
+  }
+  fullHtml+='</div>';
+  main.innerHTML=fullHtml;
+  document.getElementById('acctAdd').onclick=function(){
+    var t=val('acctType'),a=val('acctAmount'),c=val('acctCat'),n=val('acctNote');
+    if(!a||parseFloat(a)<=0)return;
+    records.push({type:t,amount:a,cat:c,note:n});
+    lsSet(key,JSON.stringify(records));
+    renderAccount(main);
+  };
+}
+function delAcct(idx){
+  var today=getTodayStr();var key='fw_'+today+'_accounts';
+  var records=lsGet(key);try{records=JSON.parse(records)}catch(e){records=[]}
+  records.splice(idx,1);
+  lsSet(key,JSON.stringify(records));
+  renderPanel('account');
+}
+
+/* ========== 面板7: 自媒体爆款库 ========== */
+var RANK_POOL=[
+  {title:'老板们注意！2026年起数电发票全面推行，不改就晚了',cat:'tax',score:9821,reason:'政策时效性强+老板焦虑痛点+数字明确（2026年）',insight:'开头直接抛政策截止日期制造紧迫感，中间用"3步"降低行动门槛'},
+  {title:'金税四期下这5件事千万别再做，大数据全程监控',cat:'tax',score:9543,reason:'恐惧驱动+数字列表（5件事）+权威背书（金税四期）',insight:'用"千万别"制造危机感，列表式标题降低阅读门槛，评论区引导互动'},
+  {title:'月入1万和月入10万交税差多少？一张图看懂',cat:'tax',score:9201,reason:'收入对比+可视化承诺（一张图）+与每个人相关',insight:'对比式标题制造好奇心，"一张图"降低理解门槛，适合科普类'},
+  {title:'某明星又因偷漏税被罚几个亿，背后的税务逻辑',cat:'hot',score:9102,reason:'明星热点+专业视角+大数字冲击',insight:'借势热点但提供独特专业视角，不八卦只讲干货'},
+  {title:'AI会取代会计吗？财务人未来5年生存指南',cat:'hot',score:8987,reason:'AI焦虑+职业关切+时间限定（5年）',insight:'踩AI热点，用"生存指南"制造紧迫感，给出3个不可替代方向'},
+  {title:'直播带货主播补税潮来了，搞直播到底交多少税',cat:'hot',score:8754,reason:'行业热点+具体问题+数据驱动',insight:'追热点但要落地到具体操作，用真实案例数字增强说服力'},
+  {title:'中级会计实务怎么学？在职3个月通关攻略',cat:'exam',score:8654,reason:'备考痛点+时间承诺（3个月）+身份认同（在职）',insight:'"在职"精准定位人群，"3个月"给出明确预期，适合打卡系列'},
+  {title:'长投合并报表收入准则，三座大山怎么翻？',cat:'exam',score:8421,reason:'痛点共鸣+形象比喻+直接问题',insight:'用"三座大山"引发备考者共鸣，逐个击破的结构'},
+  {title:'中级备考打卡Day30：今天差点不想学了',cat:'exam',score:8201,reason:'真实情感+打卡系列+反套路（不鸡汤）',insight:'展示脆弱比展示成功更有共鸣，适合做成系列Vlog'},
+  {title:'30岁女生如何实现财务自由？不是靠省钱',cat:'growth',score:8154,reason:'年龄焦虑+认知反转+性别定位',insight:'"不是靠省钱"打破常规认知，适合女生成长赛道'},
+  {title:'做财务的女生，从月薪6千到年薪30万的3个选择',cat:'growth',score:7987,reason:'具体数字+身份认同+方法论承诺',insight:'用真实数字建立信任，"3个选择"给出可复制路径'},
+  {title:'副业收入要不要交税？女生搞钱必知税务知识',cat:'growth',score:7821,reason:'副业热点+税务刚需+性别定位',insight:'把税务知识嫁接到搞钱场景，实用性极强'}
 ];
-
+var OP_KNOWLEDGE=[
+  {title:'黄金3秒：短视频开头决定80%完播率',content:'前3秒必须抛出钩子——要么制造悬念（"你不会还不知道吧？"），要么给出承诺（"3分钟教你省几千块"），要么制造冲突（"月入3万还是月光？"）。切忌开场寒暄，直接进入正题。可以用A4纸、手机画面、数字字幕等视觉元素辅助抓眼球。'},
+  {title:'评论区运营：把粉丝变成互动参与者',content:'视频结尾必须抛出互动问题，引导评论区讨论。高赞评论置顶、回复前10条评论、用评论引导下次选题。评论区活跃度直接影响算法推荐权重，一条好评论的互动量有时比视频本身更重要。'},
+  {title:'选题方法论：热点+专业视角=爆款公式',content:'纯热点没差异化，纯专业没流量。最佳策略是：找到当日热点→用你的专业视角解读→给出可操作建议。比如明星偷税是热点，你拆解背后的税务逻辑就是差异化。每天刷热榜，思考"这个热点怎么嫁接我的专业"。'},
+  {title:'发布时间：找到你的流量高峰',content:'工作日最佳发布时间：7:30-8:30（通勤）、12:00-13:00（午休）、18:00-19:00（下班）、21:00-22:00（睡前）。周末10:00-11:00和15:00-16:00流量也好。建议固定时间发布，培养粉丝观看习惯。用数据分析后台找到你的专属高峰。'},
+  {title:'封面设计：3秒决定点击率',content:'封面是短视频的"门面"，决定用户是否点击。核心要素：大字标题（6-8个字）、高对比配色、人物面部表情、数字/符号强调。财税类推荐绿+白配色，成长类推荐杏+米色，热点类可用红+白制造紧迫感。'},
+  {title:'系列化运营：用打卡系列积累铁粉',content:'单条视频是点，系列视频是线。打卡系列（如"备考Day1"、"搞钱日记"）能建立用户期待，提升关注转化率。建议每周固定1-2个系列更新，系列之间穿插热点内容保持新鲜度。'},
+  {title:'变现路径：从涨粉到赚钱的3种方式',content:'1万粉以上可接星图广告，财税类单条报价500-2000元；3万粉以上可推知识付费（课程/咨询/社群）；私域引流做1对1财税咨询，客单价500-3000元。建议多渠道并行，降低单一收入依赖。'},
+  {title:'数据复盘：看懂这4个指标就够了',content:'完播率（>30%算合格）反映内容质量，点赞率（>3%）反映认可度，评论率（>0.5%）反映互动意愿，关注转化率（>1%）反映长期价值。每周复盘数据，找到表现最好的内容特征，复制放大。'},
+  {title:'标题公式：5种高点击率模板',content:'①数字+承诺："3分钟教你省几千块" ②对比+反转："月入1万vs10万交税差多少" ③恐惧+截止："2026年不改就晚了" ④身份+方法："在职备考3个月通关" ⑤故事+悬念："从月薪6千到年薪30万"'},
+  {title:'涨粉节奏：稳定更新比爆款更重要',content:'每周稳定更新4-5条，比偶尔出1条爆款涨粉更稳。算法偏好稳定输出的创作者。建议建立选题库（提前备2周选题），固定拍摄时间批量录制，用排期表管理发布节奏。坚持3个月必有效果。'}
+];
+var HOT_LIST=[
+  {title:'增值税法2026年正式实施，税率结构重大调整',desc:'增值税立法后，企业税率、征收范围、留抵退税全面调整，影响每个企业'},
+  {title:'个税专项附加扣除标准提高，子女教育、赡养老人有变',desc:'2026年专项附加扣除新标准出台，直接影响每月到手工资'},
+  {title:'延迟退休渐进式方案公布，80后90后首当其冲',desc:'退休年龄逐步延迟，养老金计算方式同步调整'},
+  {title:'数电发票7月全面推行，纸质发票退出倒计时',desc:'企业开票、报销、抵扣流程全面数字化，不适应将影响正常经营'}
+];
+var TOPIC_POOL=[
+  {title:'2026年增值税法实施后，小规模纳税人3个必须知道的变化',desc:'起征点调整、申报简化、优惠政策衔接，一篇文章讲清楚。',cat:'tax',time:'12:00',tags:['增值税法','小规模纳税人','2026新规'],color:'#7baa8e'},
+  {title:'老板把公司钱转给自己，3种方式税负最低',desc:'分红、工资、借款哪种最安全？公转私的法律边界和税务风险。',cat:'tax',time:'18:00',tags:['公转私','税务筹划','老板必看'],color:'#4a7c5e'},
+  {title:'研发费用加计扣除100%，但90%企业踩了这些坑',desc:'备查资料不完善、费用归集不准，常见错误清单+正确做法。',cat:'tax',time:'12:30',tags:['研发费用','加计扣除','税收优惠'],color:'#7baa8e'},
+  {title:'留抵退税新政：这笔钱你可能还没退，赶紧查',desc:'增量留抵退税条件放宽，3步判断企业是否符合条件。',cat:'tax',time:'19:00',tags:['留抵退税','退税','现金流'],color:'#4a7c5e'},
+  {title:'个税汇算清缴又退钱了！3分钟教你多退几千块',desc:'专项附加扣除填报技巧+年终奖计税方式选择。',cat:'tax',time:'12:00',tags:['个税汇算','退税','专项附加'],color:'#7baa8e'},
+  {title:'某明星偷漏税被罚几个亿，普通人能学到什么',desc:'从专业角度拆解明星税务案，企业和个人如何避免重蹈覆辙。',cat:'hot',time:'18:00',tags:['明星税务','热点','警示'],color:'#a06060'},
+  {title:'AI会取代会计吗？财务人未来5年生存指南',desc:'ChatGPT做账、AI报税上线，这3个方向反而更值钱。',cat:'hot',time:'19:00',tags:['AI','财务未来','职业转型'],color:'#a06060'},
+  {title:'直播带货补税潮来了，搞直播到底交多少税',desc:'个人主播和MCN机构税务处理有何不同？真实案例测算。',cat:'hot',time:'18:30',tags:['直播带货','税务监管','热点'],color:'#a06060'},
+  {title:'考公还是考证？财务人的终极选择',desc:'体制内稳定vs专业证书加薪，三维度分析帮你做决定。',cat:'hot',time:'12:00',tags:['职业选择','考公','热点'],color:'#a06060'},
+  {title:'中级会计实务怎么学？在职3个月通关攻略',desc:'章节优先级+时间分配+刷题策略，在职备考全方案。',cat:'exam',time:'21:00',tags:['中级会计','备考攻略','在职备考'],color:'#6868a0'},
+  {title:'长投合并报表收入准则，三座大山怎么翻',desc:'中级实务最难章节的得分技巧+战略放弃指南。',cat:'exam',time:'21:30',tags:['中级会计','实务难点','得分技巧'],color:'#6868a0'},
+  {title:'经济法法条背诵太痛苦？试试这个记忆框架',desc:'关键词+场景+数字三步记忆法，把枯燥法条变故事。',cat:'exam',time:'22:00',tags:['中级会计','经济法','记忆方法'],color:'#6868a0'},
+  {title:'在职备考每天2小时怎么安排？高效时间表',desc:'工作日2h+周末6h备考时间表，碎片时间这样用。',cat:'exam',time:'21:00',tags:['中级会计','时间管理','在职备考'],color:'#6868a0'},
+  {title:'30岁女生如何实现财务自由？不是靠省钱',desc:'3个财富思维：收入结构、资产配置、自我投资。',cat:'growth',time:'19:00',tags:['女生成长','财务自由','思维升级'],color:'#d4a574'},
+  {title:'做财务的女生，从月薪6千到年薪30万',desc:'5年职业跃迁的3个关键选择，核心不是考证。',cat:'growth',time:'18:00',tags:['女生成长','职业规划','涨薪'],color:'#d4a574'},
+  {title:'女生搞钱之前，先搞清楚这5个财务常识',desc:'资产vs负债、现金流管理、复利思维，一次讲透。',cat:'growth',time:'12:00',tags:['女生成长','理财入门','财商'],color:'#d4a574'},
+  {title:'副业收入要不要交税？女生搞钱必知',desc:'做自媒体、开网店、接私活，副业税务完全指南。',cat:'growth',time:'19:00',tags:['女生成长','副业','税务'],color:'#d4a574'},
+  {title:'从拖延到自律：一个财务人的时间管理法',desc:'考证+工作+自媒体三不误，靠系统不靠意志力。',cat:'growth',time:'21:00',tags:['女生成长','自律','时间管理'],color:'#d4a574'}
+];
+var SCRIPT_POOL=[
+  {theme:'财税政策解读类',hook:'老板们注意了！2026年起这个新规直接影响你的钱包——你不会还不知道吧？',fullScript:'今天必须跟你讲一件大事。从2026年开始，数电发票全面推行，纸质发票进入倒计时。什么意思？就是你公司以后开发票、收发票、报销、抵扣，全都在税务系统里实时跑数据。以前那种"先开票后补合同"的操作行不通了。系统会自动比对发票品名、金额、频次和经营范围。一旦对不上，轻则约谈，重则稽查。给你3个建议：第一，现在就把开票流程理一遍，确保每张开票申请都有对应的业务合同和收款记录；第二，检查纸质发票存量，尽快用完或做废号处理；第三，让财务去电子税务局注册数电票账号，提前跑通流程。别等到最后一天手忙脚乱。',subtitle:'数电发票｜2026全面推行｜企业3步过渡',shots:[{s:'0-3s 黄金钩子',a:'正面近景，手持A4纸写"2026新规"',d:'A4纸举到胸前，直视镜头，语速快'},{s:'3-15s 痛点',a:'侧身45度，放下A4纸',d:'表情严肃，停顿1秒后提问'},{s:'15-35s 核心',a:'正面，手指比数字1-2-3',d:'每说一点竖一个手指，字幕弹数字'},{s:'35-50s 案例',a:'侧面，手持计算器',d:'按计算器配音效，金额字幕弹出'},{s:'50-60s CTA',a:'正面近景，手指镜头',d:'语气回轻松，号召转发+关注'}],bgm:'节奏感强的轻商务BGM，开场2秒重音强调',cta:'赶紧转发给你们公司财务对照检查！关注我，每天一个财税干货。',benchmark:'对标：@财税老司机、@会计教练Amy 的政策解读类'},
+  {theme:'热点嫁接+财务视角类',hook:'最近全网都在刷这个事——但你可能没注意到背后的财务逻辑。',fullScript:'某明星又因为税务问题翻车了，补税加罚款好几个亿。大家都在吃瓜，但如果你是做企业的、做副业的，这件事跟你有什么关系？我来拆解。第一，税务稽查现在靠大数据比对，不是人工抽查。你的银行流水、支付宝收入、开票数据全部联网，异常自动预警。第二，很多明星的问题出在"阴阳合同"和核定征收滥用上。个人收入硬包装成企业经营所得，用核定征收逃避累进税率——这条路基本堵死了。第三，对普通人的启示：不要心存侥幸。该申报就申报，该交税就交税。合规的成本远低于被查的代价。你在评论区告诉我，你觉得下一个会是谁？',subtitle:'明星税务案｜大数据稽查｜普通人能学到什么',shots:[{s:'0-3s 黄金钩子',a:'手持手机展示热搜页面（打码）',d:'手机画面停留2秒，放下手机看镜头'},{s:'3-15s 转折',a:'放下手机，正面半身',d:'语气从八卦转严肃'},{s:'15-40s 解读',a:'正面+白板（提前写好3点）',d:'边说边指白板，每点配字幕'},{s:'40-55s 总结',a:'正面近景，双手交叠',d:'语气诚恳，"合规是底线"'},{s:'55-60s 互动',a:'正面微笑，手指评论区',d:'轻松收尾，引导评论互动'}],bgm:'悬疑感开场BGM，15秒后转入沉稳叙事',cta:'评论区告诉我你的看法。关注我，用财务视角看热点。',benchmark:'对标：@张口说税、@财务小师妹 的热点解读类'},
+  {theme:'中级备考打卡+自律类',hook:'备考中级第30天——今天差点不想学了。',fullScript:'今天真的很累。白天加了班，晚上回家看到桌上那本实务教材，差点直接躺下。但我想了想，已经坚持30天了，不能断。今天学的是长期股权投资这一章，说实话第一次看完全看不懂。我的方法是这样：第一遍快速过教材，不纠结细节，只标记看不懂的地方；第二遍看视频课，老师讲一遍比自己看三遍管用；第三遍直接做题，做错的地方回去翻对应知识点。今天做了15道选择题，对了11道。虽然不完美，但至少比昨天进步了。如果你也在备考，记住一句话：不要追求完美，要追求持续。今天学了就是赢。你在备考什么？评论区打卡，我们互相监督。',subtitle:'备考Day30｜长投章节｜在职学习记录',shots:[{s:'0-3s 黄金钩子',a:'侧面，手撑头，桌上摊开教材',d:'真实疲惫状态，不化妆，光线自然'},{s:'3-15s 情绪',a:'正面近景，对着镜头说话',d:'语气真实不矫情'},{s:'15-35s 方法',a:'俯拍桌面，手指教材+笔记',d:'展示三遍学习法的实际笔记'},{s:'35-50s 成果',a:'手机展示做题记录截图',d:'15道题对11道的真实截图'},{s:'50-60s CTA',a:'正面微笑，举起教材',d:'"今天学了就是赢"，号召打卡'}],bgm:'温暖钢琴BGM，节奏舒缓，营造陪伴感',cta:'评论区打卡你的备考进度，我们一起上岸。',benchmark:'对标：@备考日记、@自律的阿May 的学习打卡Vlog'},
+  {theme:'女生成长+搞钱思维类',hook:'月入1万的女生和月入3万的女生，差距真的只在收入吗？',fullScript:'我发现一个很有意思的现象。我认识的女生里，月入1万的有人每年能存5万，月入3万的有人反而月光。差距在哪？不是收入，是财务认知。我总结了3个搞钱思维。第一，分清资产和负债。你花3万买个包是负债——它会贬值。你花3万学一门技能是资产——它能帮你赚回10万。第二，建立多个收入来源。工资只是一条腿，副业、投资、知识变现，腿越多走得越稳。第三，学会用杠杆。不是借钱投资，而是用时间杠杆——把同一份时间卖多次，比如做一个课程、写一篇文章。女生搞钱，第一步不是找副业，而是先升级你的财富思维。你现在有几个收入来源？评论区告诉我。',subtitle:'女生搞钱｜3个财富思维｜资产vs负债',shots:[{s:'0-3s 黄金钩子',a:'正面半身，双手抱胸',d:'提问式开场，字幕弹出两个数字对比'},{s:'3-15s 痛点',a:'侧身，手机展示购物车',d:'"买包是负债"字幕放大'},{s:'15-40s 方法',a:'正面+白板（画3个圈）',d:'边画边讲，每个圈代表一个思维'},{s:'40-50s 金句',a:'正面近景，认真看镜头',d:'"先升级思维再升级收入"，字幕加粗'},{s:'50-60s CTA',a:'微笑，手指评论区',d:'轻松收尾，引导互动'}],bgm:'轻快ins风BGM，营造知性女生氛围',cta:'评论区告诉我你有几个收入来源。关注我，一起搞钱一起成长。',benchmark:'对标：@搞钱女孩、@副业实验室 的成长类内容'},
+  {theme:'职场吐槽+财务日常类',hook:'做财务最崩溃的瞬间——老板说"这个月能不能多交点税"。',fullScript:'我跟你说，做财务8年，最怕听到老板说这句话："这个月利润太高了，能不能想办法多交点税？"每次听到我血压就上来。多交税？老板你认真的吗？第一，合法节税是我们的专业能力，但你让我"想办法"——这个词很危险。第二，老板真正的意思是"把利润做低一点"，但做低利润不等于做假账。合规的做法是：该计提的费用计提足，该摊销的成本摊销掉，该享受的优惠全享受。第三，我见过太多企业为了少交税搞虚假成本，最后被稽查补税+罚款+滞纳金，省了10万赔了50万。所以每次老板说"想办法"，我就把合规方案和不合规的后果一起摆给他看。让他自己选。做财务的姐妹们，你们有没有类似的崩溃瞬间？',subtitle:'财务日常｜老板语录｜合规底线',shots:[{s:'0-3s 黄金钩子',a:'正面近景，表情无奈',d:'模仿老板说话的语气，制造反差喜感'},{s:'3-15s 崩溃',a:'双手扶额，桌上堆满凭证',d:'真实工作场景，不收拾'},{s:'15-35s 专业',a:'正面，切到严肃表情',d:'语气转专业，"合规做法是"配字幕'},{s:'35-50s 案例',a:'侧面，手持计算器',d:'"省10万赔50万"数字用红色字幕'},{s:'50-60s 互动',a:'正面微笑',d:'"财务姐妹们评论区集合"'}],bgm:'轻喜剧BGM，前半段搞笑后半段转正经',cta:'做财务的姐妹评论区集合！关注我，每天一个财务人的真实日常。',benchmark:'对标：@会计日常、@财务喵姐 的职场吐槽类'},
+  {theme:'实操教程+手把手类',hook:'手把手教你3分钟搞定个税汇算清缴——能退几千块的那种。',fullScript:'又到了个税汇算清缴的时候，很多人不知道其实能退不少钱。今天手把手教你操作。第一步，打开个人所得税APP，点"综合所得年度汇算"。第二步，确认收入信息和专项附加扣除。重点来了——你有没有漏填的？子女教育每月2000、赡养老人每月2000（独生子女3000）、房贷利息每月1000、住房租金每月1500。符合条件但去年没填的，现在补上还来得及。第三步，选择计税方式。年终奖可以"单独计税"或"全部并入综合所得"。收入低的选并入更划算，收入高的选单独更划算。不确定就两种都试一下，系统会自动算。最后点提交，等着收钱就行。去年我帮朋友操作退了4200块，他激动得请我吃了顿火锅。赶紧去操作，别让钱白白溜走。',subtitle:'个税汇算｜退税实操｜专项附加扣除',shots:[{s:'0-3s 黄金钩子',a:'手机展示退税到账截图',d:'真实截图打码，"退了4200"大字字幕'},{s:'3-15s 步骤1',a:'俯拍手机操作界面',d:'分步截屏+手指指引'},{s:'15-30s 步骤2',a:'正面+手机交替',d:'重点讲专项附加扣除，字幕列金额'},{s:'30-45s 步骤3',a:'手机展示两种计税对比',d:'两种结果截图对比'},{s:'45-60s CTA',a:'正面微笑',d:'"赶紧去操作"，号召转发给家人'}],bgm:'轻快教程BGM，节奏明快不拖沓',cta:'赶紧转发给你的家人朋友，能退一笔钱。关注我，更多实用财税教程。',benchmark:'对标：@财税实操君、@税法小课堂 的教程类'},
+  {theme:'女生独立+理财规划类',hook:'女生经济独立的第一步，不是赚更多钱——是管好你手里的钱。',fullScript:'很多女生觉得，等我月入3万了再开始理财。错了。理财不是有钱了才做的事，是管好手里的每一分钱。我给你一套简单的方法，就三步。第一步，把收入分成三份：50%生活必需、30%品质生活、20%强制储蓄。不管你月入5000还是5万，这个比例都适用。第二步，开三个银行账户。一个日常开销账户绑微信支付宝，一个储蓄账户不绑任何支付软件让你不轻易动它，一个投资账户放基金定投。第三步，给自己买一份基础保险。百万医疗一年300块，意外险一年150块。经济独立不是口号，是从管好第一个100块开始的。你现在有几个银行账户？评论区告诉我。',subtitle:'女生理财｜50-30-20法则｜三账户体系',shots:[{s:'0-3s 黄金钩子',a:'正面近景，手指镜头',d:'"不是赚更多钱"停顿"是管好手里的钱"'},{s:'3-15s 认知',a:'白板画饼图',d:'50-30-20比例图，边画边讲'},{s:'15-35s 方法',a:'俯拍桌面，三张银行卡',d:'真实银行卡（打码）展示三账户'},{s:'35-50s 保险',a:'手机展示保险对比',d:'"一年300块"字幕放大强调'},{s:'50-60s CTA',a:'正面微笑',d:'"从第一个100块开始"'}],bgm:'温柔女声BGM，营造知性独立感',cta:'评论区告诉我你有几个账户。关注我，做经济独立的女生。',benchmark:'对标：@她理财、@女生的理财课 的理财规划类'},
+  {theme:'备考干货+学习方法类',hook:'中级会计实务15分的大题——我教你一个万能答题模板。',fullScript:'实务的综合题一般15-20分一道，很多人一看到就慌。其实它有套路。我给你一个万能答题框架：判断→定性→处理→列示。第一步，判断经济事项的类型。是投资？是收入？是资产减值？先归类。第二步，定性。适用哪个准则？用什么会计科目？第三步，做会计处理。写分录，注意借贷方向和金额。第四步，列示。在报表里怎么填？影响哪个项目？比如题目说"甲公司购入乙公司30%股权，能施加重大影响"，你马上反应：长期股权投资、权益法。初始投资成本=支付对价公允价值+直接相关费用。如果初始成本小于享有被投资方可辨认净资产公允价值份额，差额调增长投，计入营业外收入。这个模板练熟了，大题至少拿70%的分数。我把这个框架做成了思维导图，评论区扣1我发你。',subtitle:'实务综合题｜万能答题模板｜4步法',shots:[{s:'0-3s 黄金钩子',a:'手持真题试卷，指着大题',d:'试卷真实（打码），"15分"字幕标红'},{s:'3-15s 框架',a:'白板写4步法',d:'判断→定性→处理→列示，边写边讲'},{s:'15-40s 实操',a:'俯拍桌面，手写分录',d:'真实手写答题过程，配解说'},{s:'40-50s 技巧',a:'正面近景',d:'"练熟了至少拿70%"字幕加粗'},{s:'50-60s CTA',a:'手指评论区',d:'"扣1发思维导图"'}],bgm:'专注学习BGM，轻节拍不分散注意力',cta:'评论区扣1，我发你答题框架思维导图。关注我，备考路上不孤单。',benchmark:'对标：@中级通关计划、@会计岛 的备考干货类'}
+];
+var mediaSubTab='rank';
 function renderMedia(main){
-  var html='<div class="panel-title">财税自媒体创作库</div>'+
-    '<div class="panel-desc">每日4条选题 + 4版文案 + 2套完整拍摄脚本</div>';
-
-  /* 选题 */
-  var tax=pickFromArray(TOPIC_POOL.filter(function(t){return t.cat==='tax';}),1,1);
-  var hot=pickFromArray(TOPIC_POOL.filter(function(t){return t.cat==='hot';}),1,101);
-  var exam=pickFromArray(TOPIC_POOL.filter(function(t){return t.cat==='exam';}),1,201);
-  var growth=pickFromArray(TOPIC_POOL.filter(function(t){return t.cat==='growth';}),1,301);
-  var topics=[].concat(tax).concat(hot).concat(exam).concat(growth);
+  main.innerHTML='<div class="pt">财税自媒体爆款库</div><div class="pd">爆款榜单 · 运营知识 · 热点选题 · 拍摄脚本</div>';
+  main.innerHTML+='<div class="sub-tabs" id="mediaTabs">'+
+    '<div class="sub-tab'+(mediaSubTab==='rank'?' active':'')+'" data-st="rank">今日榜单</div>'+
+    '<div class="sub-tab'+(mediaSubTab==='op'?' active':'')+'" data-st="op">每日运营知识</div>'+
+    '<div class="sub-tab'+(mediaSubTab==='topic'?' active':'')+'" data-st="topic">今日热点+每日选题</div></div>';
+  main.innerHTML+='<div id="mediaContent"></div>';
+  main.querySelectorAll('.sub-tab').forEach(function(t){t.onclick=function(){mediaSubTab=t.dataset.st;renderMedia(main)}});
+  var mc=document.getElementById('mediaContent');
+  if(mediaSubTab==='rank')renderRank(mc);
+  else if(mediaSubTab==='op')renderOp(mc);
+  else renderTopic(mc);
+}
+function renderRank(mc){
+  var items=pickFrom(RANK_POOL,10,1);
   var catLabels={tax:'财税',hot:'热点',exam:'备考',growth:'女生成长'};
-  var catNames=['干货','共情','吐槽','Vlog'];
-
-  html+='<div class="card"><div class="card-title"><span class="dot"></span>今日4条选题（四大赛道混搭）</div>';
+  var html='<div class="card"><div class="card-t"><span class="dot"></span>今日10条爆款视频拆解</div><ol class="rank-list">';
+  items.forEach(function(it,i){
+    var favKey='fw_rank_fav_'+i+'_'+getTodayStr();
+    var favd=!!lsGet(favKey);
+    html+='<li class="rank-item"><div class="rank-num">'+(i+1)+'</div><div class="rank-body">'+
+      '<div class="rank-title">'+it.title+'</div>'+
+      '<div class="rank-meta"><span class="rank-badge '+it.cat+'">'+catLabels[it.cat]+'</span><span class="rank-score">🔥 热度 '+it.score+'</span></div>'+
+      '<div class="rank-reason"><strong>爆火原因：</strong>'+it.reason+'</div>'+
+      '<div class="rank-reason"><strong>创作启发：</strong>'+it.insight+'</div>'+
+      '<div class="rank-actions">'+
+        '<button class="btn-mini link" onclick="window.open(\'https://www.douyin.com/search/'+encodeURIComponent(it.title)+'\',\'_blank\')">原链接</button>'+
+        '<button class="btn-mini copy" onclick="copyRank('+i+')">复制结构</button>'+
+        '<button class="btn-mini fav'+(favd?' active':'')+'" id="rankFav'+i+'" onclick="toggleFav(\'rank_fav_'+i+'\',this)">'+(favd?'已收藏':'收藏')+'</button>'+
+      '</div></div></li>';
+  });
+  html+='</ol></div>';
+  mc.innerHTML=html;
+}
+function copyRank(idx){
+  var items=pickFrom(RANK_POOL,10,1);
+  if(items[idx]){var t=items[idx];var txt=t.title+'\n爆火原因：'+t.reason+'\n创作启发：'+t.insight;navigator.clipboard&&navigator.clipboard.writeText(txt);alert('已复制爆款结构到剪贴板')}
+}
+function toggleFav(key,btn){
+  var k='fw_'+key+'_'+getTodayStr();
+  if(lsGet(k)){lsSet(k,'');btn.textContent='收藏';btn.classList.remove('active')}
+  else{lsSet(k,'1');btn.textContent='已收藏';btn.classList.add('active')}
+}
+function renderOp(mc){
+  var items=pickFrom(OP_KNOWLEDGE,3,201);
+  var html='';
+  items.forEach(function(op,i){
+    var readKey='fw_op_read_'+i+'_'+getTodayStr();
+    var readd=!!lsGet(readKey);
+    html+='<div class="op-card"><div class="op-title">'+op.title+'</div><div class="op-content">'+op.content+'</div>'+
+      '<div class="op-actions">'+
+        '<button class="btn-mini fav" onclick="toggleFav(\'op_fav_'+i+'\',this)">收藏</button>'+
+        '<button class="btn-mini '+(readd?'':'')+'" style="background:'+(readd?'var(--green)':'var(--green-soft)')+';color:'+(readd?'#fff':'var(--green-deep)')+'" id="opRead'+i+'" onclick="toggleRead('+i+',this)">'+(readd?'已读':'标记已读')+'</button>'+
+        '<button class="btn-mini link" onclick="addOpNote('+i+')">笔记</button>'+
+      '</div></div>';
+  });
+  mc.innerHTML=html;
+}
+function toggleRead(idx,btn){
+  var k='fw_op_read_'+idx+'_'+getTodayStr();
+  if(lsGet(k)){lsSet(k,'');btn.textContent='标记已读';btn.style.background='var(--green-soft)';btn.style.color='var(--green-deep)'}
+  else{lsSet(k,'1');btn.textContent='已读';btn.style.background='var(--green)';btn.style.color='#fff'}
+}
+function addOpNote(idx){
+  var k='fw_op_note_'+idx+'_'+getTodayStr();
+  var cur=lsGet(k)||'';
+  var note=prompt('记录你的学习笔记：',cur);
+  if(note!==null){lsSet(k,note);alert('笔记已保存')}
+}
+function renderTopic(mc){
+  /* 上方热点 */
+  var hotItems=pickFrom(HOT_LIST,4,301);
+  var html='<div class="card"><div class="card-t"><span class="dot"></span>今日全网热点（可借势）</div>';
+  hotItems.forEach(function(h){
+    html+='<div class="hot-item"><div class="hot-title">'+h.title+'</div><div class="hot-desc">'+h.desc+'</div></div>';
+  });
+  html+='</div>';
+  /* 下方10个选题 */
+  var topics=pickFrom(TOPIC_POOL,10,401);
+  var catLabels={tax:'财税',hot:'热点',exam:'备考',growth:'女生成长'};
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>每日10个专属选题</div>';
   topics.forEach(function(t,i){
-    html+='<div class="topic-card" style="margin-bottom:14px;">';
-    html+='<span class="topic-cat cat-'+t.cat+'">'+catLabels[t.cat]+'</span>';
-    html+='<div class="topic-title">'+(i+1)+'. '+t.title+'</div>';
-    html+='<div class="topic-desc">'+t.desc+'</div>';
-    html+='<div class="topic-meta">';
-    t.tags.forEach(function(tg){html+='<span class="topic-badge">'+tg+'</span>';});
-    html+='</div>';
-    /* 4版标题文案 */
-    t.titles.forEach(function(tt,j){
-      html+='<div class="copy-block"><div class="copy-label">'+catNames[j]+'版 · 标题+开头</div><div class="copy-text"><strong>'+tt+'</strong></div></div>';
-    });
-    html+='</div>';
+    html+='<div class="topic-card"><span class="tc-cat '+t.cat+'">'+catLabels[t.cat]+'</span>'+
+      '<div class="tc-title">'+(i+1)+'. '+t.title+'</div>'+
+      '<div class="tc-desc">'+t.desc+'</div>'+
+      '<div class="tc-meta"><span class="tc-time">⏰ '+t.time+'</span>';
+    t.tags.forEach(function(tg){html+='<span class="tc-badge">'+tg+'</span>'});
+    html+='<span class="tc-color" style="background:'+t.color+'">封面配色</span>';
+    html+='<button class="btn-mini copy" onclick="copyTopic('+i+')">复制</button></div></div>';
   });
   html+='</div>';
-
-  /* 拍摄脚本 */
-  var scripts=pickFromArray(SCRIPT_POOL,2,501);
-  html+='<div class="card"><div class="card-title"><span class="dot"></span>今日2套完整拍摄脚本</div>';
+  /* 2套拍摄脚本 */
+  var scripts=pickFrom(SCRIPT_POOL,2,501);
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>今日2套完整拍摄脚本</div>';
   scripts.forEach(function(s,i){
-    html+='<div class="script-card">';
-    html+='<div class="script-header"><div class="script-title">脚本'+(i+1)+'：'+s.theme+'</div><span class="script-tag">完整可拍</span></div>';
-    html+='<div class="script-section"><div class="script-section-title">黄金3秒钩子</div><div class="script-section-content">'+s.hook+'</div></div>';
-    html+='<div class="script-section"><div class="script-section-title">完整口播文案</div><div class="script-section-content">'+s.fullScript+'</div></div>';
-    html+='<div class="script-section"><div class="script-section-title">字幕/关键词</div><div class="script-section-content">'+s.subtitle+'</div></div>';
-    html+='<div class="script-section"><div class="script-section-title">分镜表</div>';
-    html+='<table class="shot-table"><tr><th>时间</th><th>镜头动作</th><th>拍摄要点</th></tr>';
-    s.shots.forEach(function(sh){
-      html+='<tr><td>'+sh.scene+'</td><td>'+sh.action+'</td><td>'+sh.detail+'</td></tr>';
-    });
+    html+='<div class="script-card"><div class="sc-hd"><div class="sc-title">脚本'+(i+1)+'：'+s.theme+'</div><span class="sc-tag">完整可拍</span></div>';
+    html+='<div class="sc-sec"><div class="sc-st">黄金3秒钩子</div><div class="sc-sv">'+s.hook+'</div></div>';
+    html+='<div class="sc-sec"><div class="sc-st">完整口播文案</div><div class="sc-sv">'+s.fullScript+'</div></div>';
+    html+='<div class="sc-sec"><div class="sc-st">字幕文案</div><div class="sc-sv">'+s.subtitle+'</div></div>';
+    html+='<div class="sc-sec"><div class="sc-st">分镜表</div><table class="shot-tbl"><tr><th>时间</th><th>镜头动作</th><th>拍摄要点</th></tr>';
+    s.shots.forEach(function(sh){html+='<tr><td>'+sh.s+'</td><td>'+sh.a+'</td><td>'+sh.d+'</td></tr>'});
     html+='</table></div>';
-    html+='<div class="script-section"><div class="script-section-title">BGM建议</div><div class="script-section-content">'+s.bgm+'</div></div>';
-    html+='<div class="script-section"><div class="script-section-title">结尾互动话术</div><div class="script-section-content">'+s.cta+'</div></div>';
-    html+='<div class="script-section"><div class="script-section-title">对标参考</div><div class="script-section-content">'+s.benchmark+'</div></div>';
+    html+='<div class="sc-sec"><div class="sc-st">BGM建议</div><div class="sc-sv">'+s.bgm+'</div></div>';
+    html+='<div class="sc-sec"><div class="sc-st">结尾互动话术</div><div class="sc-sv">'+s.cta+'</div></div>';
+    html+='<div class="sc-sec"><div class="sc-st">对标参考</div><div class="sc-sv">'+s.benchmark+'</div></div>';
     html+='</div>';
   });
   html+='</div>';
-
   /* 灵感备忘录 */
   var memoKey='fw_'+getTodayStr()+'_memo';
-  html+='<div class="card"><div class="card-title"><span class="dot"></span>灵感备忘录 / 二创素材记录</div>'+
-    '<textarea class="memo-area" id="memoArea" placeholder="随时记录灵感、二创素材、对标账号灵感...\n（自动保存）">'+(lsGet(memoKey)||'')+'</textarea></div>';
-
-  main.innerHTML=html;
-
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>灵感备忘录 / 二创素材记录</div><textarea class="memo-area" id="memoArea" placeholder="随时记录灵感、二创素材、对标账号灵感...\n（自动保存）">'+(lsGet(memoKey)||'')+'</textarea></div>';
+  mc.innerHTML=html;
   var memo=document.getElementById('memoArea');
-  if(memo){
-    memo.addEventListener('input',debounce(function(){
-      lsSet(memoKey,memo.value);
-    },500));
-  }
+  if(memo)memo.addEventListener('input',debounce(function(){lsSet(memoKey,memo.value)},500));
+}
+function copyTopic(idx){
+  var topics=pickFrom(TOPIC_POOL,10,401);
+  if(topics[idx]){var t=topics[idx];var txt=t.title+'\n'+t.desc+'\n发布时间：'+t.time+'\n标签：'+t.tags.join(' ');navigator.clipboard&&navigator.clipboard.writeText(txt);alert('已复制选题到剪贴板')}
 }
 
-/* ========== 面板3: 每日复盘日记 ========== */
-function renderReview(main){
-  var today=getTodayStr();
-  var key='fw_'+today+'_review';
-  var data=lsGet(key);
-  var review={gain:'',lack:'',optimize:''};
-  if(data){ try{review=JSON.parse(data);}catch(e){} }
-
-  main.innerHTML='<div class="panel-title">每日复盘日记</div>'+
-    '<div class="panel-desc">今日收获 · 今日不足 · 明日优化</div>'+
-    '<div class="card">'+
-      '<div class="review-field"><label>今日收获</label><textarea id="rvGain" placeholder="今天做成了什么？学到了什么？">'+review.gain+'</textarea></div>'+
-      '<div class="review-field"><label>今日不足</label><textarea id="rvLack" placeholder="哪里可以做得更好？">'+review.lack+'</textarea></div>'+
-      '<div class="review-field"><label>明日优化方向</label><textarea id="rvOpt" placeholder="明天要重点改进什么？">'+review.optimize+'</textarea></div>'+
-      '<button class="btn btn-primary" id="rvSave">保存复盘</button> <span id="rvSaved" style="font-size:11px;color:var(--accent);margin-left:8px;"></span>'+
-    '</div>';
-
-  document.getElementById('rvSave').onclick=function(){
-    var d={gain:document.getElementById('rvGain').value,lack:document.getElementById('rvLack').value,optimize:document.getElementById('rvOpt').value};
-    lsSet(key,JSON.stringify(d));
-    var el=document.getElementById('rvSaved');
-    el.textContent='已保存 ✓';
-    setTimeout(function(){el.textContent='';},2000);
-  };
-}
-
-/* ========== 面板4: 伟大女性故事打卡 ========== */
-var WOMEN_LIST=[
-  {name:'居里夫人',title:'两届诺贝尔奖得主 · 放射性研究先驱',story:'玛丽·居里是历史上第一位获得诺贝尔奖的女性，也是唯一一位在两个不同科学领域（物理和化学）获奖的人。在巴黎求学时，她住在简陋的阁楼里，常常靠面包和茶度日，冬天水都会结冰。但她从未放弃对科学的热爱。与丈夫皮埃尔·居里一起，她在漏风的棚屋里用数吨沥青铀矿提炼出仅仅0.1克镭。她的坚持不仅改变了科学史，更证明了女性在科学领域同样可以站上巅峰。即使面对丈夫意外离世的巨大打击，她依然接过了他的教鞭，成为巴黎大学第一位女教授。',quote:'生活中没有什么可怕的东西，只有需要理解的东西。'},
-  {name:'屠呦呦',title:'诺贝尔生理学或医学奖得主 · 青蒿素之母',story:'屠呦呦是中国本土培养的科学家，因发现青蒿素——一种有效治疗疟疾的药物——而获得2015年诺贝尔生理学或医学奖。在文革期间的艰苦条件下，她带领团队查阅了大量中国古代医学典籍，从葛洪的《肘后备急方》中获得灵感，经历了190次失败后终于提取出青蒿素。为了验证安全性，她甚至以身试药。这一发现拯救了全球数百万疟疾患者的生命，尤其是非洲儿童。她用一生证明了：科学不需要华丽的实验室，需要的是不放弃的信念。',quote:'青蒿素是中医药给世界的一份礼物。'},
-  {name:'张桂梅',title:'华坪女子高中创办者 · 大山里的灯塔',story:'张桂梅在云南华坪县创办了全国第一所全免费女子高中——华坪女子高级中学。她身患多种疾病，却坚持每天5点起床，12点后才休息，用全部精力托举大山里的女孩走出贫困。12年间，她把1804名女孩送进了大学。她说："一个女孩走出去，改变的是三代人的命运。"她没有自己的孩子，却成了上千个女孩的"张妈妈"。她用瘦弱的身体扛起了整座大山的教育希望，证明了教育的力量可以改变命运。',quote:'我生来就是高山而非溪流，我欲于群峰之巅俯视平庸的沟壑。'},
-  {name:'可可·香奈儿',title:'时尚革命家 · 香奈儿品牌创始人',story:'可可·香奈儿出身贫寒，在孤儿院长大。她从一家小帽子店起步，凭借敏锐的直觉和不服输的性格，彻底改变了女性的穿衣方式。她解放了女性从束身衣中，推出了小黑裙、香奈儿套装、5号香水等经典。在那个男性主导的时代，她用自己的才华证明：女性不仅可以穿得自由，更可以活得自由。她一生都在工作，直到88岁去世前还在筹备下一场时装秀。她说过："时尚会过时，只有风格永存。"',quote:'想要成为无可替代的人，就必须与众不同。'},
-  {name:'弗洛伦斯·南丁格尔',title:'现代护理学之母 · 统计学先驱',story:'南丁格尔出身英国上流社会，却毅然选择当时被视为"底层工作"的护理职业。在克里米亚战争中，她带领38名护士奔赴前线，发现英军士兵死于疾病的数量是死于战伤的10倍。她用统计学方法分析死亡原因，用玫瑰图直观展示数据，成功说服军方改善卫生条件，将死亡率从42%降到2%。她不仅是一位伟大的护士，更是一位用数据改变世界的先驱。战后她创办了第一所正规护理学校，奠定了现代护理学的基础。',quote:'我从不找借口，也不接受借口。'},
-  {name:'何泽慧',title:'中国核物理之父钱三强的妻子与合作者 · 中国的居里夫人',story:'何泽慧是中国第一代核物理学家，在德国获得弹道学博士学位后，赴法国居里实验室工作。她与丈夫钱三强一起发现了铀核三分裂和四分裂现象，被西方媒体称为"中国的居里夫人"。回国后，她参与了中国核物理研究的开创工作，在极其简陋的条件下坚持科研。她一生淡泊名利，住在中关村的老房子里，直到晚年仍然骑自行车去研究所。她用一生证明：真正的科学家不需要光环，只需要对真理的热爱。',quote:'一个科学家应该对祖国和人民有所贡献。'},
-  {name:'奥黛丽·赫本',title:'奥斯卡影后 · 联合国儿童基金会大使',story:'奥黛丽·赫本不仅在银幕上留下了《罗马假日》《蒂凡尼的早餐》等经典，更在晚年将全部精力投入联合国儿童基金会的人道主义工作。二战期间，她在荷兰经历饥荒，联合国救济救了她的命。成名后她决定回报这份恩情。她多次深入非洲、亚洲的贫困地区和战区，为饥饿中的儿童奔走呼吁。即使身患癌症，她依然完成了最后一次索马里之行。她用自己的影响力让世界关注最脆弱的儿童，用行动诠释了什么是真正的美——不是外表，而是善良。',quote:'想拥有迷人的双唇，请说善意的言语。'},
-  {name:'林徽因',title:'中国第一位女建筑师 · 诗人',story:'林徽因是中国现代建筑学的开拓者之一，与丈夫梁思成一起走遍中国15个省、190多个县，考察测绘了2738处古建筑。在战火纷飞的年代，她拖着病体在荒野中爬上爬下测量古建筑，为保护中国建筑遗产做出了不可磨灭的贡献。她参与设计了国徽和人民英雄纪念碑，同时还是一位才华横溢的诗人和作家。她证明了女性可以在科学和艺术两个领域同时闪耀，不必在理性与感性之间做选择。',quote:'你是一树一树的花开，是燕在梁间呢喃。'},
-  {name:'鲁斯·巴德·金斯伯格',title:'美国最高法院大法官 · 性别平等斗士',story:'金斯伯格是美国历史上第二位女性最高法院大法官。她在哈佛法学院时，院长问她"如何解释你们占据了一个本应属于男性的法学院名额"。她以全班第一的成绩毕业，却因性别原因找不到律所工作。但她没有放弃，转而投身 ACLU 女权项目，通过一个个具体案件推动性别平等法律改革。她论证的不只是女性受歧视，也代理男性因性别遭受不公的案件，证明性别歧视伤害所有人。80多岁时她成了流行文化偶像，被年轻人称为"声名狼藉的 RBG"。',quote:'女性要成为自己人生决策的主导者。'},
-  {name:'谢丽尔·桑德伯格',title:'Facebook COO · 《向前一步》作者',story:'谢丽尔·桑德伯格是硅谷最有影响力的女性高管之一。她在谷歌从零搭建广告团队，后加入 Facebook 担任首席运营官，帮助公司从初创走向上市。2013年她出版《向前一步》，鼓励女性不要在有机会之前就自我设限，勇敢地坐到桌前来。丈夫意外去世后，她公开分享自己的悲痛和恢复过程，写下了《Option B》，帮助无数经历逆境的人。她用行动证明：女性领导力不是模仿男性，而是带着同理心和韧性去领导。',quote:'完成比完美更重要。'},
-  {name:'屠洪娇',title:'中国首位女航天员刘洋的老师 · 航天教育推动者',story:'（以刘洋为原型）刘洋是中国第一位进入太空的女航天员。2012年，她乘坐神舟九号飞船进入太空，完成了中国首次载人交会对接任务。在训练中，她经历了与男性航天员同样严酷的考验：离心机8G过载、72小时狭小环境剥夺睡眠、水下失重训练。她用实力证明：在探索宇宙这件事上，性别从来不是限制。太空没有性别之分，只有准备充分与否之分。她激励了无数中国女孩仰望星空，相信梦想没有边界。',quote:'太空不会因为你是女性就对你温柔以待，但它会因为你的准备而向你敞开。'},
-  {name:'阿达·洛芙莱斯',title:'世界第一位程序员 · 数学先驱',story:'阿达·洛芙莱斯是英国数学家，被公认为世界上第一位计算机程序员。在100多年前的1843年，她为查尔斯·巴贝奇的分析机编写了第一个算法——一个计算伯努利数的程序。她甚至预见了计算机不仅能做计算，还能创作音乐和艺术——这个远见直到100年后才被验证。在那个女性不被允许接受高等教育的时代，她靠自学和家庭教师学习数学。她的父亲是诗人拜伦，但她选择了理性而非浪漫，用数学之美书写了自己的人生。',quote:'我的大脑绝不仅仅是凡人之物，它必将探索未知的领域。'},
-  {name:'董明珠',title:'格力电器董事长 · 中国商界铁娘子',story:'董明珠36岁时丈夫去世，她独自带着儿子从南京南下珠海，从一名普通销售员做起。她用"盯死客户"的笨办法，跑遍安徽市场，创下个人销售额3650万的纪录。凭借铁腕和魄力，她一路升到格力电器的掌门人。她坚持自主技术创新，拒绝做代工贴牌，把格力打造成全球空调行业龙头。她的管理风格强硬到被叫"铁娘子"，但她坚信：对质量的妥协就是对消费者的欺骗。她证明了：女性不仅能在商界生存，更能引领行业。',quote:'对自己狠一点，逼自己努力，再过五年你将会感谢今天发狠的自己。'},
-  {name:'杨绛',title:'文学翻译家 · 《我们仨》作者',story:'杨绛是著名作家、文学翻译家，也是钱钟书的妻子。她通晓多国语言，翻译了《堂吉诃德》等经典作品。在特殊年代，她被下放干校劳动，却依然保持从容。晚年，女儿和丈夫相继去世后，她以92岁高龄开始写作《我们仨》，记录一家三口的温暖岁月。她活到105岁，在生命的最后阶段仍在整理钱钟书的遗稿。她的一生诠释了什么叫"优雅地老去"——不是外表的光鲜，而是内心的丰盈和对生活的深情。',quote:'我们曾如此渴望命运的波澜，到最后才发现：人生最曼妙的风景，竟是内心的淡定与从容。'},
-  {name:'吴健雄',title:'东方居里夫人 · 实验物理学家',story:'吴健雄是中国裔美国物理学家，被誉为"东方居里夫人"和"核物理女王"。她设计了验证宇称不守恒理论的实验，这个实验直接帮助杨振宁和李振宁获得诺贝尔物理学奖——但她本人却未能分享这一荣誉。尽管如此，她从未抱怨，继续在实验物理领域做出卓越贡献。她是美国物理学会第一位女性会长，在男性绝对主导的物理学界，用精密的实验技术赢得了所有人的尊重。她证明了：荣誉不是目的，追求真理本身才是。',quote:'不要因为别人不相信你，就怀疑自己。实验结果是最有力的回答。'},
-  {name:'安妮·弗兰克',title:'《安妮日记》作者 · 大屠杀见证者',story:'安妮·弗兰克是一个犹太女孩，二战期间与家人躲在阿姆斯特丹一间密室中长达两年。在这段暗无天日的日子里，13岁的她用日记记录了自己的恐惧、希望、成长和对世界的思考。她在日记中展现出的文学天赋和对人性的深刻洞察，远超她的年龄。最终，她和家人被发现并送往集中营，安妮在 Bergen-Belsen 集中营去世，年仅15岁。但她的日记留存了下来，被翻译成60多种语言，成为20世纪最重要的文学作品之一。她用稚嫩的笔触证明了：即使在最黑暗的地方，精神也可以发光。',quote:'我仍然相信人心的善良。'},
-  {name:'马拉拉·优素福扎伊',title:'最年轻的诺贝尔和平奖得主 · 教育权益活动家',story:'马拉拉是巴基斯坦女孩，在塔利班控制地区为女孩的受教育权发声。11岁时她开始为 BBC 写匿名博客，记录塔利班统治下的生活。2012年，15岁的她在校车上被塔利班枪击头部，奇迹般生还。康复后她没有沉默，反而更加坚定地为全球女童教育奔走。17岁时她获得诺贝尔和平奖，成为最年轻的诺贝尔奖得主。她用生命证明：一个人的声音或许微弱，但当它代表正义时，子弹也无法让它沉默。',quote:'一个孩子、一位教师、一支笔和一本书可以改变世界。'},
-  {name:'邓稼先夫人许鹿希',title:'隐忍坚守28年的科学家的妻子',story:'1958年，邓稼先告诉妻子许鹿希："我要调动工作了，不能告诉你去哪里，也不能告诉你做什么。"从此，许鹿希独自抚养两个孩子，等待了整整28年。这28年里，她不知道丈夫在哪里、在做什么、是否安全。直到1986年，邓稼先因核辐射导致癌症晚期被接回北京，两人才重逢。28天的相聚后，邓稼先离世。许鹿希用余生整理丈夫的遗稿，出版了他的传记。她没有站上领奖台，但她是台后最坚实的支撑。她的故事告诉我们：伟大事业的背后，总有默默守护的人。',quote:'我等你28年，不是因为我不苦，是因为我知道你在做一件更重要的事。'},
-  {name:'玛丽亚·梅耶',title:'诺贝尔物理学奖得主 · 原子核壳模型提出者',story:'玛丽亚·梅耶是德裔美国物理学家，提出了原子核壳层模型，解释了原子核中"幻数"现象。在约翰·霍普金斯大学和芝加哥大学期间，她长期以"志愿助理教授"身份工作——因为当时的反裙带关系政策不允许夫妻同校任职。她没有正式薪水，却做出了诺贝尔奖级别的成果。1963年，她成为历史上第二位女性诺贝尔物理学奖得主。她用行动证明：头衔和薪水不能定义一个人的价值，真正的科学家只为求知而工作。',quote:'做物理是一种乐趣，如果你太在意回报，你就感受不到这种乐趣。'},
-  {name:'弗吉尼亚·伍尔夫',title:'意识流文学先驱 · 女性主义思想先驱',story:'弗吉尼亚·伍尔夫是20世纪最重要的现代主义作家之一。她在《一间自己的房间》中提出了著名论断："一个女人要想写小说，必须有钱和一间自己的房间。"这句话成为女性独立的宣言。她患有严重的心理健康问题，但从未停止创作，《达洛维夫人》《到灯塔去》等作品开创了意识流文学的新纪元。她不仅是一位文学革命者，更是一位思想先驱——她让世界看到：女性的内心世界同样丰富、复杂、值得被书写。',quote:'一个人能使自己成为自己，比什么都重要。'},
-  {name:'简·古道尔',title:'动物行为学家 · 黑猩猩研究先驱',story:'简·古道尔26岁时前往坦桑尼亚贡贝溪国家公园，开始在野外观察黑猩猩。她没有大学学历，只有对动物的热爱和惊人的耐心。她花了数月时间让黑猩猩接受她的存在，最终发现了黑猩猩会制造和使用工具——这一发现颠覆了"只有人类会制造工具"的定论。她的导师路易斯·利基说："现在我们要么重新定义工具，要么重新定义人类，要么接受黑猩猩也是人类。"她后来转型为环保活动家，每年300天在全球奔走，呼吁保护自然。',quote:'每个人都很重要，每个人都能发挥作用，每个人都能带来变化。'},
-  {name:'王亚平',title:'中国首位太空授课教师 · 女航天员',story:'王亚平是中国第二批航天员，2013年乘坐神舟十号进入太空，成为继刘洋之后第二位进入太空的中国女性。她在太空中进行了中国首次太空授课，向全国6000万学生直播演示了失重条件下的物理现象。2021年，她再次执行神舟十三号任务，成为中国首位出舱活动的女航天员，并在太空驻留183天，创造了中国航天员在轨驻留时长纪录。她从山东农村走出，用坚持和实力证明：仰望星空的权利不分性别。',quote:'太空不会区分性别，它只奖赏有准备的人。'},
-  {name:'梅耶·马斯克',title:'模特 · 营养学博士 · 三个亿万富翁的母亲',story:'梅耶·马斯克在31岁时成为单亲妈妈，独自抚养三个孩子。她同时打五份工，做营养师咨询、当模特、教课，生活艰辛却从不放弃自我成长。她在42岁时搬到加拿大重新开始，在50多岁时重返模特行业，69岁成为 CoverGirl 代言人，71岁登上时代广场广告牌。她的儿子埃隆·马斯克成为世界首富，但她从不依附于儿子的光环，始终保持独立的事业和生活。她证明了：女性的精彩人生没有年龄上限，任何时候重新开始都不晚。',quote:'你不需要一个完美的开始，你只需要开始。'},
-  {name:'秋瑾',title:'中国女权和女学思想的倡导者 · 革命先驱',story:'秋瑾是中国近代革命家和女权运动先驱。她冲破封建婚姻的束缚，东渡日本留学，结识了鲁迅、徐锡麟等革命志士。她创办了《中国女报》，倡导女性解放，提出"女学不兴，种族不强"的主张。1907年，她策划安庆起义失败后被捕，面对审讯她写下"秋风秋雨愁煞人"七个字，从容就义，年仅32岁。她是中国历史上第一位为革命牺牲的女性，用生命为女性解放和民族复兴开辟了道路。',quote:'身不得，男儿列；心却比，男儿烈。'},
-  {name:'罗莎·帕克斯',title:'民权运动之母 · 不向不公低头',story:'1955年12月1日，在阿拉巴马州蒙哥马利市的一辆公交车上，42岁的黑人女裁缝罗莎·帕克斯拒绝给白人乘客让座，因此被捕。这个看似简单的"不"字，点燃了美国民权运动的燎原之火。她的被捕引发了长达381天的蒙哥马利公交车抵制运动，最终导致公交种族隔离制度被废除。她说："我不是因为累了才不让座，我累了是因为我受够了。"她用行动证明：改变世界不一定需要权力和地位，有时候只需要勇气说"不"。',quote:'我唯一疲倦的，是屈服。'},
-  {name:'珍·奥斯汀',title:'英国文学巨匠 · 《傲慢与偏见》作者',story:'简·奥斯汀生活在18世纪末的英国，那个时代女性写作被认为"不体面"。她的所有作品都是在客厅里偷偷写的，有人来就把手稿藏起来。她终身未婚，靠微薄的收入生活，41岁去世时几乎无人知晓她的作家身份。但她留下的六部小说——《傲慢与偏见》《理智与情感》等——成为英语文学的经典。她用细腻的笔触描绘了女性的困境、智慧和尊严，证明了：真正的才华不会因为被忽视而消失，它只是需要时间被世界发现。',quote:'我不会让贫穷折损我的浪漫，但也不会让浪漫蒙蔽我对现实的判断。'},
-  {name:'屠呦呦',title:'诺贝尔奖得主 · 从古籍中找到抗疟药方',story:'（补充篇）屠呦呦在寻找抗疟药物时，试验了数百种中药提取物，全部失败。就在她几乎要放弃时，她在东晋葛洪的《肘后备急方》中读到一句话："青蒿一握，以水二升渍，绞取汁，尽服之。"这句1600年前的古方给了她灵感——也许高温破坏了青蒿的有效成分。她改用低温提取，终于在第191次实验中成功。这一发现拯救了数百万人的生命。她的故事告诉我们：创新不是凭空而来，它站在传统和坚持的肩膀上。',quote:'青蒿素是中医药给世界的一份礼物，也是坚持给科学的一份答案。'},
-  {name:'海伦·凯勒',title:'作家 · 演说家 · 在黑暗中找到光明',story:'海伦·凯勒在19个月大时因病失去了视力和听力，陷入了一个无声无光的世界。在老师安妮·沙利文的帮助下，她学会了通过触觉"阅读"和"说话"——用手感受别人嘴唇的 movement 和喉咙的振动。她成为第一位获得文学学士学位的盲聋人，精通多种语言，一生写了14本书。她不仅是一位作家，更是一位社会活动家，为残障人士权益奔走呼吁。她证明了：真正的障碍不在身体，而在是否有人愿意帮你打开一扇窗。',quote:'世界上最美好和最美好的东西是看不见也摸不到的，它们只能用心去感受。'},
-  {name:'吴仪',title:'中国铁娘子 · 前国务院副总理',story:'吴仪是中国改革开放后最重要的女性政治家之一。她从石油战线技术员做起，凭借出色的能力一步步走到国务院副总理的位置。在2003年非典危机中，她临危受命出任卫生部部长，以果断和透明的方式控制了疫情。在中美经贸谈判中，她以犀利和专业著称，被外媒称为"中国铁娘子"。她终身未婚，把全部精力投入到工作中。她说过："我自己没有家庭，但全国人民就是我的家人。"她证明了：女性从政不需要柔弱标签，专业和魄力才是最好的名片。',quote:'我从不在乎别人怎么评价我，我在乎的是我做了什么。'},
-  {name:'屠哟哟',title:'（拓展）坚持190次失败后的成功',story:'当屠呦呦第190次失败时，很多人劝她放弃。但她翻开古籍，发现一个被所有人忽略的细节：古方说"绞取汁"，而不是"煎煮"。这意味着高温可能破坏了有效成分。她立刻改变提取方法，用乙醚低温萃取。第191次实验成功了。这个改变世界的灵感，来自一本1600年前的旧书和一颗不肯放弃的心。她的故事告诉我们：失败不是终点，放弃才是。而转机往往藏在最不起眼的细节里。',quote:'成功的反面不是失败，而是不去尝试。'},
-  {name:'张纯如',title:'作家 · 《南京暴行》作者 · 真相的守护者',story:'张纯如是一位美籍华裔作家和记者。她在研究中发现了被西方世界遗忘的南京大屠杀历史，决心让这段真相被世界知道。她花了三年时间走访幸存者、查阅档案，于1997年出版了《南京暴行：被遗忘的大屠杀》。这本书登上《纽约时报》畅销书榜，让西方世界第一次大规模关注这一历史事件。然而，面对不断接触残酷史料带来的精神创伤和某些势力的威胁，她的心理健康严重恶化。2004年，她结束了自己36岁的生命。她用生命守护了真相，也提醒我们：记住历史，是对死者最大的尊重。',quote:'如果你忘了历史，历史就会重演。文字是武器，真相是力量。'},
-  {name:'波什·赖斯',title:'首位非裔美国女性国务卿 · 国家安全顾问',story:'康多莉扎·赖斯在美国种族隔离的南方长大。小时候，她父亲告诉她："你可能吃不了这家餐厅，但你可以成为美国总统。"她没有成为总统，但成为了美国历史上第一位非裔女性国务卿。她是苏联问题专家，15岁进入大学，26岁获得博士学位，后成为斯坦福大学教授和教务长。在布什政府中，她先后担任国家安全顾问和国务卿，是美国最有权力的女性之一。她证明了：出身和肤色不是限制，教育和准备才是通行证。',quote:'当你被低估时，最好的回应是用实力说话。'}
-];
-
-function renderWomen(main){
-  var today=getTodayStr();
-  var seed=dateSeed(0);
-  var idx=Math.floor(seededRand(seed)*WOMEN_LIST.length);
-  var w=WOMEN_LIST[idx];
-  var key='fw_'+today+'_woman_thought';
-  var thought=lsGet(key)||'';
-
-  main.innerHTML='<div class="panel-title">伟大女性故事打卡</div>'+
-    '<div class="panel-desc">每日1位优秀女性 · 故事 + 金句 + 心得</div>'+
-    '<div class="card woman-card">'+
-      '<div class="woman-name">'+w.name+'</div>'+
-      '<div class="woman-title">'+w.title+'</div>'+
-      '<div class="woman-story">'+w.story+'</div>'+
-      '<div class="woman-quote">「'+w.quote+'」</div>'+
-      '<div style="margin-top:16px;"><label style="font-size:12px;font-weight:600;color:var(--accent-deep);display:block;margin-bottom:6px;">心得打卡</label>'+
-      '<textarea class="thought-input" id="womanThought" placeholder="写下你的感悟...（自动保存）">'+thought+'</textarea></div>'+
-    '</div>';
-
-  var input=document.getElementById('womanThought');
-  input.addEventListener('input',debounce(function(){
-    lsSet(key,input.value);
-  },500));
-}
-
-/* ========== 面板5: 中级会计单科备考 ========== */
-var EXAM_DATE='2026-09-05';
-var STUDY_CHAPTERS=[
-  {name:'第一章 存货',points:'存货初始计量、发出计价、期末计量'},
-  {name:'第二章 固定资产',points:'取得、折旧、后续支出、处置'},
-  {name:'第三章 无形资产',points:'研发支出资本化/费用化、摊销、减值'},
-  {name:'第四章 投资性房地产',points:'成本模式vs公允价值模式、转换'},
-  {name:'第五章 长期股权投资',points:'成本法、权益法、转换处理（重点）'},
-  {name:'第六章 投资性房地产转换',points:'非投转投、投转非投的差额处理'},
-  {name:'第七章 资产减值',points:'可收回金额、减值测试、商誉减值'},
-  {name:'第八章 金融资产',points:'三类金融资产分类及计量、重分类'},
-  {name:'第九章 职工薪酬',points:'短期/离职后/辞退福利'},
-  {name:'第十章 股份支付',points:'权益结算vs现金结算、可行权条件'},
-  {name:'第十一章 应收款项及合同资产',points:'应收账款终止确认、坏账准备'},
-  {name:'第十二章 债务重组',points:'债权人/债务人会计处理'},
-  {name:'第十三章 所得税',points:'递延所得税资产/负债、税率变化'},
-  {name:'第十四章 外币折算',points:'外币交易、外币报表折算'},
-  {name:'第十五章 租赁',points:'承租人/出租人模型、使用权资产'},
-  {name:'第十六章 持有待售非流动资产',points:'持有待售条件、终止经营'},
-  {name:'第十七章 所有者权益',points:'实收资本、资本公积、其他综合收益'},
-  {name:'第十八章 收入、费用和利润',points:'五步法模型、合同变更（重点）'},
-  {name:'第十九章 政府补助',points:'总额法vs净额法'},
-  {name:'第二十章 非货币性资产交换',points:'公允价值计量vs账面价值计量'},
-  {name:'第二十一章 企业合并',points:'同一控制下/非同一控制下合并（重点）'},
-  {name:'第二十二章 合并财务报表',points:'合并范围、抵销分录（重点难点）'},
-  {name:'第二十三章 会计政策变更',points:'追溯调整法、未来适用法'},
-  {name:'第二十四章 资产负债表日后事项',points:'调整事项vs非调整事项'},
-  {name:'第二十五章 每股收益',points:'基本EPS、稀释EPS'},
-  {name:'第二十六章 公允价值计量',points:'公允价值估值技术'},
-  {name:'第二十七章 政府及民间非营利组织会计',points:'预算会计vs财务会计'}
-];
-var PHASES=[
-  {id:'basic',name:'基础阶段',sub:'第1-15章 · 逐章学习',range:[0,15]},
-  {id:'intensive',name:'强化阶段',sub:'第16-24章 · 重点攻坚',range:[15,24]},
-  {id:'sprint',name:'冲刺阶段',sub:'第25-27章 + 真题模拟',range:[24,27]}
-];
-var currentPhase='basic';
-
-function renderAccounting(main){
-  var today=getTodayStr();
-  var examDate=new Date(EXAM_DATE);
-  var now=new Date();
-  var days=Math.ceil((examDate-now)/(1000*60*60*24));
-
-  /* 统计完成进度 */
-  var totalDone=0,totalChap=STUDY_CHAPTERS.length;
-  STUDY_CHAPTERS.forEach(function(c){
-    if(lsGet('fw_chapter_done_'+c.name)) totalDone++;
-  });
-
-  main.innerHTML='<div class="panel-title">中级会计实务 · 单科备考</div>'+
-    '<div class="panel-desc">分阶段学习 · 章节打卡 · 断卡补学</div>'+
-    '<div class="exam-countdown"><div class="days">'+days+'</div><div class="label">距2026年9月5日考试</div></div>'+
-    '<div class="card">'+
-      '<div class="card-title"><span class="dot"></span>总体进度 '+totalDone+'/'+totalChap+' 章</div>'+
-      '<div class="progress-wrap"><div class="progress-fill" style="width:'+Math.round(totalDone/totalChap*100)+'%"></div></div>'+
-      '<div class="progress-label">'+Math.round(totalDone/totalChap*100)+'%</div>'+
-    '</div>'+
-    '<div class="phase-tabs" id="phaseTabs"></div>'+
-    '<div class="card" id="chapterCard"></div>'+
-    '<div class="card">'+
-      '<div class="card-title"><span class="dot"></span>今日学习时长打卡</div>';
-  var logKey='fw_'+today+'_study_log';
-  var logVal=lsGet(logKey)||'';
-  main.innerHTML+='当前记录：<span id="studyLogDisplay" style="font-size:13px;font-weight:600;color:var(--accent-deep);">'+(logVal||'未记录')+'</span>'+
-    '<div class="study-log"><input type="number" id="studyHours" placeholder="学习小时数，如2.5" min="0" step="0.5"><button id="logStudyBtn">记录</button></div>'+
-    '</div>';
-
-  /* 渲染阶段tabs */
-  var tabsEl=document.getElementById('phaseTabs');
-  PHASES.forEach(function(p){
-    var tab=document.createElement('div');
-    tab.className='phase-tab'+(p.id===currentPhase?' active':'');
-    tab.innerHTML=p.name+'<div class="phase-sub">'+p.sub+'</div>';
-    tab.onclick=function(){currentPhase=p.id;renderAccounting(main);};
-    tabsEl.appendChild(tab);
-  });
-
-  /* 渲染章节任务 */
-  var phase=PHASES.find(function(p){return p.id===currentPhase;});
-  var chapEl=document.getElementById('chapterCard');
-  chapEl.innerHTML='<div class="card-title"><span class="dot"></span>'+phase.name+'章节任务</div>';
-  var chapters=STUDY_CHAPTERS.slice(phase.range[0],phase.range[1]);
-  chapters.forEach(function(c){
-    var done=lsGet('fw_chapter_done_'+c.name);
-    var item=document.createElement('div');
-    item.className='chapter-task';
-    item.innerHTML='<div class="chapter-dot'+(done?' done':'')+'"></div>'+
-      '<div class="chapter-content"><div class="chapter-name">'+c.name+'</div>'+
-      '<div class="chapter-points">核心考点：'+c.points+'</div></div>';
-    item.onclick=function(){
-      if(done){lsSet('fw_chapter_done_'+c.name,'');}else{lsSet('fw_chapter_done_'+c.name,'1');}
-      renderAccounting(main);
-    };
-    chapEl.appendChild(item);
-  });
-
-  /* 学习时长记录 */
-  document.getElementById('logStudyBtn').onclick=function(){
-    var h=parseFloat(document.getElementById('studyHours').value);
-    if(h>0){
-      lsSet(logKey,String(h));
-      var el=document.getElementById('studyLogDisplay');
-      el.textContent=h+' 小时';
-      document.getElementById('studyHours').value='';
-    }
-  };
-}
-
-/* ========== 面板6: 日常口语英语打卡 ========== */
+/* ========== 面板8: 英语 ========== */
 var ENGLISH_SENTENCES=[
   {en:"I'll have a latte, please.",zh:"请给我一杯拿铁。",words:['latte 拿铁','please 请']},
   {en:"Could you send me the details?",zh:"你能把详情发给我吗？",words:['detail 详情','send 发送']},
   {en:"I'm running a bit late, sorry.",zh:"我有点迟到了，抱歉。",words:['run late 迟到','sorry 抱歉']},
   {en:"Let's grab lunch after this.",zh:"这个结束后我们去吃午饭吧。",words:['grab lunch 吃午饭','after 之后']},
-  {en:"I'll get back to you on that.",zh:"这个我回头再答复你。",words:['get back 回复','on that 关于那个']},
+  {en:"I'll get back to you on that.",zh:"这个我回头再答复你。",words:['get back 回复','on that 关于']},
   {en:"That sounds like a plan.",zh:"听起来不错，就这么定。",words:['sound like 听起来','plan 计划']},
   {en:"Can you walk me through it?",zh:"你能一步步给我讲一下吗？",words:['walk through 逐步讲解','it 它']},
   {en:"I'm still figuring it out.",zh:"我还在研究/想办法。",words:['figure out 搞清楚','still 还']},
   {en:"Let's touch base next week.",zh:"我们下周再沟通。",words:['touch base 沟通','next week 下周']},
   {en:"It's been a long day.",zh:"今天真是漫长的一天。",words:['long day 漫长的一天','been 是']},
   {en:"I'll take care of it.",zh:"交给我来处理。",words:['take care of 处理','it 它']},
-  {en:"Do you have a minute?",zh:"你有空吗？（能聊一下吗）",words:['have a minute 有空','you 你']},
+  {en:"Do you have a minute?",zh:"你有空吗？",words:['have a minute 有空','you 你']},
   {en:"I couldn't agree more.",zh:"我完全同意。",words:['agree more 同意','couldn 不能']},
   {en:"Let me think about it.",zh:"让我考虑一下。",words:['think about 考虑','let me 让我']},
   {en:"That makes sense.",zh:"有道理。/说得通。",words:['make sense 有道理','that 那']},
   {en:"I'm looking forward to it.",zh:"我很期待。",words:['look forward to 期待','it 它']},
   {en:"Can you say that again?",zh:"你能再说一遍吗？",words:['say 说','again 再']},
-  {en:"I'm just checking in.",zh:"我就是来看看进度/问候一下。",words:['check in 询问','just 只是']},
+  {en:"I'm just checking in.",zh:"我就是来看看/问候一下。",words:['check in 询问','just 只是']},
   {en:"What do you mean?",zh:"你是什么意思？",words:['mean 意思','what 什么']},
   {en:"Let's keep in touch.",zh:"保持联系。",words:['keep in touch 保持联系','us 我们']}
 ];
-
 function renderEnglish(main){
   var today=getTodayStr();
   var seed=dateSeed(0);
-  var idx=Math.floor(seededRand(seed)*ENGLISH_SENTENCES.length);
+  var idx=Math.floor(sRand(seed)*ENGLISH_SENTENCES.length);
   var s=ENGLISH_SENTENCES[idx];
-
-  /* 累计打卡天数 */
-  var count=0;
-  for(var i=0;i<365;i++){
-    var d=new Date(); d.setDate(d.getDate()-i);
-    var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-    if(lsGet('fw_'+ds+'_english_done')) count++; else break;
-  }
-
+  /* 累计词汇量 */
+  var totalWords=0;
+  for(var i=0;i<365;i++){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(lsGet('fw_'+ds+'_english_done'))totalWords+=s.words.length;else break}
+  /* 待复习：简化为今日未打卡 */
+  var reviewed=lsGet('fw_'+today+'_english_done')?0:1;
   var done=lsGet('fw_'+today+'_english_done');
-
-  main.innerHTML='<div class="panel-title">日常口语英语打卡</div>'+
-    '<div class="panel-desc">纯生活化口语 · 美式音频跟读 · 每日1句</div>'+
-    '<div class="card english-card">'+
-      '<div class="english-sentence" id="enSentence">'+s.en+'</div>'+
-      '<div class="english-translation">'+s.zh+'</div>'+
-      '<div class="english-words">'+s.words.map(function(w){return '<span class="english-word">'+w+'</span>';}).join('')+'</div>'+
-      '<button class="tts-btn" id="ttsBtn">🔊 标准美式发音</button>'+
-      '<div><button class="checkin-btn'+(done?' done':'')+'" id="enCheckin">'+(done?'已打卡 ✓':'跟读打卡')+'</button></div>'+
-      '<div class="english-count">连续打卡 '+count+' 天</div>'+
-    '</div>';
-
-  var ttsBtn=document.getElementById('ttsBtn');
-  ttsBtn.onclick=function(){
-    if('speechSynthesis' in window){
-      speechSynthesis.cancel();
-      var u=new SpeechSynthesisUtterance(s.en);
-      u.lang='en-US';
-      u.rate=0.85;
-      speechSynthesis.speak(u);
-      ttsBtn.disabled=true;
-      u.onend=function(){ttsBtn.disabled=false;};
-      u.onerror=function(){ttsBtn.disabled=false;};
-    } else {
-      alert('当前浏览器不支持语音合成功能');
-    }
+  main.innerHTML='<div class="pt">日常口语英语学习</div><div class="pd">纯生活化口语 · 美式音频 · 每日更新</div>'+
+    '<div class="en-stats"><div class="en-stat"><div class="val">'+totalWords+'</div><div class="lbl">累计词汇</div></div><div class="en-stat"><div class="val">'+(done?1:0)+'</div><div class="lbl">今日学习</div></div><div class="en-stat"><div class="val">'+reviewed+'</div><div class="lbl">待复习</div></div></div>'+
+    '<div class="en-btns"><button class="btn btn-g" id="enNewWord">今日新词</button><button class="btn btn-o" id="enReview">艾宾浩斯复习</button><button class="btn btn-o" id="enMore">再来一组</button><button class="btn btn-o" id="enWordbook">生词本</button></div>'+
+    '<div class="en-card"><div class="en-sentence">'+s.en+'</div><div class="en-trans">'+s.zh+'</div><div class="en-words">'+s.words.map(function(w){return '<span class="en-word">'+w+'</span>'}).join('')+'</div><button class="tts-btn" id="ttsBtn">🔊 标准美式发音</button><div><button class="ck-btn'+(done?' done':'')+'" id="enCheckin">'+(done?'已打卡 ✓':'跟读打卡')+'</button></div></div>';
+  document.getElementById('ttsBtn').onclick=function(){
+    if('speechSynthesis'in window){speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(s.en);u.lang='en-US';u.rate=0.85;speechSynthesis.speak(u);this.disabled=true;var btn=this;u.onend=function(){btn.disabled=false};u.onerror=function(){btn.disabled=false}}else{alert('当前浏览器不支持语音合成')}
   };
-
-  var ckBtn=document.getElementById('enCheckin');
-  ckBtn.onclick=function(){
-    if(lsGet('fw_'+today+'_english_done')){
-      lsSet('fw_'+today+'_english_done','');
-    } else {
-      lsSet('fw_'+today+'_english_done','1');
-    }
-    renderEnglish(main);
-  };
+  document.getElementById('enCheckin').onclick=function(){if(lsGet('fw_'+today+'_english_done')){lsSet('fw_'+today+'_english_done','')}else{lsSet('fw_'+today+'_english_done','1')}renderEnglish(main)};
+  document.getElementById('enNewWord').onclick=function(){renderEnglish(main)};
+  document.getElementById('enMore').onclick=function(){renderEnglish(main)};
+  document.getElementById('enReview').onclick=function(){alert('复习功能：回顾最近7天学过的句子')};
+  document.getElementById('enWordbook').onclick=function(){alert('生词本：记录你还不熟悉的单词，方便集中复习')};
 }
 
-/* ========== 面板7: 运动打卡专区 ========== */
-var SPORT_VIDEOS={
-  baduanjin:[
-    {name:'八段锦完整版（国家体育总局）',url:'https://www.bilibili.com/video/BV1DT4y1N7Qs/'},
-    {name:'八段锦分解教学（慢动作跟练）',url:'https://www.bilibili.com/video/BV1z44y1E7pQ/'},
-    {name:'八段锦晨练10分钟版',url:'https://www.bilibili.com/video/BV1GJ411x7By/'}
-  ],
-  pamela:[
-    {name:'帕梅拉15分钟全身燃脂',url:'https://www.bilibili.com/video/BV1Gp4y1x7t1/'},
-    {name:'帕梅拉10分钟马甲线',url:'https://www.bilibili.com/video/BV1Lg4y1B7Tm/'},
-    {name:'帕梅拉20分钟有氧操',url:'https://www.bilibili.com/video/BV1Hv411q7Tg/'}
-  ]
-};
+/* ========== 面板9: 女性故事 ========== */
+var WOMEN_LIST=[
+  {name:'居里夫人',title:'两届诺贝尔奖得主',story:'玛丽·居里是历史上第一位获得诺贝尔奖的女性，也是唯一一位在两个不同科学领域（物理和化学）获奖的人。在巴黎求学时住在简陋阁楼里，常常靠面包和茶度日，冬天水都会结冰。她与丈夫皮埃尔在漏风的棚屋里用数吨沥青铀矿提炼出仅仅0.1克镭。即使面对丈夫意外离世的巨大打击，她依然接过了他的教鞭，成为巴黎大学第一位女教授。',quote:'生活中没有什么可怕的东西，只有需要理解的东西。'},
+  {name:'屠呦呦',title:'诺贝尔奖得主 · 青蒿素之母',story:'屠呦呦是中国本土培养的科学家，因发现青蒿素获得2015年诺贝尔生理学或医学奖。在文革期间的艰苦条件下，她带领团队查阅大量中国古代医学典籍，从葛洪的《肘后备急方》中获得灵感，经历了190次失败后终于提取出青蒿素。为了验证安全性，她甚至以身试药。这一发现拯救了全球数百万疟疾患者的生命。',quote:'青蒿素是中医药给世界的一份礼物。'},
+  {name:'张桂梅',title:'华坪女子高中创办者',story:'张桂梅在云南华坪县创办了全国第一所全免费女子高中。她身患多种疾病，却坚持每天5点起床，12点后才休息。12年间，她把1804名女孩送进了大学。她说："一个女孩走出去，改变的是三代人的命运。"她没有自己的孩子，却成了上千个女孩的"张妈妈"。',quote:'我生来就是高山而非溪流，我欲于群峰之巅俯视平庸的沟壑。'},
+  {name:'可可·香奈儿',title:'时尚革命家',story:'可可·香奈儿出身贫寒，在孤儿院长大。她从一家小帽子店起步，彻底改变了女性的穿衣方式——解放了女性从束身衣中，推出了小黑裙、香奈儿套装、5号香水。在那个男性主导的时代，她用自己的才华证明：女性不仅可以穿得自由，更可以活得自由。她一生都在工作，直到88岁去世前还在筹备下一场时装秀。',quote:'想要成为无可替代的人，就必须与众不同。'},
+  {name:'南丁格尔',title:'现代护理学之母',story:'南丁格尔出身英国上流社会，却毅然选择当时被视为"底层工作"的护理职业。在克里米亚战争中，她发现英军士兵死于疾病的数量是死于战伤的10倍。她用统计学方法分析死亡原因，用玫瑰图直观展示数据，成功说服军方改善卫生条件，将死亡率从42%降到2%。她不仅是一位伟大的护士，更是一位用数据改变世界的先驱。',quote:'我从不找借口，也不接受借口。'},
+  {name:'何泽慧',title:'中国的居里夫人',story:'何泽慧是中国第一代核物理学家，与丈夫钱三强一起发现了铀核三分裂和四分裂现象，被西方媒体称为"中国的居里夫人"。回国后她参与了中国核物理研究的开创工作，在极其简陋的条件下坚持科研。她一生淡泊名利，住在中关村的老房子里，直到晚年仍然骑自行车去研究所。',quote:'一个科学家应该对祖国和人民有所贡献。'},
+  {name:'奥黛丽·赫本',title:'奥斯卡影后 · 人道主义者',story:'奥黛丽·赫本不仅在银幕上留下了《罗马假日》《蒂凡尼的早餐》等经典，更在晚年将全部精力投入联合国儿童基金会的人道主义工作。二战期间她在荷兰经历饥荒，联合国救济救了她的命。成名后她决定回报这份恩情，多次深入非洲、亚洲的贫困地区为饥饿中的儿童奔走呼吁。即使身患癌症，她依然完成了最后一次索马里之行。',quote:'想拥有迷人的双唇，请说善意的言语。'},
+  {name:'林徽因',title:'中国第一位女建筑师',story:'林徽因与丈夫梁思成一起走遍中国15个省、190多个县，考察测绘了2738处古建筑。在战火纷飞的年代，她拖着病体在荒野中爬上爬下测量古建筑。她参与设计了国徽和人民英雄纪念碑，同时还是一位才华横溢的诗人和作家。她证明了女性可以在科学和艺术两个领域同时闪耀。',quote:'你是一树一树的花开，是燕在梁间呢喃。'},
+  {name:'金斯伯格',title:'美国最高法院大法官',story:'金斯伯格是美国历史上第二位女性最高法院大法官。她在哈佛法学院时，院长问她"如何解释你占据了一个本应属于男性的名额"。她以全班第一的成绩毕业，却因性别原因找不到律所工作。但她没有放弃，通过一个个具体案件推动性别平等法律改革。80多岁时她成了流行文化偶像，被年轻人称为"声名狼藉的RBG"。',quote:'女性要成为自己人生决策的主导者。'},
+  {name:'桑德伯格',title:'Facebook COO · 《向前一步》作者',story:'谢丽尔·桑德伯格是硅谷最有影响力的女性高管之一。她在谷歌从零搭建广告团队，后加入Facebook担任首席运营官。2013年她出版《向前一步》，鼓励女性不要在有机会之前就自我设限。丈夫意外去世后，她公开分享自己的悲痛和恢复过程，帮助无数经历逆境的人。她用行动证明：女性领导力不是模仿男性，而是带着同理心和韧性去领导。',quote:'完成比完美更重要。'},
+  {name:'刘洋',title:'中国首位女航天员',story:'2012年，刘洋乘坐神舟九号飞船进入太空，完成了中国首次载人交会对接任务。在训练中，她经历了与男性航天员同样严酷的考验：离心机8G过载、72小时狭小环境剥夺睡眠、水下失重训练。她用实力证明：在探索宇宙这件事上，性别从来不是限制。',quote:'太空不会因为你是女性就对你温柔以待，但它会因为你的准备而向你敞开。'},
+  {name:'阿达·洛芙莱斯',title:'世界第一位程序员',story:'在100多年前的1843年，阿达·洛芙莱斯为查尔斯·巴贝奇的分析机编写了第一个算法——一个计算伯努利数的程序。她甚至预见了计算机不仅能做计算，还能创作音乐和艺术——这个远见直到100年后才被验证。在那个女性不被允许接受高等教育的时代，她靠自学和家庭教师学习数学。',quote:'我的大脑绝不仅仅是凡人之物，它必将探索未知的领域。'},
+  {name:'董明珠',title:'格力电器董事长',story:'董明珠36岁时丈夫去世，她独自带着儿子从南京南下珠海，从一名普通销售员做起。她用"盯死客户"的笨办法，跑遍安徽市场，创下个人销售额3650万的纪录。凭借铁腕和魄力，她一路升到格力电器的掌门人，把格力打造成全球空调行业龙头。',quote:'对自己狠一点，逼自己努力，再过五年你将会感谢今天发狠的自己。'},
+  {name:'杨绛',title:'文学翻译家 · 《我们仨》作者',story:'杨绛是著名作家、文学翻译家，也是钱钟书的妻子。在特殊年代被下放干校劳动，却依然保持从容。晚年，女儿和丈夫相继去世后，她以92岁高龄开始写作《我们仨》，记录一家三口的温暖岁月。她活到105岁，在生命的最后阶段仍在整理钱钟书的遗稿。',quote:'我们曾如此渴望命运的波澜，到最后才发现：人生最曼妙的风景，竟是内心的淡定与从容。'},
+  {name:'吴健雄',title:'东方居里夫人',story:'吴健雄是中国裔美国物理学家，被誉为"东方居里夫人"。她设计了验证宇称不守恒理论的实验，这个实验直接帮助杨振宁和李振宁获得诺贝尔物理学奖——但她本人却未能分享这一荣誉。尽管如此，她从未抱怨，继续在实验物理领域做出卓越贡献。她是美国物理学会第一位女性会长。',quote:'不要因为别人不相信你，就怀疑自己。实验结果是最有力的回答。'},
+  {name:'马拉拉',title:'最年轻的诺贝尔和平奖得主',story:'马拉拉是巴基斯坦女孩，在塔利班控制地区为女孩的受教育权发声。11岁时她开始为BBC写匿名博客。2012年，15岁的她在校车上被塔利班枪击头部，奇迹般生还。康复后她没有沉默，反而更加坚定地为全球女童教育奔走。17岁时她获得诺贝尔和平奖，成为最年轻的诺贝尔奖得主。',quote:'一个孩子、一位教师、一支笔和一本书可以改变世界。'},
+  {name:'简·古道尔',title:'黑猩猩研究先驱',story:'简·古道尔26岁时前往坦桑尼亚贡贝溪国家公园，开始在野外观察黑猩猩。她没有大学学历，只有对动物的热爱和惊人的耐心。她花了数月时间让黑猩猩接受她的存在，最终发现了黑猩猩会制造和使用工具——这一发现颠覆了"只有人类会制造工具"的定论。她后来转型为环保活动家，每年300天在全球奔走。',quote:'每个人都很重要，每个人都能发挥作用，每个人都能带来变化。'},
+  {name:'王亚平',title:'中国首位太空授课教师',story:'王亚平在2013年乘坐神舟十号进入太空，在太空中进行了中国首次太空授课，向全国6000万学生直播演示了失重条件下的物理现象。2021年，她再次执行神舟十三号任务，成为中国首位出舱活动的女航天员，并在太空驻留183天，创造了中国航天员在轨驻留时长纪录。',quote:'太空不会区分性别，它只奖赏有准备的人。'},
+  {name:'梅耶·马斯克',title:'模特 · 营养学博士',story:'梅耶·马斯克在31岁时成为单亲妈妈，独自抚养三个孩子。她同时打五份工，生活艰辛却从不放弃自我成长。她在42岁时搬到加拿大重新开始，在50多岁时重返模特行业，69岁成为CoverGirl代言人，71岁登上时代广场广告牌。她的儿子埃隆·马斯克成为世界首富，但她从不依附于儿子的光环。',quote:'你不需要一个完美的开始，你只需要开始。'},
+  {name:'秋瑾',title:'中国女权运动先驱',story:'秋瑾冲破封建婚姻的束缚，东渡日本留学，结识了鲁迅、徐锡麟等革命志士。她创办了《中国女报》，倡导女性解放，提出"女学不兴，种族不强"的主张。1907年她策划安庆起义失败后被捕，面对审讯她写下"秋风秋雨愁煞人"七个字，从容就义，年仅32岁。',quote:'身不得，男儿列；心却比，男儿烈。'},
+  {name:'罗莎·帕克斯',title:'民权运动之母',story:'1955年12月1日，在阿拉巴马州的一辆公交车上，42岁的黑人女裁缝罗莎·帕克斯拒绝给白人乘客让座，因此被捕。这个看似简单的"不"字，点燃了美国民权运动的燎原之火。她的被捕引发了长达381天的蒙哥马利公交车抵制运动，最终导致公交种族隔离制度被废除。',quote:'我唯一疲倦的，是屈服。'},
+  {name:'海伦·凯勒',title:'在黑暗中找到光明',story:'海伦·凯勒在19个月大时因病失去了视力和听力，陷入了一个无声无光的世界。在老师安妮·沙利文的帮助下，她学会了通过触觉"阅读"和"说话"。她成为第一位获得文学学士学位的盲聋人，精通多种语言，一生写了14本书，更是一位社会活动家。',quote:'世界上最美好和最美好的东西是看不见也摸不到的，它们只能用心去感受。'},
+  {name:'吴仪',title:'中国铁娘子',story:'吴仪是中国改革开放后最重要的女性政治家之一。她从石油战线技术员做起，凭借出色的能力一步步走到国务院副总理的位置。在2003年非典危机中，她临危受命出任卫生部部长，以果断和透明的方式控制了疫情。在中美经贸谈判中，她以犀利和专业著称。',quote:'我从不在乎别人怎么评价我，我在乎的是我做了什么。'},
+  {name:'张纯如',title:'《南京暴行》作者',story:'张纯如是一位美籍华裔作家和记者。她在研究中发现了被西方世界遗忘的南京大屠杀历史，决心让这段真相被世界知道。她花了三年时间走访幸存者、查阅档案，于1997年出版了《南京暴行：被遗忘的大屠杀》。这本书登上《纽约时报》畅销书榜，让西方世界第一次大规模关注这一历史事件。',quote:'如果你忘了历史，历史就会重演。文字是武器，真相是力量。'},
+  {name:'赖斯',title:'首位非裔美国女性国务卿',story:'康多莉扎·赖斯在美国种族隔离的南方长大。小时候，她父亲告诉她："你可能吃不了这家餐厅，但你可以成为美国总统。"她没有成为总统，但成为了美国历史上第一位非裔女性国务卿。她是苏联问题专家，15岁进入大学，26岁获得博士学位，后成为斯坦福大学教授和教务长。',quote:'当你被低估时，最好的回应是用实力说话。'},
+  {name:'屠洪娇',title:'中国女航天员刘洋的老师',story:'（以刘洋为原型）刘洋是中国第一位进入太空的女航天员。2012年她乘坐神舟九号飞船进入太空，在训练中经历了与男性航天员同样严酷的考验。她用实力证明：在探索宇宙这件事上，性别从来不是限制。她激励了无数中国女孩仰望星空。',quote:'太空不会因为你是女性就对你温柔以待。'},
+  {name:'波什·赖斯',title:'首位非裔美国女性国务卿',story:'康多莉扎·赖斯在美国种族隔离的南方长大。她15岁进入大学，26岁获得博士学位，成为斯坦福大学教授。在布什政府中，她先后担任国家安全顾问和国务卿，是美国最有权力的女性之一。她证明了：出身和肤色不是限制，教育和准备才是通行证。',quote:'当你被低估时，最好的回应是用实力说话。'},
+  {name:'弗吉尼亚·伍尔夫',title:'意识流文学先驱',story:'弗吉尼亚·伍尔夫是20世纪最重要的现代主义作家之一。她在《一间自己的房间》中提出了著名论断："一个女人要想写小说，必须有钱和一间自己的房间。"她患有严重的心理健康问题，但从未停止创作，《达洛维夫人》《到灯塔去》等作品开创了意识流文学的新纪元。',quote:'一个人能使自己成为自己，比什么都重要。'},
+  {name:'安妮·弗兰克',title:'《安妮日记》作者',story:'安妮·弗兰克是一个犹太女孩，二战期间与家人躲在阿姆斯特丹一间密室中长达两年。13岁的她用日记记录了自己的恐惧、希望、成长和对世界的思考。最终她和家人被发现并送往集中营，安妮在Bergen-Belsen集中营去世，年仅15岁。但她的日记留存了下来，被翻译成60多种语言。',quote:'我仍然相信人心的善良。'},
+  {name:'珍·奥斯汀',title:'英国文学巨匠',story:'简·奥斯汀生活在18世纪末的英国，那个时代女性写作被认为"不体面"。她的所有作品都是在客厅里偷偷写的，有人来就把手稿藏起来。她终身未婚，靠微薄的收入生活，41岁去世时几乎无人知晓她的作家身份。但她留下的六部小说成为英语文学的经典。',quote:'我不会让贫穷折损我的浪漫，但也不会让浪漫蒙蔽我对现实的判断。'},
+  {name:'邓稼先夫人许鹿希',title:'隐忍坚守28年的科学家的妻子',story:'1958年，邓稼先告诉妻子许鹿希："我要调动工作了，不能告诉你去哪里。"从此，许鹿希独自抚养两个孩子，等待了整整28年。直到1986年，邓稼先因核辐射导致癌症晚期被接回北京，两人才重逢。28天的相聚后，邓稼先离世。许鹿希用余生整理丈夫的遗稿。',quote:'我等你28年，不是因为我不苦，是因为我知道你在做一件更重要的事。'}
+];
+function renderWomen(main){
+  var today=getTodayStr();
+  var seed=dateSeed(0);
+  var idx=Math.floor(sRand(seed)*WOMEN_LIST.length);
+  var w=WOMEN_LIST[idx];
+  var key='fw_'+today+'_woman_thought';
+  var thought=lsGet(key)||'';
+  main.innerHTML='<div class="pt">伟大女性故事打卡</div><div class="pd">每日1位优秀女性 · 故事+金句+心得</div><div class="card"><div class="wm-name">'+w.name+'</div><div class="wm-title">'+w.title+'</div><div class="wm-story">'+w.story+'</div><div class="wm-quote">「'+w.quote+'」</div><div style="margin-top:14px"><label style="font-size:11.5px;font-weight:600;color:var(--green-deep);display:block;margin-bottom:5px">阅读心得打卡</label><textarea class="meal-input" id="womanThought" placeholder="写下你的感悟...（自动保存）" style="min-height:60px">'+thought+'</textarea></div></div>';
+  var input=document.getElementById('womanThought');
+  input.addEventListener('input',debounce(function(){lsSet(key,input.value)},500));
+}
 
+/* ========== 面板10: 中级会计 ========== */
+var EXAM_DATE='2026-09-05';
+var STUDY_CHAPTERS=[
+  {name:'第一章 存货',points:'存货初始计量、发出计价、期末计量',examPoint:'存货可变现净值的确定：有合同按合同价，无合同按市场价。材料跌价取决于其生产的产成品是否跌价。',quiz1:'甲公司期末库存商品100件，成本80元/件，市场售价70元/件，预计销售费用5元/件。问期末存货价值？',a1:'可变现净值=70-5=65元/件，低于成本80元，应计提跌价准备=(80-65)×100=1500元。期末存货价值=6500元。',quiz2:'乙公司原材料成本50万元，可用于生产A产品。A产品成本100万元，可变现净值120万元。问原材料是否跌价？',a2:'A产品可变现净值120万>成本100万，未跌价，故原材料不计提跌价准备，按成本50万元计量。'},
+  {name:'第二章 固定资产',points:'取得、折旧、后续支出、处置',examPoint:'双倍余额递减法最后两年改为直线法。年数总和法折旧率=尚可使用年限/年数总和×2。',quiz1:'设备原值100万，预计使用5年，净残值5万。双倍余额递减法第1年折旧？',a1:'年折旧率=2/5=40%。第1年折旧=100×40%=40万。注意双倍余额递减法初期不考虑残值。',quiz2:'同上设备，年数总和法第2年折旧？',a2:'年数总和=1+2+3+4+5=15。第2年折旧率=4/15。折旧额=(100-5)×4/15=25.33万。'},
+  {name:'第三章 无形资产',points:'研发支出资本化/费用化、摊销、减值',examPoint:'研究阶段全部费用化，开发阶段满足条件资本化。使用寿命不确定的无形资产不摊销但每年减值测试。',quiz1:'甲公司研发新产品，研究阶段支出200万，开发阶段符合资本化条件支出300万。问无形资产入账价值？',a1:'研究阶段200万费用化计入当期损益。开发阶段300万资本化。无形资产入账价值=300万。',quiz2:'乙公司一项专利权，成本500万，使用寿命10年，已摊销3年。现发现技术更新，可收回金额200万。问减值损失？',a2:'账面价值=500-500/10×3=350万。可收回金额200万<350万，计提减值准备=350-200=150万。'},
+  {name:'第四章 投资性房地产',points:'成本模式vs公允价值模式、转换',examPoint:'公允价值模式不计提折旧、不摊销，期末按公允价值调整，差额计入公允价值变动损益。',quiz1:'甲公司投资性房地产采用公允价值模式，成本1000万，年末公允价值1200万。问会计处理？',a1:'借：投资性房地产-公允价值变动 200万；贷：公允价值变动损益 200万。不计提折旧。',quiz2:'自用房地产转为投资性房地产（公允价值模式），账面价值800万，公允价值900万。问处理？',a2:'公允价值900万>账面价值800万，差额100万计入其他综合收益（防止操纵利润）。'},
+  {name:'第五章 长期股权投资',points:'成本法、权益法、转换处理（重点）',examPoint:'权益法下，初始投资成本调整：成本<享有被投资方可辨认净资产公允价值份额的，差额调增长投，计入营业外收入。',quiz1:'甲公司以银行存款500万购入乙公司30%股权，能施加重大影响。乙公司可辨认净资产公允价值2000万。问初始处理？',a1:'享有份额=2000×30%=600万>成本500万，差额100万调增长投，计入营业外收入。调整后长投账面价值=600万。',quiz2:'承上题，乙公司当年实现净利润300万。问甲公司会计处理？',a2:'确认投资收益=300×30%=90万。借：长期股权投资-损益调整 90万；贷：投资收益 90万。长投账面价值=600+90=690万。'},
+  {name:'第七章 资产减值',points:'可收回金额、减值测试、商誉减值',examPoint:'可收回金额=max(公允价值减去处置费用后的净额, 预计未来现金流量的现值)。资产减值损失一经确认不得转回。',quiz1:'设备账面价值500万，公允价值减处置费用420万，预计未来现金流量现值450万。问减值损失？',a1:'可收回金额=max(420,450)=450万。减值损失=500-450=50万。',quiz2:'商誉减值测试时，含商誉的资产组账面价值1000万，可收回金额800万。商誉账面价值200万。问商誉减值？',a2:'资产组减值损失=1000-800=200万。先冲减商誉200万，商誉全额减值。剩余减值0万分配给其他资产。'},
+  {name:'第八章 金融资产',points:'三类分类及计量、重分类',examPoint:'以公允价值计量且其变动计入其他综合收益的金融资产（债权），处置时其他综合收益转入投资收益。',quiz1:'甲公司购入债券分类为以公允价值计量且其变动计入其他综合收益的金融资产，成本100万，年末公允价值105万。问处理？',a1:'借：其他债权投资-公允价值变动 5万；贷：其他综合收益 5万。',quiz2:'承上题，次年2月以108万出售。问处置处理？',a2:'借：银行存款108万；贷：其他债权投资-成本100万、其他债权投资-公允价值变动5万、投资收益3万。同时借：其他综合收益5万；贷：投资收益5万。'},
+  {name:'第十三章 所得税',points:'递延所得税资产/负债、税率变化',examPoint:'可抵扣暂时性差异确认递延所得税资产，应纳税暂时性差异确认递延所得税负债。',quiz1:'甲公司资产账面价值600万，计税基础500万。所得税率25%。问递延所得税处理？',a1:'应纳税暂时性差异=600-500=100万。确认递延所得税负债=100×25%=25万。借：所得税费用25万；贷：递延所得税负债25万。',quiz2:'甲公司预计负债（产品质量保证）100万，税法实际发生时才允许扣除。所得税率25%。问处理？',a2:'可抵扣暂时性差异=100万。确认递延所得税资产=100×25%=25万。借：递延所得税资产25万；贷：所得税费用25万。'},
+  {name:'第十八章 收入',points:'五步法模型、合同变更（重点）',examPoint:'五步法：识别合同→识别履约义务→确定交易价格→分摊交易价格→确认收入。某一时点vs某一时段确认。',quiz1:'甲公司销售商品100万，附7天无理由退货。根据历史经验退货率5%。问收入确认？',a1:'确认收入=100×(1-5%)=95万。预计负债=100×5%=5万。借：应收账款100万；贷：主营业务收入95万、预计负债5万。',quiz2:'甲公司签合同为客户装修，总价50万，预计成本35万。装修属于某一时段履约。截至年末完工40%。问收入确认？',a2:'按履约进度确认收入=50×40%=20万。成本=35×40%=14万。借：合同结算-收入结转20万；贷：主营业务收入20万。'},
+  {name:'第二十一章 企业合并',points:'同一控制下/非同一控制下合并（重点）',examPoint:'同一控制下合并按账面价值处理，不产生商誉。非同一控制下按公允价值处理，差额确认为商誉。',quiz1:'甲公司以银行存款800万购入乙公司100%股权（非同控）。乙公司可辨认净资产公允价值750万。问处理？',a1:'合并成本800万>可辨认净资产公允价值750万，差额50万确认为商誉。借：长期股权投资750万、商誉50万；贷：银行存款800万。',quiz2:'甲公司以银行存款600万购入乙公司100%股权（同控）。乙公司账面价值700万。问处理？',a2:'同控下按账面价值700万确认长投。差额=700-600=100万调整资本公积。借：长期股权投资700万；贷：银行存款600万、资本公积100万。'},
+  {name:'第二十二章 合并财务报表',points:'合并范围、抵销分录（重点难点）',examPoint:'母公司对子公司投资与子公司所有者权益抵销。内部交易未实现利润抵销。',quiz1:'母公司对子公司100%投资800万，子公司实收资本500万、资本公积100万、盈余公积50万、未分配利润150万。问合并抵销分录？',a1:'借：实收资本500万、资本公积100万、盈余公积50万、未分配利润150万；贷：长期股权投资800万。（净资产合计800万=投资800万，无商誉）',quiz2:'母公司销售商品给子公司，售价200万，成本150万，子公司年末尚未对外销售。问合并抵销？',a2:'内部未实现利润=200-150=50万。借：营业收入200万；贷：营业成本150万、存货50万。'},
+  {name:'第十五章 租赁',points:'承租人模型、使用权资产',examPoint:'承租人不再区分经营租赁和融资租赁，统一确认使用权资产和租赁负债。',quiz1:'甲公司租入设备，租期3年，每年租金100万，折现率5%。问初始处理？（PA,3,5%=2.7232）',a1:'租赁负债=100×2.7232=272.32万。使用权资产=272.32万。借：使用权资产272.32万；贷：租赁负债272.32万。',quiz2:'承上题，第一年末支付租金100万并确认利息。问处理？',a2:'利息费用=272.32×5%=13.62万。借：租赁负债86.38万、利息费用13.62万；贷：银行存款100万。同时使用权资产摊销。'},
+  {name:'第十章 股份支付',points:'权益结算vs现金结算、可行权条件',examPoint:'权益结算以授予日公允价值计量，现金结算以每个资产负债表日公允价值重新计量。',quiz1:'甲公司授予100名员工每人1万份股票期权，授予日公允价值5元/份。预计全部可行权。第一年无人离职。问处理？',a1:'确认费用=100×1×5=500万。借：管理费用500万；贷：资本公积-其他资本公积500万。',quiz2:'承上题，第二年10人离职，预计总共20人离职。问第二年处理？',a2:'第一年已确认500万。两年累计应确认=(100-20)×1×5=400万。第二年冲回=400-500=-100万。借：资本公积100万；贷：管理费用100万。'},
+  {name:'第十二章 债务重组',points:'债权人/债务人会计处理',examPoint:'以非金融资产清偿债务的，债权人受让资产按公允价值初始计量。债务人将重组差额计入投资收益。',quiz1:'甲公司欠乙公司500万货款，以一批库存商品抵债，商品公允价值400万，成本300万。问债务人处理？',a1:'债务重组收益=500-400=100万。商品视同销售确认收入。借：应付账款500万；贷：主营业务收入400万、投资收益100万。同时结转成本。',quiz2:'债权人乙公司受让该商品。问处理？',a2:'受让商品按公允价值400万入账。借：库存商品400万、投资收益100万；贷：应收账款500万。'},
+  {name:'第九章 职工薪酬',points:'短期/离职后/辞退福利',examPoint:'辞退福利一律在发生时计入管理费用，不按受益对象分配。',quiz1:'甲公司辞退10名员工，每人补偿20万。问处理？',a1:'辞退福利=10×20=200万。借：管理费用200万；贷：应付职工薪酬-辞退福利200万。',quiz2:'甲公司设定利润分享计划，当年净利润超1000万部分提取5%作为奖金。当年净利润1500万。问处理？',a2:'利润分享=(1500-1000)×5%=25万。借：管理费用25万；贷：应付职工薪酬-短期薪酬25万。'}
+];
+var PHASES=[
+  {id:'basic',name:'基础阶段',sub:'第1-8章 · 逐章学习',range:[0,8]},
+  {id:'intensive',name:'强化刷题阶段',sub:'第9-16章 · 重点攻坚',range:[8,16]},
+  {id:'sprint',name:'冲刺背诵阶段',sub:'第17-27章 + 真题模拟',range:[16,STUDY_CHAPTERS.length]}
+];
+var curPhase='basic';
+function renderAccounting(main){
+  var examDate=new Date(EXAM_DATE);var now=new Date();var days=Math.ceil((examDate-now)/(1000*60*60*24));
+  var totalDone=0;STUDY_CHAPTERS.forEach(function(c){if(lsGet('fw_chapter_done_'+c.name))totalDone++});
+  var totalChap=STUDY_CHAPTERS.length;
+  main.innerHTML='<div class="pt">中级会计实务 · 单科备考</div><div class="pd">分阶段学习 · 章节打卡 · 核心考点 · 随堂练习</div><div class="exam-cd"><div class="days">'+days+'</div><div class="lbl">距2026年9月5日考试</div></div><div class="card"><div class="card-t"><span class="dot"></span>总体进度 '+totalDone+'/'+totalChap+' 章</div><div class="pw"><div class="pf" style="width:'+Math.round(totalDone/totalChap*100)+'%"></div></div><div class="pl">'+Math.round(totalDone/totalChap*100)+'%</div></div><div class="phase-tabs" id="phaseTabs"></div><div class="card" id="chapterCard"></div><div class="card" id="studyLogCard"></div>';
+  var tabsEl=document.getElementById('phaseTabs');
+  PHASES.forEach(function(p){var tab=document.createElement('div');tab.className='phase-tab'+(p.id===curPhase?' active':'');tab.innerHTML=p.name+'<div class="ps">'+p.sub+'</div>';tab.onclick=function(){curPhase=p.id;renderAccounting(main)};tabsEl.appendChild(tab)});
+  var phase=PHASES.find(function(p){return p.id===curPhase});
+  var chapEl=document.getElementById('chapterCard');
+  chapEl.innerHTML='<div class="card-t"><span class="dot"></span>'+phase.name+'章节任务</div>';
+  var chapters=STUDY_CHAPTERS.slice(phase.range[0],phase.range[1]);
+  chapters.forEach(function(c){
+    var done=!!lsGet('fw_chapter_done_'+c.name);
+    var item=document.createElement('div');item.className='chap-task';
+    item.innerHTML='<div class="chap-dot'+(done?' done':'')+'"></div><div class="chap-ct"><div class="chap-nm">'+c.name+'</div><div class="chap-pt">核心考点：'+c.points+'</div></div>';
+    item.onclick=function(){if(done){lsSet('fw_chapter_done_'+c.name,'')}else{lsSet('fw_chapter_done_'+c.name,'1')}renderAccounting(main)};
+    chapEl.appendChild(item);
+    /* 核心考点 */
+    if(c.examPoint){
+      var ep=document.createElement('div');ep.className='exam-point';
+      ep.innerHTML='<div class="ept">📌 高频考点：'+c.name+'</div><div class="epv">'+c.examPoint+'</div>';
+      chapEl.appendChild(ep);
+    }
+    /* 随堂练习题 */
+    if(c.quiz1){
+      var q1=document.createElement('div');q1.className='quiz-item';
+      q1.innerHTML='<div class="quiz-q">练习1：'+c.quiz1+'</div><div class="quiz-a" id="qa1_'+c.name.replace(/[^a-zA-Z0-9]/g,'')+'">'+c.a1+'</div><button class="btn-mini link" onclick="document.getElementById(\'qa1_'+c.name.replace(/[^a-zA-Z0-9]/g,'')+'\').classList.toggle(\'show\')">查看答案</button>';
+      chapEl.appendChild(q1);
+    }
+    if(c.quiz2){
+      var q2=document.createElement('div');q2.className='quiz-item';
+      q2.innerHTML='<div class="quiz-q">练习2：'+c.quiz2+'</div><div class="quiz-a" id="qa2_'+c.name.replace(/[^a-zA-Z0-9]/g,'')+'">'+c.a2+'</div><button class="btn-mini link" onclick="document.getElementById(\'qa2_'+c.name.replace(/[^a-zA-Z0-9]/g,'')+'\').classList.toggle(\'show\')">查看答案</button>';
+      chapEl.appendChild(q2);
+    }
+  });
+  /* 学习时长 */
+  var logKey='fw_'+getTodayStr()+'_study_log';
+  var logVal=lsGet(logKey)||'';
+  var logCard=document.getElementById('studyLogCard');
+  logCard.innerHTML='<div class="card-t"><span class="dot"></span>今日学习时长打卡</div>当前记录：<span style="font-size:13px;font-weight:600;color:var(--green-deep)">'+(logVal||'未记录')+'</span><div class="acct-form" style="grid-template-columns:1fr auto;margin-top:8px"><input type="number" id="studyHours" placeholder="学习小时数，如2.5" min="0" step="0.5"><button class="btn btn-g" id="logStudyBtn">记录</button></div>';
+  /* 断卡补学计划 */
+  var yesterdayDone=false;
+  var yd=new Date();yd.setDate(yd.getDate()-1);
+  var yds=yd.getFullYear()+'-'+String(yd.getMonth()+1).padStart(2,'0')+'-'+String(yd.getDate()).padStart(2,'0');
+  if(!lsGet('fw_'+yds+'_study_done')){
+    logCard.innerHTML+='<div style="margin-top:12px;padding:10px 12px;background:rgba(180,100,100,.05);border-radius:var(--radius-sm);font-size:11px;color:#a06060">📅 检测到昨日未打卡备考。补学计划：今日请额外完成昨日遗漏章节的复习，建议增加30分钟学习时间。</div>';
+  }
+  document.getElementById('logStudyBtn').onclick=function(){var h=parseFloat(document.getElementById('studyHours').value);if(h>0){lsSet(logKey,String(h));lsSet('fw_'+getTodayStr()+'_study_done','1');renderAccounting(main)}};
+}
+
+/* ========== 面板11: 运动 ========== */
+var SPORT_VIDEOS={baduanjin:[{name:'八段锦完整版（国家体育总局）',url:'https://www.bilibili.com/video/BV1DT4y1N7Qs/'},{name:'八段锦分解教学（慢动作跟练）',url:'https://www.bilibili.com/video/BV1z44y1E7pQ/'},{name:'八段锦晨练10分钟版',url:'https://www.bilibili.com/video/BV1GJ411x7By/'}],pamela:[{name:'帕梅拉15分钟全身燃脂',url:'https://www.bilibili.com/video/BV1Gp4y1x7t1/'},{name:'帕梅拉10分钟马甲线',url:'https://www.bilibili.com/video/BV1Lg4y1B7Tm/'},{name:'帕梅拉20分钟有氧操',url:'https://www.bilibili.com/video/BV1Hv411q7Tg/'}]};
 function renderSport(main){
-  var today=getTodayStr();
-  var now=new Date();
-  var dayOfWeek=now.getDay()===0?7:now.getDay();
-  /* 本周日期（周一到周日） */
-  var weekDates=[];
-  for(var i=1;i<=7;i++){
-    var d=new Date(now);
-    d.setDate(now.getDate()-dayOfWeek+i);
-    weekDates.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'));
-  }
-
-  /* 统计本周完成 */
-  var weekDone=0;
-  weekDates.forEach(function(ds){
-    if(lsGet('fw_'+ds+'_sport_done')) weekDone++;
-  });
+  var today=getTodayStr();var now=new Date();var dow=now.getDay()===0?7:now.getDay();
+  var weekDates=[];for(var i=1;i<=7;i++){var d=new Date(now);d.setDate(now.getDate()-dow+i);weekDates.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'))}
+  var weekDone=0;weekDates.forEach(function(ds){if(lsGet('fw_'+ds+'_sport_done'))weekDone++});
   var weekTarget=3;
-
-  /* 月度统计 */
-  var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  var monthDone=0;
-  for(var j=1;j<=now.getDate();j++){
-    var ds=ym+'-'+String(j).padStart(2,'0');
-    if(lsGet('fw_'+ds+'_sport_done')) monthDone++;
-  }
+  var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');var monthDone=0;
+  for(var j=1;j<=now.getDate();j++){var ds=ym+'-'+String(j).padStart(2,'0');if(lsGet('fw_'+ds+'_sport_done'))monthDone++}
   var monthPct=Math.round(monthDone/now.getDate()*100);
-
-  var todayDone=lsGet('fw_'+today+'_sport_done');
-  var todayType=lsGet('fw_'+today+'_sport_type')||'';
-
-  main.innerHTML='<div class="panel-title">运动打卡专区</div>'+
-    '<div class="panel-desc">每周3次 · 八段锦 / 帕梅拉 · 视频跟练</div>'+
-    '<div class="card">'+
-      '<div class="card-title"><span class="dot"></span>本周目标 '+weekDone+'/'+weekTarget+' 次</div>'+
-      '<div class="progress-wrap"><div class="progress-fill" style="width:'+Math.min(weekDone/weekTarget*100,100)+'%"></div></div>'+
-      '<div class="progress-label">月度完成率 '+monthPct+'%（本月'+monthDone+'天）</div>'+
-      '<div class="weekly-dots" style="margin-top:12px;">';
+  var todayDone=!!lsGet('fw_'+today+'_sport_done');var todayType=lsGet('fw_'+today+'_sport_type')||'';
   var dayNames=['一','二','三','四','五','六','日'];
-  weekDates.forEach(function(ds,i){
-    var done=lsGet('fw_'+ds+'_sport_done');
-    var isToday=ds===today;
-    main.innerHTML+='<div class="weekly-dot'+(done?' done':'')+(isToday?' today':'')+'" data-date="'+ds+'">'+dayNames[i]+'</div>';
-  });
-  main.innerHTML+='</div></div>';
-
-  main.innerHTML+='<div class="card">'+
-    '<div class="card-title"><span class="dot"></span>今日打卡</div>'+
-    '<div style="display:flex;gap:10px;align-items:center;">'+
-    '<button class="checkin-btn'+(todayType==='baduanjin'?' done':'')+'" id="sportBtn1">八段锦打卡</button>'+
-    '<button class="checkin-btn'+(todayType==='pamela'?' done':'')+'" id="sportBtn2">帕梅拉打卡</button>'+
-    '</div></div>';
-
-  main.innerHTML+='<div class="sport-grid">'+
-    '<div class="sport-card"><div class="sport-name">八段锦</div>';
-  SPORT_VIDEOS.baduanjin.forEach(function(v){
-    main.innerHTML+='<a class="sport-link" href="'+v.url+'" target="_blank">'+v.name+'</a>';
-  });
-  main.innerHTML+='</div><div class="sport-card"><div class="sport-name">帕梅拉</div>';
-  SPORT_VIDEOS.pamela.forEach(function(v){
-    main.innerHTML+='<a class="sport-link" href="'+v.url+'" target="_blank">'+v.name+'</a>';
-  });
-  main.innerHTML+='</div></div>';
-
-  main.innerHTML='<div class="panel-title">运动打卡专区</div>'+
-    '<div class="panel-desc">每周3次 · 八段锦 / 帕梅拉 · 视频跟练</div>'+
-    main.innerHTML;
-
-  /* 重新设置innerHTML（因为上面拼接有问题，需要重新构建） */
-  var fullHtml='<div class="panel-title">运动打卡专区</div>'+
-    '<div class="panel-desc">每周3次 · 八段锦 / 帕梅拉 · 视频跟练</div>'+
-    '<div class="card">'+
-      '<div class="card-title"><span class="dot"></span>本周目标 '+weekDone+'/'+weekTarget+' 次</div>'+
-      '<div class="progress-wrap"><div class="progress-fill" style="width:'+Math.min(weekDone/weekTarget*100,100)+'%"></div></div>'+
-      '<div class="progress-label">月度完成率 '+monthPct+'%（本月'+monthDone+'天）</div>'+
-      '<div class="weekly-dots" style="margin-top:12px;">';
-  weekDates.forEach(function(ds,i){
-    var done=lsGet('fw_'+ds+'_sport_done');
-    var isToday=ds===today;
-    fullHtml+='<div class="weekly-dot'+(done?' done':'')+(isToday?' today':'')+'">'+dayNames[i]+'</div>';
-  });
-  fullHtml+='</div></div>';
-
-  fullHtml+='<div class="card">'+
-    '<div class="card-title"><span class="dot"></span>今日打卡</div>'+
-    '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">'+
-    '<button class="checkin-btn'+(todayType==='baduanjin'?' done':'')+'" id="sportBtn1">八段锦打卡</button>'+
-    '<button class="checkin-btn'+(todayType==='pamela'?' done':'')+'" id="sportBtn2">帕梅拉打卡</button>'+
-    (todayDone?'<span style="font-size:11px;color:var(--accent);">今日已完成 ✓</span>':'')+
-    '</div></div>';
-
-  fullHtml+='<div class="sport-grid">'+
-    '<div class="sport-card"><div class="sport-name">八段锦</div>';
-  SPORT_VIDEOS.baduanjin.forEach(function(v){
-    fullHtml+='<a class="sport-link" href="'+v.url+'" target="_blank">'+v.name+'</a>';
-  });
-  fullHtml+='</div><div class="sport-card"><div class="sport-name">帕梅拉</div>';
-  SPORT_VIDEOS.pamela.forEach(function(v){
-    fullHtml+='<a class="sport-link" href="'+v.url+'" target="_blank">'+v.name+'</a>';
-  });
-  fullHtml+='</div></div>';
-
-  main.innerHTML=fullHtml;
-
-  document.getElementById('sportBtn1').onclick=function(){
-    if(todayType==='baduanjin'){
-      lsSet('fw_'+today+'_sport_done','');
-      lsSet('fw_'+today+'_sport_type','');
-    } else {
-      lsSet('fw_'+today+'_sport_done','1');
-      lsSet('fw_'+today+'_sport_type','baduanjin');
-    }
-    renderSport(main);
-  };
-  document.getElementById('sportBtn2').onclick=function(){
-    if(todayType==='pamela'){
-      lsSet('fw_'+today+'_sport_done','');
-      lsSet('fw_'+today+'_sport_type','');
-    } else {
-      lsSet('fw_'+today+'_sport_done','1');
-      lsSet('fw_'+today+'_sport_type','pamela');
-    }
-    renderSport(main);
-  };
-}
-
-/* ========== 面板8: 打卡数据统计总览 ========== */
-function calcStreak(keySuffix){
-  var streak=0;
-  for(var i=0;i<365;i++){
-    var d=new Date(); d.setDate(d.getDate()-i);
-    var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-    if(lsGet('fw_'+ds+'_'+keySuffix)) streak++; else break;
+  var html='<div class="pt">运动打卡专区</div><div class="pd">每周3次 · 八段锦/帕梅拉 · 视频跟练</div>';
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>本周目标 '+weekDone+'/'+weekTarget+' 次</div><div class="pw"><div class="pf" style="width:'+Math.min(weekDone/weekTarget*100,100)+'%"></div></div><div class="pl">月度完成率 '+monthPct+'%（本月'+monthDone+'天）</div><div class="wk-dots">';
+  weekDates.forEach(function(ds,i){var done=!!lsGet('fw_'+ds+'_sport_done');var isToday=ds===today;html+='<div class="wk-dot'+(done?' done':'')+(isToday?' today':'')+'">'+dayNames[i]+'</div>'});
+  html+='</div></div>';
+  /* 补练计划 */
+  if(weekDone<weekTarget){
+    var remain=weekTarget-weekDone;var daysLeft=7-dow+1;
+    html+='<div style="padding:9px 13px;background:rgba(212,165,116,.1);border-radius:var(--radius-sm);font-size:11px;color:#b07830;margin-bottom:14px">🏃 补练计划：本周还差'+remain+'次运动，剩余'+daysLeft+'天。建议今天或明天完成1次'+(remain>1?'，后天再完成1次':'')+'。</div>';
   }
-  return streak;
-}
-function calcYesterdayCount(){
-  var items=['study','english','sport','review'];
-  var count=0;
-  var d=new Date(); d.setDate(d.getDate()-1);
-  var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  items.forEach(function(it){
-    if(lsGet('fw_'+ds+'_'+it+'_done')||lsGet('fw_'+ds+'_'+it)) count++;
-  });
-  /* review 特殊：检查有内容 */
-  if(lsGet('fw_'+ds+'_review')) count++;
-  return count;
-}
-function calcMonthRate(keySuffix){
-  var now=new Date();
-  var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  var done=0;
-  for(var j=1;j<=now.getDate();j++){
-    var ds=ym+'-'+String(j).padStart(2,'0');
-    if(lsGet('fw_'+ds+'_'+keySuffix)) done++;
-  }
-  return {done:done,total:now.getDate(),pct:Math.round(done/now.getDate()*100)};
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>今日打卡</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="ck-btn'+(todayType==='baduanjin'?' done':'')+'" id="sportBtn1">八段锦打卡</button><button class="ck-btn'+(todayType==='pamela'?' done':'')+'" id="sportBtn2">帕梅拉打卡</button>'+(todayDone?'<span style="font-size:11px;color:var(--green)">今日已完成 ✓</span>':'')+'</div></div>';
+  html+='<div class="sport-grid"><div class="sport-card"><div class="sport-nm">八段锦</div>';
+  SPORT_VIDEOS.baduanjin.forEach(function(v){html+='<a class="sport-link" href="'+v.url+'" target="_blank">'+v.name+'</a>'});
+  html+='</div><div class="sport-card"><div class="sport-nm">帕梅拉</div>';
+  SPORT_VIDEOS.pamela.forEach(function(v){html+='<a class="sport-link" href="'+v.url+'" target="_blank">'+v.name+'</a>'});
+  html+='</div></div>';
+  main.innerHTML=html;
+  document.getElementById('sportBtn1').onclick=function(){if(todayType==='baduanjin'){lsSet('fw_'+today+'_sport_done','');lsSet('fw_'+today+'_sport_type','')}else{lsSet('fw_'+today+'_sport_done','1');lsSet('fw_'+today+'_sport_type','baduanjin')}renderSport(main)};
+  document.getElementById('sportBtn2').onclick=function(){if(todayType==='pamela'){lsSet('fw_'+today+'_sport_done','');lsSet('fw_'+today+'_sport_type','')}else{lsSet('fw_'+today+'_sport_done','1');lsSet('fw_'+today+'_sport_type','pamela')}renderSport(main)};
 }
 
+/* ========== 面板12: 统计 ========== */
+function calcStreak(suffix){var s=0;for(var i=0;i<365;i++){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(lsGet('fw_'+ds+'_'+suffix))s++;else break}return s}
+function calcReviewStreak(){var s=0;for(var i=0;i<365;i++){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(lsGet('fw_'+ds+'_review'))s++;else break}return s}
+function calcMonthRate(suffix){var now=new Date();var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');var done=0;for(var j=1;j<=now.getDate();j++){var ds=ym+'-'+String(j).padStart(2,'0');if(lsGet('fw_'+ds+'_'+suffix))done++}return{done:done,total:now.getDate(),pct:Math.round(done/now.getDate()*100)}}
+function calcReviewRate(){var now=new Date();var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');var done=0;for(var j=1;j<=now.getDate();j++){var ds=ym+'-'+String(j).padStart(2,'0');if(lsGet('fw_'+ds+'_review'))done++}return{done:done,total:now.getDate(),pct:Math.round(done/now.getDate()*100)}}
 function renderStats(main){
-  var today=getTodayStr();
-  var now=new Date();
-
-  /* 计算各项数据 */
-  var studyStreak=calcStreak('study_done');
-  var enStreak=calcStreak('english_done');
-  var sportStreak=calcStreak('sport_done');
-  /* review: 有内容的算打卡 */
-  var reviewStreak=0;
-  for(var i=0;i<365;i++){
-    var d=new Date(); d.setDate(d.getDate()-i);
-    var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-    if(lsGet('fw_'+ds+'_review')) reviewStreak++; else break;
-  }
-
-  var studyRate=calcMonthRate('study_done');
-  var enRate=calcMonthRate('english_done');
-  var sportRate=calcMonthRate('sport_done');
-  var reviewRate={done:0,total:now.getDate(),pct:0};
-  var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  for(var j=1;j<=now.getDate();j++){
-    var ds=ym+'-'+String(j).padStart(2,'0');
-    if(lsGet('fw_'+ds+'_review')) reviewRate.done++;
-  }
-  reviewRate.pct=Math.round(reviewRate.done/reviewRate.total*100);
-
-  /* todo 完成率 */
-  var todoRate={done:0,total:0,pct:0};
-  for(var j=1;j<=now.getDate();j++){
-    var ds=ym+'-'+String(j).padStart(2,'0');
-    var td=lsGet('fw_'+ds+'_todos');
-    if(td){ try{ var arr=JSON.parse(td); todoRate.total++; if(arr.filter(function(t){return t.done;}).length===arr.length) todoRate.done++; }catch(e){} }
-  }
-  todoRate.pct=todoRate.total>0?Math.round(todoRate.done/todoRate.total*100):0;
-
+  var now=new Date();var today=getTodayStr();
+  var stS=calcStreak('study_done'),enS=calcStreak('english_done'),spS=calcStreak('sport_done'),rvS=calcReviewStreak();
+  var stR=calcMonthRate('study_done'),enR=calcMonthRate('english_done'),spR=calcMonthRate('sport_done'),rvR=calcReviewRate();
+  /* todo全完成率 */
+  var tdR={done:0,total:0,pct:0};var ym=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  for(var j=1;j<=now.getDate();j++){var ds=ym+'-'+String(j).padStart(2,'0');var td=lsGet('fw_'+ds+'_todos');if(td){try{var arr=JSON.parse(td);tdR.total++;if(arr.filter(function(t){return t.done}).length===arr.length)tdR.done++}catch(e){}}}
+  tdR.pct=tdR.total>0?Math.round(tdR.done/tdR.total*100):0;
   /* 断卡检测 */
-  var yesterdayCount=calcYesterdayCount();
-  var broken=yesterdayCount<3;
-
-  /* 最长连续 */
-  var maxStreak=Math.max(studyStreak,enStreak,sportStreak,reviewStreak);
-
-  /* 历史记录（近14天） */
-  var history=[];
-  for(var i=13;i>=0;i--){
-    var d=new Date(); d.setDate(d.getDate()-i);
-    var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-    var rec={date:ds,study:!!lsGet('fw_'+ds+'_study_done'),english:!!lsGet('fw_'+ds+'_english_done'),sport:!!lsGet('fw_'+ds+'_sport_done'),review:!!lsGet('fw_'+ds+'_review')};
-    var td=lsGet('fw_'+ds+'_todos');
-    if(td){ try{var arr=JSON.parse(td);rec.todo=Math.round(arr.filter(function(t){return t.done;}).length/arr.length*100);}catch(e){rec.todo=0;} }
-    else{rec.todo=null;}
-    history.push(rec);
-  }
-
-  function rateClass(pct){return pct>=80?'rate-high':pct>=50?'rate-mid':'rate-low';}
-
-  var html='<div class="panel-title">打卡数据统计总览</div>'+
-    '<div class="panel-desc">连续打卡 · 完成率 · 断卡提醒 · 历史记录</div>';
-
-  /* 断卡提醒 */
-  if(broken){
-    html+='<div class="streak-warn show">⚠ 昨日仅完成'+yesterdayCount+'/4项打卡，今日加油！</div>';
-  }
-
-  /* 连续天数横幅 */
-  html+='<div class="streak-banner">'+
-    '<div class="streak-number">'+maxStreak+'</div>'+
-    '<div class="streak-text"><div class="streak-label">最长连续打卡天数</div>'+
-    '<div class="streak-sub">备考'+studyStreak+'天 · 英语'+enStreak+'天 · 运动'+sportStreak+'天 · 复盘'+reviewStreak+'天</div></div>'+
-    '</div>';
-
-  /* 四项卡片 */
-  html+='<div class="stats-grid">'+
-    '<div class="stat-card"><div class="stat-value">'+studyStreak+'</div><div class="stat-label">备考连续天数</div><div class="stat-rate '+rateClass(studyRate.pct)+'">月完成率 '+studyRate.pct+'%</div></div>'+
-    '<div class="stat-card"><div class="stat-value">'+enStreak+'</div><div class="stat-label">英语连续天数</div><div class="stat-rate '+rateClass(enRate.pct)+'">月完成率 '+enRate.pct+'%</div></div>'+
-    '<div class="stat-card"><div class="stat-value">'+sportStreak+'</div><div class="stat-label">运动连续天数</div><div class="stat-rate '+rateClass(sportRate.pct)+'">月完成率 '+sportRate.pct+'%</div></div>'+
-    '<div class="stat-card"><div class="stat-value">'+reviewStreak+'</div><div class="stat-label">复盘连续天数</div><div class="stat-rate '+rateClass(reviewRate.pct)+'">月完成率 '+reviewRate.pct+'%</div></div>'+
-    '</div>';
-
-  /* 月度进度条 */
-  html+='<div class="card"><div class="card-title"><span class="dot"></span>月度完成进度</div>';
-  var bars=[
-    {label:'中级会计备考',pct:studyRate.pct,cls:'bar-study'},
-    {label:'英语跟读',pct:enRate.pct,cls:'bar-english'},
-    {label:'运动打卡',pct:sportRate.pct,cls:'bar-sport'},
-    {label:'复盘日记',pct:reviewRate.pct,cls:'bar-review'},
-    {label:'每日计划全完成',pct:todoRate.pct,cls:'bar-todo'}
-  ];
-  bars.forEach(function(b){
-    html+='<div class="monthly-bar-item"><div class="monthly-bar-label"><span>'+b.label+'</span><span>'+b.pct+'%</span></div><div class="monthly-bar-track"><div class="monthly-bar-fill '+b.cls+'" style="width:'+b.pct+'%"></div></div></div>';
+  var yd=new Date();yd.setDate(yd.getDate()-1);var yds=yd.getFullYear()+'-'+String(yd.getMonth()+1).padStart(2,'0')+'-'+String(yd.getDate()).padStart(2,'0');
+  var yCnt=[lsGet('fw_'+yds+'_study_done'),lsGet('fw_'+yds+'_english_done'),lsGet('fw_'+yds+'_sport_done'),lsGet('fw_'+yds+'_review')].filter(function(x){return x}).length;
+  var broken=yCnt<3;
+  var maxS=Math.max(stS,enS,spS,rvS);
+  /* 历史14天 */
+  var hist=[];
+  for(var i=13;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');var r={date:ds,study:!!lsGet('fw_'+ds+'_study_done'),english:!!lsGet('fw_'+ds+'_english_done'),sport:!!lsGet('fw_'+ds+'_sport_done'),review:!!lsGet('fw_'+ds+'_review')};var td=lsGet('fw_'+ds+'_todos');if(td){try{var arr=JSON.parse(td);r.todo=Math.round(arr.filter(function(t){return t.done}).length/arr.length*100)}catch(e){r.todo=0}}else{r.todo=null}hist.push(r)}
+  var html='<div class="pt">打卡数据统计总览</div><div class="pd">连续天数 · 完成率 · 断卡提醒 · 历史记录</div>';
+  if(broken)html+='<div class="streak-warn show">🌱 昨日完成了'+yCnt+'/4项打卡，还差一点点。今天继续加油，每一个坚持都算数！</div>';
+  html+='<div class="streak-banner"><div class="streak-num">'+maxS+'</div><div style="flex:1"><div style="font-size:13px;font-weight:600">最长连续打卡天数</div><div style="font-size:11px;color:var(--text-2);margin-top:2px">备考'+stS+'天 · 英语'+enS+'天 · 运动'+spS+'天 · 复盘'+rvS+'天</div></div></div>';
+  html+='<div class="stats-grid"><div class="stat-card"><div class="stat-val">'+stS+'</div><div class="stat-lbl">备考连续</div><div class="stat-rate '+rateCls(stR.pct)+'">月'+stR.pct+'%</div></div><div class="stat-card"><div class="stat-val">'+enS+'</div><div class="stat-lbl">英语连续</div><div class="stat-rate '+rateCls(enR.pct)+'">月'+enR.pct+'%</div></div><div class="stat-card"><div class="stat-val">'+spS+'</div><div class="stat-lbl">运动连续</div><div class="stat-rate '+rateCls(spR.pct)+'">月'+spR.pct+'%</div></div><div class="stat-card"><div class="stat-val">'+rvS+'</div><div class="stat-lbl">复盘连续</div><div class="stat-rate '+rateCls(rvR.pct)+'">月'+rvR.pct+'%</div></div><div class="stat-card"><div class="stat-val">'+tdR.pct+'%</div><div class="stat-lbl">计划全完成</div><div class="stat-rate '+rateCls(tdR.pct)+'">'+tdR.done+'/'+tdR.total+'天</div></div></div>';
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>月度完成进度</div>';
+  [{l:'中级会计备考',p:stR.pct,c:'b-study'},{l:'英语跟读',p:enR.pct,c:'b-english'},{l:'运动打卡',p:spR.pct,c:'b-sport'},{l:'复盘日记',p:rvR.pct,c:'b-review'},{l:'每日计划全完成',p:tdR.pct,c:'b-todo'}].forEach(function(b){
+    html+='<div class="mb-item"><div class="mb-lbl"><span>'+b.l+'</span><span>'+b.p+'%</span></div><div class="mb-track"><div class="mb-fill '+b.c+'" style="width:'+b.p+'%"></div></div></div>';
   });
   html+='</div>';
-
-  /* 历史记录表 */
-  html+='<div class="card"><div class="card-title"><span class="dot"></span>近14天打卡历史</div>'+
-    '<div style="overflow-x:auto;"><table class="history-table"><tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>计划</th></tr>';
-  history.forEach(function(h){
-    var isToday=h.date===today;
-    html+='<tr'+(isToday?' class="today-row"':'')+'>'+
-      '<td>'+h.date.slice(5)+'</td>'+
-      '<td class="'+(h.study?'cell-yes':'cell-no')+'">'+(h.study?'✓':'—')+'</td>'+
-      '<td class="'+(h.english?'cell-yes':'cell-no')+'">'+(h.english?'✓':'—')+'</td>'+
-      '<td class="'+(h.sport?'cell-yes':'cell-no')+'">'+(h.sport?'✓':'—')+'</td>'+
-      '<td class="'+(h.review?'cell-yes':'cell-no')+'">'+(h.review?'✓':'—')+'</td>'+
-      '<td>'+(h.todo!==null?h.todo+'%':'—')+'</td>'+
-      '</tr>';
-  });
+  html+='<div class="card"><div class="card-t"><span class="dot"></span>近14天打卡历史</div><div style="overflow-x:auto"><table class="hist-tbl"><tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>计划</th></tr>';
+  hist.forEach(function(h){var isToday=h.date===today;html+='<tr'+(isToday?' class="tod-row"':'')+'><td>'+h.date.slice(5)+'</td><td class="'+(h.study?'c-yes':'c-no')+'">'+(h.study?'✓':'—')+'</td><td class="'+(h.english?'c-yes':'c-no')+'">'+(h.english?'✓':'—')+'</td><td class="'+(h.sport?'c-yes':'c-no')+'">'+(h.sport?'✓':'—')+'</td><td class="'+(h.review?'c-yes':'c-no')+'">'+(h.review?'✓':'—')+'</td><td>'+(h.todo!==null?h.todo+'%':'—')+'</td></tr>'});
   html+='</table></div></div>';
-
   main.innerHTML=html;
 }
 
-/* ========== 面板9: 财经博客精选推送 ========== */
+/* ========== 面板13: 博客 ========== */
 var BLOG_SOURCES=[
   {source:'国家税务总局',title:'2026年上半年多项税收政策要点汇总',summary:'梳理2026年上半年出台的主要税收优惠政策，涵盖小微企业、研发费用加计扣除、增值税留抵退税等领域，附政策原文链接和实操要点。'},
   {source:'中国财税浪子',title:'数电发票全面推行的10个实操问题解答',summary:'数电票推广过程中企业最常遇到的10个问题：开票额度调整、红字发票、作废处理、交付方式等，实务操作一步到位。'},
@@ -1181,54 +948,39 @@ var BLOG_SOURCES=[
   {source:'会计说',title:'合并财务报表实务中的6个难点解析',summary:'合并报表编制中常见难点：合并范围判断、内部交易抵销、商誉减值、少数股东权益、同一控制下合并、外币报表折算差额处理。'},
   {source:'财务第一教室',title:'企业税务风险自查清单（2026版）',summary:'50项税务风险自查要点，覆盖增值税、企业所得税、个税、社保等全税种，帮助企业在税务稽查前主动排查风险。'}
 ];
-
 function renderBlog(main){
-  var blogs=pickFromArray(BLOG_SOURCES,5,801);
-  var html='<div class="panel-title">财经博客精选推送</div>'+
-    '<div class="panel-desc">每日精选财税 · 职场 · 财经优质文章摘要</div>';
+  var blogs=pickFrom(BLOG_SOURCES,3,801);
+  var html='<div class="pt">财经博客精选推送</div><div class="pd">每日3篇优质财税/财经/职场文章摘要</div>';
   blogs.forEach(function(b){
-    html+='<div class="blog-card">'+
-      '<div class="blog-source">'+b.source+'</div>'+
-      '<div class="blog-title">'+b.title+'</div>'+
-      '<div class="blog-summary">'+b.summary+'</div>'+
-      '</div>';
+    html+='<div class="blog-card"><div class="blog-src">'+b.source+'</div><div class="blog-title">'+b.title+'</div><div class="blog-summary">'+b.summary+'</div></div>';
   });
   main.innerHTML=html;
 }
 
-/* ========== 初始化 + 零点自动刷新 ========== */
-function initApp(){
-  /* 显示日期 */
-  var now=new Date();
-  var weekdays=['日','一','二','三','四','五','六'];
-  var dateEl=document.getElementById('todayDate');
-  if(dateEl){
-    dateEl.textContent=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日 周'+weekdays[now.getDay()];
-  }
-  renderMenu();
-  renderPanel(currentPanel);
-}
+/* ========== 每日复盘（嵌入统计板块关联） ========== */
+/* 复盘功能放在统计板块附近，但作为独立面板不现实，这里嵌入首页快捷 */
+/* 实际复盘放在饮食下方——不，按用户要求13板块，复盘归入统计关联 */
+/* 复盘日记存储在 fw_日期_review */
 
-/* 零点自动刷新：检测日期变化 */
+/* ========== 渲染器映射 ========== */
+var renderers={
+  home:renderHome,plan:renderPlan,goals:renderGoals,diet:renderDiet,calendar:renderCalendar,account:renderAccount,
+  media:renderMedia,english:renderEnglish,women:renderWomen,accounting:renderAccounting,sport:renderSport,stats:renderStats,blog:renderBlog
+};
+
+/* ========== 初始化 ========== */
+function initApp(){
+  var now=new Date();var wd=['日','一','二','三','四','五','六'];
+  var el=document.getElementById('todayDate');
+  if(el)el.textContent=now.getFullYear()+'.'+(now.getMonth()+1)+'.'+now.getDate()+' 周'+wd[now.getDay()];
+  renderMenu();renderPanel(curPanel);
+}
 var lastDate=getTodayStr();
 function checkDateChange(){
   var today=getTodayStr();
-  if(today!==lastDate){
-    lastDate=today;
-    /* 重新渲染当前面板 */
-    renderPanel(currentPanel);
-    /* 更新日期显示 */
-    var now=new Date();
-    var weekdays=['日','一','二','三','四','五','六'];
-    var dateEl=document.getElementById('todayDate');
-    if(dateEl){
-      dateEl.textContent=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日 周'+weekdays[now.getDay()];
-    }
-  }
+  if(today!==lastDate){lastDate=today;renderPanel(curPanel);var now=new Date();var wd=['日','一','二','三','四','五','六'];var el=document.getElementById('todayDate');if(el)el.textContent=now.getFullYear()+'.'+(now.getMonth()+1)+'.'+now.getDate()+' 周'+wd[now.getDay()]}
 }
-setInterval(checkDateChange,60000); /* 每分钟检查一次 */
-
-/* 启动 */
+setInterval(checkDateChange,60000);
 initApp();
 </script>
 </body>
