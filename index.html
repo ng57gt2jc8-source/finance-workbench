@@ -898,6 +898,116 @@ body {
   cursor: pointer;
 }
 
+/* ========== 模块6：打卡数据统计面板 ========== */
+.stats-card-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (max-width: 900px) { .stats-card-row { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .stats-card-row { grid-template-columns: 1fr; } }
+
+.stats-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.25s;
+  border: 1px solid transparent;
+}
+.stats-card:hover {
+  border-color: var(--accent);
+  background: rgba(107, 142, 127, 0.04);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(45, 42, 38, 0.06);
+}
+.stats-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.stats-card-icon.sc-study { background: rgba(100,100,160,0.12); color: #6868a0; }
+.stats-card-icon.sc-english { background: rgba(196,168,130,0.15); color: #9b7d5a; }
+.stats-card-icon.sc-sport { background: rgba(107,142,127,0.12); color: var(--accent-deep); }
+.stats-card-icon.sc-review { background: rgba(232,85,78,0.1); color: #a06060; }
+.stats-card-info { flex: 1; min-width: 0; }
+.stats-card-value {
+  font-family: var(--font-en);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.stats-card-label { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.stats-card-rate { font-size: 11px; color: var(--accent-deep); margin-top: 2px; font-weight: 600; }
+.stats-card-rate.low { color: #e8554e; }
+.stats-card-rate.mid { color: var(--gold); }
+.stats-card-rate.high { color: var(--accent); }
+
+.stats-streak-bar {
+  display: flex;
+  gap: 20px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(107,142,127,0.06), rgba(196,168,130,0.06));
+  border-radius: var(--radius-sm);
+  margin-bottom: 4px;
+  align-items: center;
+}
+.streak-item { display: flex; align-items: center; gap: 10px; }
+.streak-item.streak-warn { margin-left: auto; }
+.streak-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.streak-dot.warn { background: #e8554e; animation: pulse 1.5s infinite; }
+.streak-title { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
+.streak-value { font-family: var(--font-en); font-size: 20px; font-weight: 700; color: var(--accent-deep); }
+.streak-value.warn-text { color: #e8554e; font-family: var(--font-sans); font-size: 12px; font-weight: 600; }
+
+.stats-monthly { margin-top: 4px; }
+.stats-monthly-item { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.stats-monthly-label { width: 100px; font-size: 12px; color: var(--text-secondary); flex-shrink: 0; text-align: right; }
+.stats-monthly-bar-wrap { flex: 1; height: 8px; background: var(--bg-soft); border-radius: 4px; overflow: hidden; }
+.stats-monthly-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+.stats-monthly-bar-fill.bar-study { background: linear-gradient(90deg, #6868a0, #8888c0); }
+.stats-monthly-bar-fill.bar-english { background: linear-gradient(90deg, #9b7d5a, #c4a882); }
+.stats-monthly-bar-fill.bar-sport { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+.stats-monthly-bar-fill.bar-review { background: linear-gradient(90deg, #c08080, #e0a0a0); }
+.stats-monthly-pct { width: 44px; font-size: 12px; font-weight: 600; color: var(--text-primary); text-align: left; flex-shrink: 0; }
+
+.stats-weekly-table-wrap { overflow-x: auto; margin-bottom: 12px; }
+.stats-weekly-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.stats-weekly-table th, .stats-weekly-table td { padding: 10px 12px; text-align: center; border-bottom: 1px solid var(--border); }
+.stats-weekly-table th { background: var(--bg-soft); font-size: 11px; font-weight: 600; color: var(--text-secondary); letter-spacing: 1px; }
+.stats-weekly-table td:first-child, .stats-weekly-table th:first-child { text-align: left; padding-left: 16px; }
+.stats-weekly-table tbody tr:hover { background: rgba(107, 142, 127, 0.04); }
+.stats-weekly-table .cell-done { color: var(--accent); font-weight: 700; }
+.stats-weekly-table .cell-miss { color: var(--text-light); }
+.stats-weekly-table .cell-today { background: rgba(196, 168, 130, 0.06); }
+
+.stats-weekly-summary {
+  display: flex; gap: 16px; padding: 12px 16px;
+  background: var(--bg-soft); border-radius: var(--radius-sm);
+  font-size: 12px; color: var(--text-secondary); flex-wrap: wrap;
+}
+.stats-weekly-summary span { font-weight: 600; color: var(--text-primary); }
+
+.stats-history-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.stats-month-select-label { font-size: 12px; color: var(--text-secondary); }
+.stats-month-select {
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+  font-size: 13px; font-family: var(--font-sans); color: var(--text-primary);
+  background: var(--bg-card); cursor: pointer; outline: none;
+}
+.stats-month-select:focus { border-color: var(--accent); }
+.stats-history-total { margin-left: auto; font-size: 12px; color: var(--text-light); }
+.stats-history-table-wrap { max-height: 360px; overflow-y: auto; }
+.stats-history-table-wrap::-webkit-scrollbar { width: 4px; }
+.stats-history-table-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.hidden { display: none !important; }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -1111,9 +1221,115 @@ body {
     </div>
   </div>
 
-</div><!-- /main-container -->
+  <!-- ========== 模块6：打卡数据统计面板 ========== -->
+  <div class="module-card">
+    <div class="module-header">
+      <div class="title-area">
+        <div class="module-num">06</div>
+        <div>
+          <h2>打卡数据统计</h2>
+          <span class="module-sub">Check-in Analytics</span>
+        </div>
+      </div>
+      <span class="refresh-tag" id="statsRefreshTime">实时统计</span>
+    </div>
+    <div class="module-body">
+      <div class="tab-bar" id="statsTabBar">
+        <button class="tab-btn active" data-stats-tab="stats-overview">本月总览</button>
+        <button class="tab-btn" data-stats-tab="stats-weekly">周度汇总</button>
+        <button class="tab-btn" data-stats-tab="stats-history">历史记录</button>
+      </div>
 
-<!-- ========== 悬浮励志语录 ========== -->
+      <div class="tab-content active" id="stats-overview">
+        <div class="stats-card-row">
+          <div class="stats-card">
+            <div class="stats-card-icon sc-study">&#9997;</div>
+            <div class="stats-card-info">
+              <div class="stats-card-value" id="scStudyValue">0</div>
+              <div class="stats-card-label">中级会计备考</div>
+              <div class="stats-card-rate" id="scStudyRate">--%</div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-icon sc-english">&#128172;</div>
+            <div class="stats-card-info">
+              <div class="stats-card-value" id="scEnglishValue">0</div>
+              <div class="stats-card-label">英语跟读</div>
+              <div class="stats-card-rate" id="scEnglishRate">--%</div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-icon sc-sport">&#127947;</div>
+            <div class="stats-card-info">
+              <div class="stats-card-value" id="scSportValue">0</div>
+              <div class="stats-card-label">运动打卡</div>
+              <div class="stats-card-rate" id="scSportRate">--%</div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-card-icon sc-review">&#9998;</div>
+            <div class="stats-card-info">
+              <div class="stats-card-value" id="scReviewValue">0</div>
+              <div class="stats-card-label">复盘日记</div>
+              <div class="stats-card-rate" id="scReviewRate">--%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-streak-bar">
+          <div class="streak-item">
+            <div class="streak-dot" id="streakDot"></div>
+            <div>
+              <div class="streak-title">连续打卡天数</div>
+              <div class="streak-value" id="streakValue">--</div>
+            </div>
+          </div>
+          <div class="streak-item streak-warn hidden" id="streakWarnItem">
+            <div class="streak-dot warn"></div>
+            <div>
+              <div class="streak-title">断卡提醒</div>
+              <div class="streak-value warn-text" id="streakWarnText">--</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="sub-section-title">本月完成率</div>
+        <div class="stats-monthly" id="statsMonthly"></div>
+      </div>
+
+      <div class="tab-content" id="stats-weekly">
+        <div class="sub-section-title">本周打卡明细</div>
+        <div class="stats-weekly-table-wrap">
+          <table class="stats-weekly-table">
+            <thead>
+              <tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>待办</th></tr>
+            </thead>
+            <tbody id="statsWeeklyBody"></tbody>
+          </table>
+        </div>
+        <div class="stats-weekly-summary" id="statsWeeklySummary"></div>
+      </div>
+
+      <div class="tab-content" id="stats-history">
+        <div class="stats-history-controls">
+          <label class="stats-month-select-label">选择月份：</label>
+          <select class="stats-month-select" id="statsHistoryMonth"></select>
+          <span class="stats-history-total" id="statsHistoryTotal"></span>
+        </div>
+        <div class="stats-history-table-wrap">
+          <table class="stats-weekly-table">
+            <thead>
+              <tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>待办完成率</th></tr>
+            </thead>
+            <tbody id="statsHistoryBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main-container -->
 <div class="floating-quote" id="floatingQuote">
   <span class="fq-toggle" id="fqToggle">—</span>
   <div class="fq-label">DAILY QUOTE</div>
@@ -2264,23 +2480,308 @@ function renderBlogs() {
 
 /* ========== Tab切换逻辑 ========== */
 function initTabs() {
-  var tabs = document.querySelectorAll('.tab-btn');
+  var tabs = document.querySelectorAll('.tab-btn[data-tab]');
   tabs.forEach(function(tab) {
     tab.addEventListener('click', function() {
       var target = this.dataset.tab;
-      document.querySelectorAll('.tab-btn').forEach(function(t) {
+      document.querySelectorAll('.tab-btn[data-tab]').forEach(function(t) {
         t.classList.remove('active');
       });
-      document.querySelectorAll('.tab-content').forEach(function(c) {
+      document.querySelectorAll('#tab1, #tab2, #tab3, #tab4').forEach(function(c) {
         c.classList.remove('active');
       });
       this.classList.add('active');
-      document.getElementById(target).classList.add('active');
+      var el = document.getElementById(target);
+      if (el) el.classList.add('active');
     });
   });
 }
 
-/* ========== 日期变化检测（每日零点自动刷新） ========== */
+/* ========== 模块6：打卡数据统计面板 ========== */
+
+// 日期工具函数
+function formatDateStr(year, month, day) {
+  return year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+}
+function parseDateStr(dateStr) {
+  var parts = dateStr.split('-');
+  return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+}
+function getThisWeekDateStrs() {
+  var d = new Date();
+  var dayOfWeek = d.getDay();
+  var mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+  var monday = new Date(d.getFullYear(), d.getMonth(), d.getDate() + mondayOffset);
+  var dates = [];
+  for (var i = 0; i < 7; i++) {
+    var dt = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i);
+    dates.push(formatDateStr(dt.getFullYear(), dt.getMonth() + 1, dt.getDate()));
+  }
+  return dates;
+}
+function getMonthDateStrs(year, month) {
+  var lastDay = new Date(year, month, 0).getDate();
+  var dates = [];
+  for (var d = 1; d <= lastDay; d++) dates.push(formatDateStr(year, month, d));
+  return dates;
+}
+
+// 单日打卡数据采集
+function getDayCheckinData(dateStr) {
+  var result = { study: false, english: false, sport: false, review: false, todos_done: 0, todos_total: 0 };
+  var d = parseDateStr(dateStr);
+  result.study = (lsGet('fw_checkin_day_' + d.getDate()) === '1');
+  result.english = (lsGet('fw_' + dateStr + '_english_done') === '1');
+  for (var i = 0; i < 3; i++) {
+    var sv = lsGet('fw_' + dateStr + '_sport_' + i);
+    if (sv && sv.trim()) { result.sport = true; break; }
+  }
+  var gain = lsGet('fw_' + dateStr + '_review_gain');
+  var pit = lsGet('fw_' + dateStr + '_review_pit');
+  var plan = lsGet('fw_' + dateStr + '_review_plan');
+  result.review = !!(gain && gain.trim()) || !!(pit && pit.trim()) || !!(plan && plan.trim());
+  var todosRaw = lsGet('fw_' + dateStr + '_todos');
+  if (todosRaw) {
+    try {
+      var todos = JSON.parse(todosRaw);
+      result.todos_total = todos.length;
+      result.todos_done = todos.filter(function(t) { return t.done; }).length;
+    } catch(e) {}
+  }
+  return result;
+}
+
+function batchCollectCheckinData(dateStrs) {
+  var map = {};
+  dateStrs.forEach(function(ds) { map[ds] = getDayCheckinData(ds); });
+  return map;
+}
+
+// 连续打卡计算（从昨天往前数，每日完成≥3项算连续）
+function calcCheckinStreak() {
+  var todayDate = parseDateStr(getTodayStr());
+  var checkDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() - 1);
+  var streak = 0;
+  var lastFullDate = null;
+
+  while (true) {
+    var ds = formatDateStr(checkDate.getFullYear(), checkDate.getMonth() + 1, checkDate.getDate());
+    var data = getDayCheckinData(ds);
+    var count = (data.study?1:0) + (data.english?1:0) + (data.sport?1:0) + (data.review?1:0);
+    if (count >= 3) {
+      streak++;
+      if (!lastFullDate) lastFullDate = ds;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+
+  // 断卡检测：昨天完成<3项
+  var yDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() - 1);
+  var yStr = formatDateStr(yDate.getFullYear(), yDate.getMonth() + 1, yDate.getDate());
+  var yData = getDayCheckinData(yStr);
+  var yCount = (yData.study?1:0) + (yData.english?1:0) + (yData.sport?1:0) + (yData.review?1:0);
+
+  return { streak: streak, broken: (yCount < 3), lastFullDate: lastFullDate, yesterdayCount: yCount };
+}
+
+// 完成率计算
+function calcCompletionRate(dateStrs) {
+  var map = batchCollectCheckinData(dateStrs);
+  var stats = {
+    study: {done:0,total:dateStrs.length,pct:0},
+    english: {done:0,total:dateStrs.length,pct:0},
+    sport: {done:0,total:dateStrs.length,pct:0},
+    review: {done:0,total:dateStrs.length,pct:0},
+    todos: {totalPct:0,avgPct:0,completedDays:0}
+  };
+  dateStrs.forEach(function(ds) {
+    var d = map[ds];
+    if (d.study) stats.study.done++;
+    if (d.english) stats.english.done++;
+    if (d.sport) stats.sport.done++;
+    if (d.review) stats.review.done++;
+    if (d.todos_total > 0) {
+      stats.todos.totalPct += (d.todos_done / d.todos_total * 100);
+      stats.todos.completedDays++;
+    }
+  });
+  ['study','english','sport','review'].forEach(function(k) {
+    stats[k].pct = stats[k].total > 0 ? Math.round(stats[k].done / stats[k].total * 100) : 0;
+  });
+  stats.todos.avgPct = stats.todos.completedDays > 0 ? Math.round(stats.todos.totalPct / stats.todos.completedDays) : 0;
+  return stats;
+}
+
+// 渲染：本月总览
+function renderStatsOverview() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth() + 1;
+  var today = now.getDate();
+  var rate = calcCompletionRate(getMonthDateStrs(year, month));
+
+  updateStatsCard('scStudyValue', 'scStudyRate', rate.study.done, today, Math.round(rate.study.done/today*100));
+  updateStatsCard('scEnglishValue', 'scEnglishRate', rate.english.done, today, Math.round(rate.english.done/today*100));
+  updateStatsCard('scSportValue', 'scSportRate', rate.sport.done, today, Math.round(rate.sport.done/today*100));
+  updateStatsCard('scReviewValue', 'scReviewRate', rate.review.done, today, Math.round(rate.review.done/today*100));
+
+  var streakInfo = calcCheckinStreak();
+  document.getElementById('streakValue').textContent = streakInfo.streak + ' 天';
+  document.getElementById('streakDot').className = 'streak-dot' + (streakInfo.broken ? ' warn' : '');
+
+  var warnItem = document.getElementById('streakWarnItem');
+  if (streakInfo.broken) {
+    warnItem.classList.remove('hidden');
+    document.getElementById('streakWarnText').textContent = '昨日仅完成' + streakInfo.yesterdayCount + '/4项，今日加油！';
+  } else {
+    warnItem.classList.add('hidden');
+  }
+
+  renderMonthlyProgressBars(rate, today);
+  var rt = document.getElementById('statsRefreshTime');
+  if (rt) rt.textContent = '更新于 ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'});
+}
+
+function updateStatsCard(valId, rateId, done, total, pct) {
+  document.getElementById(valId).textContent = done + '/' + total;
+  var el = document.getElementById(rateId);
+  el.textContent = '完成率 ' + pct + '%';
+  el.className = 'stats-card-rate ' + (pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low');
+}
+
+function renderMonthlyProgressBars(rate, today) {
+  var container = document.getElementById('statsMonthly');
+  var items = [
+    {label:'中级会计备考', pct: Math.round(rate.study.done/today*100), cls:'bar-study'},
+    {label:'英语跟读', pct: Math.round(rate.english.done/today*100), cls:'bar-english'},
+    {label:'运动打卡', pct: Math.round(rate.sport.done/today*100), cls:'bar-sport'},
+    {label:'复盘日记', pct: Math.round(rate.review.done/today*100), cls:'bar-review'}
+  ];
+  container.innerHTML = '';
+  items.forEach(function(item) {
+    var div = document.createElement('div');
+    div.className = 'stats-monthly-item';
+    div.innerHTML = '<div class="stats-monthly-label">' + item.label + '</div>' +
+      '<div class="stats-monthly-bar-wrap"><div class="stats-monthly-bar-fill ' + item.cls + '" style="width:' + item.pct + '%"></div></div>' +
+      '<div class="stats-monthly-pct">' + item.pct + '%</div>';
+    container.appendChild(div);
+  });
+}
+
+// 渲染：周度汇总
+function renderStatsWeekly() {
+  var dates = getThisWeekDateStrs();
+  var map = batchCollectCheckinData(dates);
+  var today = getTodayStr();
+  var weekdays = ['一','二','三','四','五','六','日'];
+  var tbody = document.getElementById('statsWeeklyBody');
+  tbody.innerHTML = '';
+
+  dates.forEach(function(ds, idx) {
+    var d = map[ds];
+    var isToday = (ds === today);
+    var p = ds.split('-');
+    var tr = document.createElement('tr');
+    if (isToday) tr.className = 'cell-today';
+    var todoRate = d.todos_total > 0 ? Math.round(d.todos_done/d.todos_total*100)+'%' : '--';
+    tr.innerHTML = '<td>' + p[1] + '/' + p[2] + ' 周' + weekdays[idx] + (isToday?' <span style="font-size:10px;color:var(--gold);">今天</span>':'') + '</td>' +
+      '<td class="' + (d.study?'cell-done':'cell-miss') + '">' + (d.study?'&#10003;':'&#8212;') + '</td>' +
+      '<td class="' + (d.english?'cell-done':'cell-miss') + '">' + (d.english?'&#10003;':'&#8212;') + '</td>' +
+      '<td class="' + (d.sport?'cell-done':'cell-miss') + '">' + (d.sport?'&#10003;':'&#8212;') + '</td>' +
+      '<td class="' + (d.review?'cell-done':'cell-miss') + '">' + (d.review?'&#10003;':'&#8212;') + '</td>' +
+      '<td>' + todoRate + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  var rate = calcCompletionRate(dates);
+  document.getElementById('statsWeeklySummary').innerHTML =
+    '<div>备考：<span>' + rate.study.pct + '%</span> (' + rate.study.done + '/' + rate.study.total + ')</div>' +
+    '<div>英语：<span>' + rate.english.pct + '%</span> (' + rate.english.done + '/' + rate.english.total + ')</div>' +
+    '<div>运动：<span>' + rate.sport.pct + '%</span> (' + rate.sport.done + '/' + rate.sport.total + ')</div>' +
+    '<div>复盘：<span>' + rate.review.pct + '%</span> (' + rate.review.done + '/' + rate.review.total + ')</div>';
+}
+
+// 渲染：历史记录
+function renderStatsHistory() {
+  var select = document.getElementById('statsHistoryMonth');
+  var now = new Date();
+  var curYear = now.getFullYear();
+  var curMonth = now.getMonth() + 1;
+
+  if (select.options.length === 0) {
+    for (var i = 0; i < 6; i++) {
+      var m = curMonth - i, y = curYear;
+      if (m <= 0) { m += 12; y--; }
+      var opt = document.createElement('option');
+      opt.value = y + '-' + String(m).padStart(2,'0');
+      opt.textContent = y + '年' + m + '月';
+      if (i === 0) opt.selected = true;
+      select.appendChild(opt);
+    }
+    select.onchange = renderHistoryTable;
+  }
+  renderHistoryTable();
+}
+
+function renderHistoryTable() {
+  var select = document.getElementById('statsHistoryMonth');
+  var parts = select.value.split('-');
+  var year = parseInt(parts[0]), month = parseInt(parts[1]);
+  var dates = getMonthDateStrs(year, month);
+  var map = batchCollectCheckinData(dates);
+  var rate = calcCompletionRate(dates);
+  var today = getTodayStr();
+  var now = new Date();
+
+  document.getElementById('statsHistoryTotal').textContent =
+    '备考 ' + rate.study.done + '/' + rate.study.total + ' | 英语 ' + rate.english.done + '/' + rate.english.total +
+    ' | 运动 ' + rate.sport.done + '/' + rate.sport.total + ' | 复盘 ' + rate.review.done + '/' + rate.review.total;
+
+  var tbody = document.getElementById('statsHistoryBody');
+  tbody.innerHTML = '';
+
+  dates.forEach(function(ds) {
+    var d = map[ds];
+    var dateObj = parseDateStr(ds);
+    if (dateObj > now) return; // 跳过未来日期
+    var isToday = (ds === today);
+    var p = ds.split('-');
+    var tr = document.createElement('tr');
+    if (isToday) tr.className = 'cell-today';
+    var todoRate = d.todos_total > 0 ? Math.round(d.todos_done/d.todos_total*100)+'%' : '--';
+    tr.innerHTML = '<td>' + p[1] + '/' + p[2] + (isToday?' <span style="font-size:10px;color:var(--gold);">今天</span>':'') + '</td>' +
+      '<td class="' + (d.study?'cell-done':'cell-miss') + '">' + (d.study?'&#10003;':'&#8212;') + '</td>' +
+      '<td class="' + (d.english?'cell-done':'cell-miss') + '">' + (d.english?'&#10003;':'&#8212;') + '</td>' +
+      '<td class="' + (d.sport?'cell-done':'cell-miss') + '">' + (d.sport?'&#10003;':'&#8212;') + '</td>' +
+      '<td class="' + (d.review?'cell-done':'cell-miss') + '">' + (d.review?'&#10003;':'&#8212;') + '</td>' +
+      '<td>' + todoRate + '</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function renderStatsPanel() {
+  renderStatsOverview();
+}
+
+function initStatsTabs() {
+  var tabs = document.querySelectorAll('#statsTabBar .tab-btn');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = this.getAttribute('data-stats-tab');
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      ['stats-overview','stats-weekly','stats-history'].forEach(function(id) {
+        document.getElementById(id).classList.remove('active');
+      });
+      document.getElementById(target).classList.add('active');
+      if (target === 'stats-weekly') renderStatsWeekly();
+      if (target === 'stats-history') renderStatsHistory();
+      if (target === 'stats-overview') renderStatsOverview();
+    });
+  });
+}
 function checkDateChange() {
   var today = getTodayStr();
   var storedDate = lsGet('fw_current_date');
@@ -2314,6 +2815,8 @@ function renderAllModules() {
   renderSportRecord();
   renderCheckinCalendar();
   renderBlogs();
+  renderStatsPanel();
+  initStatsTabs();
   initTabs();
 }
 
