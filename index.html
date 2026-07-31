@@ -94,14 +94,77 @@ body {
   font-weight: 600;
 }
 
-/* ========== 主容器 ========== */
-.main-container {
+/* ========== App Layout ========== */
+.app-layout {
+  display: flex;
   max-width: 1400px;
   margin: 0 auto;
   padding: 24px 32px 80px;
+  gap: 0;
 }
 
-/* ========== 模块通用卡片 ========== */
+/* ========== Sidebar ========== */
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
+  height: fit-content;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 12px 8px;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+.menu-item:hover {
+  background: var(--bg-soft);
+  color: var(--text-primary);
+}
+.menu-item.active {
+  background: rgba(107,142,127,0.08);
+  color: var(--accent-deep);
+  font-weight: 600;
+  border-left-color: var(--accent);
+}
+.menu-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.menu-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== Content Area ========== */
+.content-area {
+  flex: 1;
+  min-width: 0;
+  padding-left: 24px;
+}
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ========== Module Card ========== */
 .module-card {
   background: var(--bg-card);
   border-radius: var(--radius);
@@ -172,7 +235,7 @@ body {
   .dual-col, .triple-col { grid-template-columns: 1fr; }
 }
 
-/* ========== 模块1：每日核心计划区 ========== */
+/* ========== Panel 1: 每日计划 ========== */
 .todo-item {
   display: flex;
   align-items: flex-start;
@@ -201,7 +264,7 @@ body {
   border-color: var(--accent);
 }
 .todo-checkbox.checked::after {
-  content: '✓';
+  content: '\u2713';
   color: #fff;
   font-size: 13px;
   font-weight: 700;
@@ -245,7 +308,7 @@ body {
   margin-top: 6px;
 }
 
-/* ========== 模块2：自媒体内容专区 ========== */
+/* ========== Panel 2: 自媒体 ========== */
 .topic-card {
   background: var(--bg-soft);
   border-radius: var(--radius-sm);
@@ -282,37 +345,6 @@ body {
   color: var(--text-secondary);
 }
 
-.hotspot-item {
-  display: flex;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px dashed var(--border);
-}
-.hotspot-item:last-child { border-bottom: none; }
-.hotspot-rank {
-  width: 22px; height: 22px;
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-  font-family: var(--font-en);
-}
-.hotspot-rank.r1 { background: #e8554e; color: #fff; }
-.hotspot-rank.r2 { background: #e8894e; color: #fff; }
-.hotspot-rank.r3 { background: #e8b04e; color: #fff; }
-.hotspot-rank.r4, .hotspot-rank.r5, .hotspot-rank.r6 { background: var(--bg-soft); color: var(--text-secondary); }
-.hotspot-title {
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 3px;
-}
-.hotspot-desc {
-  font-size: 11px;
-  color: var(--text-light);
-  line-height: 1.5;
-}
-
 .rewrite-template {
   background: var(--bg-soft);
   border-radius: var(--radius-sm);
@@ -334,6 +366,48 @@ body {
 .rewrite-template .rt-hook { border-left: 3px solid #e8554e; padding-left: 10px; margin-bottom: 8px; }
 .rewrite-template .rt-core { border-left: 3px solid var(--accent); padding-left: 10px; margin-bottom: 8px; }
 .rewrite-template .rt-cta { border-left: 3px solid var(--gold); padding-left: 10px; }
+
+/* 拍摄脚本 */
+.script-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.script-card .script-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin-bottom: 4px;
+}
+.script-card .script-duration {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+.script-shot {
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border-left: 3px solid var(--gold);
+}
+.script-shot .shot-scene {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin-bottom: 6px;
+}
+.script-shot .shot-row {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+.script-shot .shot-row b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
 
 .inspiration-note {
   background: var(--bg-soft);
@@ -376,7 +450,7 @@ body {
 }
 .note-save-bar .save-btn:hover { background: var(--accent-deep); }
 
-/* ========== 模块3：复盘区 ========== */
+/* ========== Panel 3: 复盘 ========== */
 .review-section {
   margin-bottom: 18px;
 }
@@ -414,7 +488,387 @@ body {
 }
 .review-textarea:focus { border-color: var(--accent); }
 
-/* ========== 模块4：女性人物 + 励志语录 ========== */
+/* ========== Panel 4: 中级会计 ========== */
+.countdown-hero {
+  text-align: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, var(--bg-dark), #4a4640);
+  border-radius: var(--radius);
+  color: #f0ede6;
+  margin-bottom: 20px;
+}
+.countdown-hero .cd-label {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.countdown-hero .cd-number {
+  font-family: var(--font-en);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+.countdown-hero .cd-unit {
+  font-size: 16px;
+  color: var(--gold-light);
+  margin-left: 4px;
+}
+.countdown-hero .cd-exam {
+  font-size: 13px;
+  color: rgba(240,237,230,0.7);
+  margin-top: 8px;
+}
+
+/* 阶段切换 */
+.phase-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.phase-btn {
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-sans);
+}
+.phase-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-deep);
+}
+.phase-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 章节任务 */
+.accounting-chapter-list {
+  margin-bottom: 20px;
+}
+.ac-chapter-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--bg-soft);
+}
+.ac-chapter-item:hover { transform: translateX(2px); }
+.ac-chapter-item.done { opacity: 0.5; }
+.ac-chapter-item.done .ac-chapter-name { text-decoration: line-through; }
+.ac-chapter-item.current {
+  border: 2px solid var(--gold);
+  background: rgba(196,168,130,0.08);
+}
+.ac-chapter-check {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.ac-chapter-item.done .ac-chapter-check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.ac-chapter-item.done .ac-chapter-check::after {
+  content: '\u2713';
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.ac-chapter-name {
+  font-size: 13px;
+  font-weight: 500;
+  flex: 1;
+}
+.ac-chapter-days {
+  font-size: 11px;
+  color: var(--text-light);
+}
+.ac-chapter-current-tag {
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* 刷题打卡 */
+.exercise-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.exercise-input-row input {
+  width: 100px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  outline: none;
+  font-family: var(--font-en);
+  text-align: center;
+}
+.exercise-input-row input:focus { border-color: var(--accent); }
+.exercise-input-row button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.exercise-input-row button:hover { background: var(--accent-deep); }
+.exercise-input-row .exercise-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.exercise-history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-bottom: 1px dashed var(--border);
+}
+.exercise-history-item:last-child { border-bottom: none; }
+.exercise-history-item .eh-date { color: var(--text-light); }
+.exercise-history-item .eh-count { font-weight: 600; color: var(--accent-deep); font-family: var(--font-en); }
+
+/* 进度统计 */
+.accounting-progress {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.progress-stat-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+.progress-stat-card .psc-value {
+  font-family: var(--font-en);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent-deep);
+  line-height: 1.2;
+}
+.progress-stat-card .psc-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* 备考打卡日历 */
+.study-checkin {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+.checkin-day {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+}
+.checkin-day.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.checkin-day.today {
+  border-color: var(--gold);
+  border-width: 2px;
+}
+.checkin-day:hover { transform: scale(1.08); }
+
+/* ========== Panel 5: 英语 ========== */
+.english-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+.english-card .ec-en {
+  font-family: var(--font-en);
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.english-card .ec-cn {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.english-card .ec-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.english-card .ec-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.english-card .ec-btn:hover { background: var(--accent-deep); }
+.english-card .ec-btn.done { background: var(--accent-light); }
+.english-card .ec-btn.ec-play-btn { background: var(--gold); }
+.english-card .ec-btn.ec-play-btn:hover { background: #b09474; }
+.english-card .ec-weekly-tag {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-left: auto;
+}
+
+.english-sentence-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+  background: var(--bg-soft);
+}
+.english-sentence-item .es-num {
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-deep);
+  flex-shrink: 0;
+  width: 24px;
+}
+.english-sentence-item .es-content { flex: 1; }
+.english-sentence-item .es-en {
+  font-family: var(--font-en);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.5;
+}
+.english-sentence-item .es-cn {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.english-sentence-item .es-play {
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.english-sentence-item .es-play:hover { background: #b09474; }
+
+/* ========== Panel 6: 运动健康 ========== */
+.sport-record {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+.sport-slot {
+  flex: 1;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sport-slot:hover { border-color: var(--accent); }
+.sport-slot.done {
+  border-style: solid;
+  border-color: var(--accent);
+  background: rgba(107,142,127,0.06);
+}
+.sport-slot .ss-icon { font-size: 24px; margin-bottom: 4px; }
+.sport-slot .ss-label { font-size: 11px; color: var(--text-secondary); }
+.sport-slot .ss-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  text-align: center;
+  font-size: 12px;
+  padding: 4px 0;
+  outline: none;
+  margin-top: 4px;
+  color: var(--text-primary);
+}
+.sport-slot.done .ss-input { border-bottom-color: var(--accent); }
+
+/* 视频链接卡片 */
+.video-link-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.video-link-card .vlc-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin-bottom: 10px;
+}
+.video-link-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.video-link-item:last-child { border-bottom: none; }
+.video-link-item .vli-name {
+  font-size: 12px;
+  flex: 1;
+  color: var(--text-primary);
+}
+.video-link-item .vli-platform {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(196,168,130,0.15);
+  color: #9b7d5a;
+}
+.video-link-item .vli-link {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+}
+.video-link-item .vli-link:hover { text-decoration: underline; }
+
+/* ========== Panel 7: 女性故事 ========== */
 .woman-feature {
   display: flex;
   gap: 24px;
@@ -464,231 +918,7 @@ body {
 .woman-story::-webkit-scrollbar { width: 4px; }
 .woman-story::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* ========== 悬浮励志语录 ========== */
-.floating-quote {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 200;
-  max-width: 340px;
-  background: linear-gradient(135deg, var(--bg-dark), #3d3a36);
-  color: #f0ede6;
-  border-radius: 14px;
-  padding: 20px 24px;
-  box-shadow: 0 8px 32px rgba(45,42,38,0.25);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(196,168,130,0.2);
-}
-.floating-quote:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(45,42,38,0.35);
-}
-.floating-quote.minimized {
-  padding: 10px 16px;
-  max-width: 200px;
-}
-.floating-quote .fq-label {
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: var(--gold-light);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.floating-quote .fq-text {
-  font-family: var(--font-zh);
-  font-size: 14px;
-  line-height: 1.7;
-}
-.floating-quote .fq-text::before {
-  content: '"';
-  font-family: var(--font-en);
-  font-size: 28px;
-  color: var(--gold);
-  vertical-align: -6px;
-  margin-right: 2px;
-}
-.floating-quote.minimized .fq-text {
-  font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.floating-quote .fq-toggle {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 14px;
-  color: var(--text-light);
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.2s;
-}
-.floating-quote:hover .fq-toggle { opacity: 1; }
-
-/* ========== 模块5：自律打卡专区 ========== */
-.countdown-hero {
-  text-align: center;
-  padding: 24px 16px;
-  background: linear-gradient(135deg, var(--bg-dark), #4a4640);
-  border-radius: var(--radius);
-  color: #f0ede6;
-  margin-bottom: 20px;
-}
-.countdown-hero .cd-label {
-  font-size: 12px;
-  letter-spacing: 4px;
-  color: var(--gold-light);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.countdown-hero .cd-number {
-  font-family: var(--font-en);
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 1;
-  color: #fff;
-}
-.countdown-hero .cd-unit {
-  font-size: 16px;
-  color: var(--gold-light);
-  margin-left: 4px;
-}
-.countdown-hero .cd-exam {
-  font-size: 13px;
-  color: rgba(240,237,230,0.7);
-  margin-top: 8px;
-}
-
-.study-checkin {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 14px 0;
-}
-.checkin-day {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  border: 1.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: var(--text-secondary);
-}
-.checkin-day.checked {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-.checkin-day.today {
-  border-color: var(--gold);
-  border-width: 2px;
-}
-.checkin-day:hover { transform: scale(1.08); }
-
-.study-chapter {
-  background: var(--bg-soft);
-  border-radius: var(--radius-sm);
-  padding: 14px 16px;
-  margin-top: 12px;
-}
-.study-chapter .sc-subject {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent-deep);
-  margin-bottom: 4px;
-}
-.study-chapter .sc-chapter {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-.study-chapter .sc-point {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-.english-card {
-  background: var(--bg-soft);
-  border-radius: var(--radius-sm);
-  padding: 18px;
-  margin-bottom: 12px;
-}
-.english-card .ec-en {
-  font-family: var(--font-en);
-  font-size: 17px;
-  font-style: italic;
-  line-height: 1.6;
-  margin-bottom: 6px;
-  color: var(--text-primary);
-}
-.english-card .ec-cn {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-}
-.english-card .ec-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.english-card .ec-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.english-card .ec-btn:hover { background: var(--accent-deep); }
-.english-card .ec-btn.done { background: var(--accent-light); }
-.english-card .ec-weekly-tag {
-  font-size: 11px;
-  color: var(--text-light);
-  margin-left: auto;
-}
-
-.sport-record {
-  display: flex;
-  gap: 12px;
-  margin-top: 10px;
-}
-.sport-slot {
-  flex: 1;
-  border: 2px dashed var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.sport-slot:hover { border-color: var(--accent); }
-.sport-slot.done {
-  border-style: solid;
-  border-color: var(--accent);
-  background: rgba(107,142,127,0.06);
-}
-.sport-slot .ss-icon { font-size: 24px; margin-bottom: 4px; }
-.sport-slot .ss-label { font-size: 11px; color: var(--text-secondary); }
-.sport-slot .ss-input {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  background: transparent;
-  text-align: center;
-  font-size: 12px;
-  padding: 4px 0;
-  outline: none;
-  margin-top: 4px;
-  color: var(--text-primary);
-}
-.sport-slot.done .ss-input { border-bottom-color: var(--accent); }
-
+/* ========== Panel 9: 博客 ========== */
 .blog-item {
   display: flex;
   gap: 14px;
@@ -898,7 +1128,7 @@ body {
   cursor: pointer;
 }
 
-/* ========== 模块6：打卡数据统计面板 ========== */
+/* ========== Panel 8: 统计面板 ========== */
 .stats-card-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1008,6 +1238,41 @@ body {
 .stats-history-table-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 .hidden { display: none !important; }
 
+/* ========== 移动端响应式 ========== */
+@media (max-width: 768px) {
+  .top-bar { padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
+  .top-bar .date-info { gap: 10px; font-size: 11px; flex-wrap: wrap; }
+  .app-layout {
+    flex-direction: column;
+    padding: 16px 16px 60px;
+  }
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    margin-bottom: 16px;
+  }
+  .sidebar-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 4px;
+    padding: 8px;
+  }
+  .menu-item {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+  .menu-item.active {
+    border-left: none;
+    border-bottom-color: var(--accent);
+  }
+  .content-area { padding-left: 0; }
+  .module-body { padding: 16px; }
+  .module-header { padding: 16px; }
+  .accounting-progress { grid-template-columns: 1fr; }
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -1033,308 +1298,422 @@ body {
   </div>
 </div>
 
-<!-- ========== 主容器 ========== -->
-<div class="main-container">
+<!-- ========== App Layout ========== -->
+<div class="app-layout">
 
-  <!-- ========== 模块1：每日核心计划区 ========== -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="title-area">
-        <div class="module-num">01</div>
-        <div>
-          <h2>每日核心计划区</h2>
-          <span class="module-sub">Daily Core Plan</span>
-        </div>
+  <!-- ========== Sidebar ========== -->
+  <div class="sidebar">
+    <div class="sidebar-nav">
+      <div class="menu-item active" data-panel="panel-todo" onclick="switchPanel('panel-todo')">
+        <span class="menu-icon">&#9745;</span><span class="menu-text">每日计划</span>
       </div>
-      <span class="refresh-tag">每日自动生成</span>
-    </div>
-    <div class="module-body">
-      <div id="todoList"></div>
-      <div class="todo-progress-bar">
-        <div class="todo-progress-fill" id="todoProgressFill" style="width:0%"></div>
+      <div class="menu-item" data-panel="panel-media" onclick="switchPanel('panel-media')">
+        <span class="menu-icon">&#127909;</span><span class="menu-text">自媒体创作库</span>
       </div>
-      <div class="todo-progress-text">
-        <span id="todoProgressLabel">完成 0 / 0</span>
-        <span id="todoProgressPct">0%</span>
+      <div class="menu-item" data-panel="panel-review" onclick="switchPanel('panel-review')">
+        <span class="menu-icon">&#9998;</span><span class="menu-text">复盘日记</span>
       </div>
-    </div>
-  </div>
-
-  <!-- ========== 模块2：自媒体内容专区 ========== -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="title-area">
-        <div class="module-num">02</div>
-        <div>
-          <h2>自媒体内容专区</h2>
-          <span class="module-sub">Content Creation Hub</span>
-        </div>
+      <div class="menu-item" data-panel="panel-accounting" onclick="switchPanel('panel-accounting')">
+        <span class="menu-icon">&#128218;</span><span class="menu-text">中级会计实务</span>
       </div>
-      <span class="refresh-tag">每日更新</span>
-    </div>
-    <div class="module-body">
-      <div class="tab-bar">
-        <button class="tab-btn active" data-tab="tab1">每日选题</button>
-        <button class="tab-btn" data-tab="tab2">全网热点</button>
-        <button class="tab-btn" data-tab="tab3">二创文案库</button>
-        <button class="tab-btn" data-tab="tab4">灵感备忘录</button>
+      <div class="menu-item" data-panel="panel-english" onclick="switchPanel('panel-english')">
+        <span class="menu-icon">&#128172;</span><span class="menu-text">英语口语</span>
       </div>
-
-      <!-- Tab1: 每日3条选题 -->
-      <div class="tab-content active" id="tab1">
-        <div class="sub-section-title">今日3条财税爆款短视频选题</div>
-        <div id="topicList"></div>
+      <div class="menu-item" data-panel="panel-sport" onclick="switchPanel('panel-sport')">
+        <span class="menu-icon">&#127947;</span><span class="menu-text">运动健康</span>
       </div>
-
-      <!-- Tab2: 热点 -->
-      <div class="tab-content" id="tab2">
-        <div class="sub-section-title">全网财税赛道最新热点</div>
-        <div id="hotspotList"></div>
+      <div class="menu-item" data-panel="panel-woman" onclick="switchPanel('panel-woman')">
+        <span class="menu-icon">&#10047;</span><span class="menu-text">女性故事</span>
       </div>
-
-      <!-- Tab3: 二创文案库 -->
-      <div class="tab-content" id="tab3">
-        <div class="sub-section-title">财税视频二创改写文案库</div>
-        <div id="rewriteList"></div>
+      <div class="menu-item" data-panel="panel-stats" onclick="switchPanel('panel-stats')">
+        <span class="menu-icon">&#128202;</span><span class="menu-text">数据统计</span>
       </div>
-
-      <!-- Tab4: 灵感备忘录 -->
-      <div class="tab-content" id="tab4">
-        <div class="sub-section-title">灵感备忘录</div>
-        <div class="inspiration-note">
-          <textarea id="inspirationText" placeholder="随手记录灵感火花，好的选题往往就在一瞬间闪现……"></textarea>
-        </div>
-        <div class="note-save-bar">
-          <span class="save-status" id="inspirationStatus">未保存</span>
-          <button class="save-btn" id="inspirationSaveBtn">保存笔记</button>
-        </div>
+      <div class="menu-item" data-panel="panel-blog" onclick="switchPanel('panel-blog')">
+        <span class="menu-icon">&#128240;</span><span class="menu-text">财经博客</span>
       </div>
     </div>
   </div>
 
-  <!-- ========== 模块3：每日沉淀复盘区 ========== -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="title-area">
-        <div class="module-num">03</div>
-        <div>
-          <h2>每日沉淀复盘区</h2>
-          <span class="module-sub">Daily Reflection</span>
-        </div>
-      </div>
-      <span class="refresh-tag">自动保存</span>
-    </div>
-    <div class="module-body">
-      <div class="review-section">
-        <div class="review-label gain"><span class="label-icon">✦</span>今日工作收获</div>
-        <textarea class="review-textarea" id="reviewGain" placeholder="记录今天在工作中获得的成长与收获……"></textarea>
-      </div>
-      <div class="review-section">
-        <div class="review-label pit"><span class="label-icon">!</span>踩坑问题</div>
-        <textarea class="review-textarea" id="reviewPit" placeholder="今天踩了哪些坑？记录下来，避免再犯……"></textarea>
-      </div>
-      <div class="review-section">
-        <div class="review-label plan"><span class="label-icon">→</span>明日优化方案</div>
-        <textarea class="review-textarea" id="reviewPlan" placeholder="明天要怎么做得更好？写下你的优化计划……"></textarea>
-      </div>
-    </div>
-  </div>
+  <!-- ========== Content Area ========== -->
+  <div class="content-area">
 
-  <!-- ========== 模块4：固定每日更新栏目 ========== -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="title-area">
-        <div class="module-num">04</div>
-        <div>
-          <h2>每日人物 & 励志语录</h2>
-          <span class="module-sub">Daily Inspiration</span>
+    <!-- ========== Panel 1: 每日计划 ========== -->
+    <div class="panel active" id="panel-todo">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">01</div>
+            <div>
+              <h2>每日核心计划区</h2>
+              <span class="module-sub">Daily Core Plan</span>
+            </div>
+          </div>
+          <span class="refresh-tag">每日自动生成</span>
+        </div>
+        <div class="module-body">
+          <div id="todoList"></div>
+          <div class="todo-progress-bar">
+            <div class="todo-progress-fill" id="todoProgressFill" style="width:0%"></div>
+          </div>
+          <div class="todo-progress-text">
+            <span id="todoProgressLabel">完成 0 / 0</span>
+            <span id="todoProgressPct">0%</span>
+          </div>
         </div>
       </div>
-      <span class="refresh-tag">每日轮换</span>
     </div>
-    <div class="module-body">
-      <div class="sub-section-title">今日伟大女性人物故事</div>
-      <div class="woman-feature">
-        <div class="woman-avatar" id="womanAvatar"></div>
-        <div class="woman-info">
-          <div class="woman-name" id="womanName"></div>
-          <div class="woman-meta" id="womanMeta"></div>
-          <span class="woman-tag" id="womanTag"></span>
-          <div class="woman-story" id="womanStory"></div>
-        </div>
-      </div>
-      <div class="section-divider"></div>
-      <div class="sub-section-title">今日励志语录</div>
-      <div id="dailyQuoteArea" style="font-family:var(--font-zh);font-size:15px;line-height:1.9;color:var(--text-secondary);padding:16px 20px;background:var(--bg-soft);border-radius:var(--radius-sm);border-left:3px solid var(--gold);"></div>
-    </div>
-  </div>
 
-  <!-- ========== 模块5：自律打卡专区 ========== -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="title-area">
-        <div class="module-num">05</div>
-        <div>
-          <h2>自律打卡专区</h2>
-          <span class="module-sub">Self-Discipline Zone</span>
+    <!-- ========== Panel 2: 自媒体创作库 ========== -->
+    <div class="panel" id="panel-media">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">02</div>
+            <div>
+              <h2>自媒体创作库</h2>
+              <span class="module-sub">Content Creation Hub</span>
+            </div>
+          </div>
+          <span class="refresh-tag">每日更新</span>
+        </div>
+        <div class="module-body">
+          <div class="tab-bar">
+            <button class="tab-btn active" data-media-tab="media-topic">每日选题</button>
+            <button class="tab-btn" data-media-tab="media-copy">每日文案</button>
+            <button class="tab-btn" data-media-tab="media-script">拍摄脚本</button>
+            <button class="tab-btn" data-media-tab="media-note">灵感备忘录</button>
+          </div>
+
+          <div class="tab-content active" id="media-topic">
+            <div class="sub-section-title">今日4条财税爆款短视频选题</div>
+            <div id="topicList"></div>
+          </div>
+
+          <div class="tab-content" id="media-copy">
+            <div class="sub-section-title">财税视频二创改写文案库</div>
+            <div id="rewriteList"></div>
+          </div>
+
+          <div class="tab-content" id="media-script">
+            <div class="sub-section-title">拍摄脚本模板</div>
+            <div id="scriptList"></div>
+          </div>
+
+          <div class="tab-content" id="media-note">
+            <div class="sub-section-title">灵感备忘录</div>
+            <div class="inspiration-note">
+              <textarea id="inspirationText" placeholder="随手记录灵感火花，好的选题往往就在一瞬间闪现……"></textarea>
+            </div>
+            <div class="note-save-bar">
+              <span class="save-status" id="inspirationStatus">未保存</span>
+              <button class="save-btn" id="inspirationSaveBtn">保存笔记</button>
+            </div>
+          </div>
         </div>
       </div>
-      <span class="refresh-tag">坚持就是力量</span>
     </div>
-    <div class="module-body">
-      <div class="dual-col">
 
-        <!-- 左列 -->
-        <div>
+    <!-- ========== Panel 3: 复盘日记 ========== -->
+    <div class="panel" id="panel-review">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">03</div>
+            <div>
+              <h2>每日沉淀复盘区</h2>
+              <span class="module-sub">Daily Reflection</span>
+            </div>
+          </div>
+          <span class="refresh-tag">自动保存</span>
+        </div>
+        <div class="module-body">
+          <div class="review-section">
+            <div class="review-label gain"><span class="label-icon">&#10022;</span>今日工作收获</div>
+            <textarea class="review-textarea" id="reviewGain" placeholder="记录今天在工作中获得的成长与收获……"></textarea>
+          </div>
+          <div class="review-section">
+            <div class="review-label pit"><span class="label-icon">!</span>踩坑问题</div>
+            <textarea class="review-textarea" id="reviewPit" placeholder="今天踩了哪些坑？记录下来，避免再犯……"></textarea>
+          </div>
+          <div class="review-section">
+            <div class="review-label plan"><span class="label-icon">&rarr;</span>明日优化方案</div>
+            <textarea class="review-textarea" id="reviewPlan" placeholder="明天要怎么做得更好？写下你的优化计划……"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Panel 4: 中级会计实务 ========== -->
+    <div class="panel" id="panel-accounting">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">04</div>
+            <div>
+              <h2>中级会计实务</h2>
+              <span class="module-sub">Exam Preparation</span>
+            </div>
+          </div>
+          <span class="refresh-tag">坚持就是力量</span>
+        </div>
+        <div class="module-body">
           <div class="countdown-hero">
             <div class="cd-label">中级会计考试倒计时</div>
             <div><span class="cd-number" id="cdNumber">--</span><span class="cd-unit">天</span></div>
             <div class="cd-exam" id="cdExamDate">2026年9月5日</div>
           </div>
 
-          <div class="sub-section-title">每日备考打卡（30天）</div>
+          <div class="phase-tabs">
+            <button class="phase-btn active" data-phase="basic" onclick="switchPhase('basic')">基础阶段</button>
+            <button class="phase-btn" data-phase="intensive" onclick="switchPhase('intensive')">强化阶段</button>
+            <button class="phase-btn" data-phase="sprint" onclick="switchPhase('sprint')">冲刺阶段</button>
+          </div>
+
+          <div class="sub-section-title">今日章节任务</div>
+          <div class="accounting-chapter-list" id="accountingChapterTask"></div>
+
+          <div class="section-divider"></div>
+          <div class="sub-section-title">刷题打卡</div>
+          <div class="exercise-input-row">
+            <span class="exercise-label">今日刷题：</span>
+            <input type="number" id="exerciseCount" placeholder="0" min="0">
+            <span class="exercise-label">道</span>
+            <button id="exerciseSaveBtn">保存</button>
+          </div>
+          <div id="exerciseHistory"></div>
+
+          <div class="section-divider"></div>
+          <div class="sub-section-title">进度统计</div>
+          <div class="accounting-progress" id="accountingProgress"></div>
+
+          <div class="section-divider"></div>
+          <div class="sub-section-title">备考打卡日历（30天）</div>
           <div class="study-checkin" id="checkinCalendar"></div>
-
-          <div class="study-chapter" id="studyChapter"></div>
         </div>
+      </div>
+    </div>
 
-        <!-- 右列 -->
-        <div>
-          <div class="sub-section-title">每周英语音频跟读</div>
+    <!-- ========== Panel 5: 英语口语 ========== -->
+    <div class="panel" id="panel-english">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">05</div>
+            <div>
+              <h2>英语口语</h2>
+              <span class="module-sub">English Speaking</span>
+            </div>
+          </div>
+          <span class="refresh-tag">每日轮换</span>
+        </div>
+        <div class="module-body">
+          <div class="sub-section-title">今日口语</div>
           <div class="english-card" id="englishCard">
             <div class="ec-en" id="ecEn"></div>
             <div class="ec-cn" id="ecCn"></div>
             <div class="ec-actions">
+              <button class="ec-btn ec-play-btn" id="ecPlayBtn">&#128264; 朗读</button>
               <button class="ec-btn" id="ecBtn">跟读完成</button>
               <span class="ec-weekly-tag" id="ecWeeklyTag"></span>
             </div>
           </div>
 
-          <div class="sub-section-title" style="margin-top:16px;">每周3次运动打卡</div>
+          <div class="section-divider"></div>
+          <div class="sub-section-title">更多口语句子</div>
+          <div id="englishSentenceList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Panel 6: 运动健康 ========== -->
+    <div class="panel" id="panel-sport">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">06</div>
+            <div>
+              <h2>运动健康</h2>
+              <span class="module-sub">Health & Fitness</span>
+            </div>
+          </div>
+          <span class="refresh-tag">每周3次</span>
+        </div>
+        <div class="module-body">
+          <div class="sub-section-title">每周3次运动打卡</div>
           <div class="sport-record" id="sportRecord"></div>
 
-          <div class="sub-section-title" style="margin-top:20px;">优质财经/会计博客精选</div>
+          <div class="section-divider"></div>
+          <div class="sub-section-title">跟练视频</div>
+          <div class="dual-col">
+            <div class="video-link-card" id="baduanjinLinks"></div>
+            <div class="video-link-card" id="pamelaLinks"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Panel 7: 女性故事 ========== -->
+    <div class="panel" id="panel-woman">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">07</div>
+            <div>
+              <h2>女性故事 & 励志语录</h2>
+              <span class="module-sub">Daily Inspiration</span>
+            </div>
+          </div>
+          <span class="refresh-tag">每日轮换</span>
+        </div>
+        <div class="module-body">
+          <div class="sub-section-title">今日伟大女性人物故事</div>
+          <div class="woman-feature">
+            <div class="woman-avatar" id="womanAvatar"></div>
+            <div class="woman-info">
+              <div class="woman-name" id="womanName"></div>
+              <div class="woman-meta" id="womanMeta"></div>
+              <span class="woman-tag" id="womanTag"></span>
+              <div class="woman-story" id="womanStory"></div>
+            </div>
+          </div>
+          <div class="section-divider"></div>
+          <div class="sub-section-title">今日励志语录</div>
+          <div id="dailyQuoteArea" style="font-family:var(--font-zh);font-size:15px;line-height:1.9;color:var(--text-secondary);padding:16px 20px;background:var(--bg-soft);border-radius:var(--radius-sm);border-left:3px solid var(--gold);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Panel 8: 数据统计 ========== -->
+    <div class="panel" id="panel-stats">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">08</div>
+            <div>
+              <h2>打卡数据统计</h2>
+              <span class="module-sub">Check-in Analytics</span>
+            </div>
+          </div>
+          <span class="refresh-tag" id="statsRefreshTime">实时统计</span>
+        </div>
+        <div class="module-body">
+          <div class="tab-bar" id="statsTabBar">
+            <button class="tab-btn active" data-stats-tab="stats-overview">本月总览</button>
+            <button class="tab-btn" data-stats-tab="stats-weekly">周度汇总</button>
+            <button class="tab-btn" data-stats-tab="stats-history">历史记录</button>
+          </div>
+
+          <div class="tab-content active" id="stats-overview">
+            <div class="stats-card-row">
+              <div class="stats-card">
+                <div class="stats-card-icon sc-study">&#9997;</div>
+                <div class="stats-card-info">
+                  <div class="stats-card-value" id="scStudyValue">0</div>
+                  <div class="stats-card-label">中级会计备考</div>
+                  <div class="stats-card-rate" id="scStudyRate">--%</div>
+                </div>
+              </div>
+              <div class="stats-card">
+                <div class="stats-card-icon sc-english">&#128172;</div>
+                <div class="stats-card-info">
+                  <div class="stats-card-value" id="scEnglishValue">0</div>
+                  <div class="stats-card-label">英语跟读</div>
+                  <div class="stats-card-rate" id="scEnglishRate">--%</div>
+                </div>
+              </div>
+              <div class="stats-card">
+                <div class="stats-card-icon sc-sport">&#127947;</div>
+                <div class="stats-card-info">
+                  <div class="stats-card-value" id="scSportValue">0</div>
+                  <div class="stats-card-label">运动打卡</div>
+                  <div class="stats-card-rate" id="scSportRate">--%</div>
+                </div>
+              </div>
+              <div class="stats-card">
+                <div class="stats-card-icon sc-review">&#9998;</div>
+                <div class="stats-card-info">
+                  <div class="stats-card-value" id="scReviewValue">0</div>
+                  <div class="stats-card-label">复盘日记</div>
+                  <div class="stats-card-rate" id="scReviewRate">--%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-streak-bar">
+              <div class="streak-item">
+                <div class="streak-dot" id="streakDot"></div>
+                <div>
+                  <div class="streak-title">连续打卡天数</div>
+                  <div class="streak-value" id="streakValue">--</div>
+                </div>
+              </div>
+              <div class="streak-item streak-warn hidden" id="streakWarnItem">
+                <div class="streak-dot warn"></div>
+                <div>
+                  <div class="streak-title">断卡提醒</div>
+                  <div class="streak-value warn-text" id="streakWarnText">--</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-divider"></div>
+            <div class="sub-section-title">本月完成率</div>
+            <div class="stats-monthly" id="statsMonthly"></div>
+          </div>
+
+          <div class="tab-content" id="stats-weekly">
+            <div class="sub-section-title">本周打卡明细</div>
+            <div class="stats-weekly-table-wrap">
+              <table class="stats-weekly-table">
+                <thead>
+                  <tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>待办</th></tr>
+                </thead>
+                <tbody id="statsWeeklyBody"></tbody>
+              </table>
+            </div>
+            <div class="stats-weekly-summary" id="statsWeeklySummary"></div>
+          </div>
+
+          <div class="tab-content" id="stats-history">
+            <div class="stats-history-controls">
+              <label class="stats-month-select-label">选择月份：</label>
+              <select class="stats-month-select" id="statsHistoryMonth"></select>
+              <span class="stats-history-total" id="statsHistoryTotal"></span>
+            </div>
+            <div class="stats-history-table-wrap">
+              <table class="stats-weekly-table">
+                <thead>
+                  <tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>待办完成率</th></tr>
+                </thead>
+                <tbody id="statsHistoryBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Panel 9: 财经博客 ========== -->
+    <div class="panel" id="panel-blog">
+      <div class="module-card">
+        <div class="module-header">
+          <div class="title-area">
+            <div class="module-num">09</div>
+            <div>
+              <h2>财经博客精选</h2>
+              <span class="module-sub">Finance Blog Picks</span>
+            </div>
+          </div>
+          <span class="refresh-tag">每日轮换</span>
+        </div>
+        <div class="module-body">
           <div id="blogList"></div>
         </div>
-
       </div>
     </div>
-  </div>
 
-  <!-- ========== 模块6：打卡数据统计面板 ========== -->
-  <div class="module-card">
-    <div class="module-header">
-      <div class="title-area">
-        <div class="module-num">06</div>
-        <div>
-          <h2>打卡数据统计</h2>
-          <span class="module-sub">Check-in Analytics</span>
-        </div>
-      </div>
-      <span class="refresh-tag" id="statsRefreshTime">实时统计</span>
-    </div>
-    <div class="module-body">
-      <div class="tab-bar" id="statsTabBar">
-        <button class="tab-btn active" data-stats-tab="stats-overview">本月总览</button>
-        <button class="tab-btn" data-stats-tab="stats-weekly">周度汇总</button>
-        <button class="tab-btn" data-stats-tab="stats-history">历史记录</button>
-      </div>
-
-      <div class="tab-content active" id="stats-overview">
-        <div class="stats-card-row">
-          <div class="stats-card">
-            <div class="stats-card-icon sc-study">&#9997;</div>
-            <div class="stats-card-info">
-              <div class="stats-card-value" id="scStudyValue">0</div>
-              <div class="stats-card-label">中级会计备考</div>
-              <div class="stats-card-rate" id="scStudyRate">--%</div>
-            </div>
-          </div>
-          <div class="stats-card">
-            <div class="stats-card-icon sc-english">&#128172;</div>
-            <div class="stats-card-info">
-              <div class="stats-card-value" id="scEnglishValue">0</div>
-              <div class="stats-card-label">英语跟读</div>
-              <div class="stats-card-rate" id="scEnglishRate">--%</div>
-            </div>
-          </div>
-          <div class="stats-card">
-            <div class="stats-card-icon sc-sport">&#127947;</div>
-            <div class="stats-card-info">
-              <div class="stats-card-value" id="scSportValue">0</div>
-              <div class="stats-card-label">运动打卡</div>
-              <div class="stats-card-rate" id="scSportRate">--%</div>
-            </div>
-          </div>
-          <div class="stats-card">
-            <div class="stats-card-icon sc-review">&#9998;</div>
-            <div class="stats-card-info">
-              <div class="stats-card-value" id="scReviewValue">0</div>
-              <div class="stats-card-label">复盘日记</div>
-              <div class="stats-card-rate" id="scReviewRate">--%</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="stats-streak-bar">
-          <div class="streak-item">
-            <div class="streak-dot" id="streakDot"></div>
-            <div>
-              <div class="streak-title">连续打卡天数</div>
-              <div class="streak-value" id="streakValue">--</div>
-            </div>
-          </div>
-          <div class="streak-item streak-warn hidden" id="streakWarnItem">
-            <div class="streak-dot warn"></div>
-            <div>
-              <div class="streak-title">断卡提醒</div>
-              <div class="streak-value warn-text" id="streakWarnText">--</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-divider"></div>
-        <div class="sub-section-title">本月完成率</div>
-        <div class="stats-monthly" id="statsMonthly"></div>
-      </div>
-
-      <div class="tab-content" id="stats-weekly">
-        <div class="sub-section-title">本周打卡明细</div>
-        <div class="stats-weekly-table-wrap">
-          <table class="stats-weekly-table">
-            <thead>
-              <tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>待办</th></tr>
-            </thead>
-            <tbody id="statsWeeklyBody"></tbody>
-          </table>
-        </div>
-        <div class="stats-weekly-summary" id="statsWeeklySummary"></div>
-      </div>
-
-      <div class="tab-content" id="stats-history">
-        <div class="stats-history-controls">
-          <label class="stats-month-select-label">选择月份：</label>
-          <select class="stats-month-select" id="statsHistoryMonth"></select>
-          <span class="stats-history-total" id="statsHistoryTotal"></span>
-        </div>
-        <div class="stats-history-table-wrap">
-          <table class="stats-weekly-table">
-            <thead>
-              <tr><th>日期</th><th>备考</th><th>英语</th><th>运动</th><th>复盘</th><th>待办完成率</th></tr>
-            </thead>
-            <tbody id="statsHistoryBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /main-container -->
-<div class="floating-quote" id="floatingQuote">
-  <span class="fq-toggle" id="fqToggle">—</span>
-  <div class="fq-label">DAILY QUOTE</div>
-  <div class="fq-text" id="fqText"></div>
-</div>
+  </div><!-- /content-area -->
+</div><!-- /app-layout -->
 
 <!-- ========== Toast ========== -->
 <div class="toast" id="toast"></div>
@@ -1355,7 +1734,7 @@ body {
 <!-- ========== 底部 ========== -->
 <div class="footer-bar">
   财税知性工作台 · AI Daily Workspace<br>
-  <span class="heart">♥</span> 每一天都在成为更好的自己 · Powered by Focus & Discipline
+  <span class="heart">&hearts;</span> 每一天都在成为更好的自己 · Powered by Focus & Discipline
 </div>
 
 <script>
@@ -1365,7 +1744,6 @@ body {
 
 /* ========== 工具函数 ========== */
 
-// 获取今日日期字符串 YYYY-MM-DD
 function getTodayStr() {
   var d = new Date();
   return d.getFullYear() + '-' +
@@ -1373,7 +1751,6 @@ function getTodayStr() {
     String(d.getDate()).padStart(2, '0');
 }
 
-// 日期种子算法：用日期数字生成伪随机种子
 function dateSeed(offset) {
   var d = new Date();
   var base = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
@@ -1381,7 +1758,6 @@ function dateSeed(offset) {
   return Math.abs(seed);
 }
 
-// 基于种子从数组中选取元素（不重复选count个）
 function pickFromArray(arr, count, seedOffset) {
   var seed = dateSeed(seedOffset || 0);
   var pool = arr.slice();
@@ -1395,7 +1771,6 @@ function pickFromArray(arr, count, seedOffset) {
   return result;
 }
 
-// 按日期索引选取单个元素
 function pickByDate(arr, seedOffset) {
   var seed = dateSeed(seedOffset || 0);
   return arr[seed % arr.length];
@@ -1413,17 +1788,14 @@ var SYNC_TOKEN_KEY = 'fw_github_token';
 var syncTimer = null;
 var syncEnabled = false;
 var lastSyncTime = 0;
-var isPushing = false; // 同步锁
-var pendingPush = false; // 是否有等待中的推送
+var isPushing = false;
+var pendingPush = false;
 
-// 从URL参数或localStorage获取Token
 function getSyncToken() {
-  // 检查URL参数（首次带入）
   var urlParams = new URLSearchParams(window.location.search);
   var urlToken = urlParams.get('token');
   if (urlToken) {
     try { localStorage.setItem(SYNC_TOKEN_KEY, urlToken); } catch(e) {}
-    // 清除URL中的token参数（安全处理）
     var cleanUrl = window.location.pathname;
     window.history.replaceState({}, document.title, cleanUrl);
     return urlToken;
@@ -1431,19 +1803,16 @@ function getSyncToken() {
   try { return localStorage.getItem(SYNC_TOKEN_KEY); } catch(e) { return null; }
 }
 
-// localStorage 安全读写
 function lsGet(key) {
   try { return localStorage.getItem(key); } catch(e) { return null; }
 }
 function lsSet(key, val) {
   try { localStorage.setItem(key, val); } catch(e) {}
-  // 触发云端同步（防抖）
   if (syncEnabled) {
     scheduleCloudSync();
   }
 }
 
-// 获取全部工作台数据（所有fw_开头的key）
 function getAllWorkbenchData() {
   var data = {};
   try {
@@ -1457,22 +1826,19 @@ function getAllWorkbenchData() {
   return data;
 }
 
-// 防抖云端同步
 function scheduleCloudSync() {
   clearTimeout(syncTimer);
   setSyncStatus('syncing', '同步中...');
   syncTimer = setTimeout(function() {
     pushToCloud();
-  }, 3000); // 3秒内的连续操作只同步一次
+  }, 3000);
 }
 
-// 推送数据到GitHub（使用Git Database API，避免409冲突）
 function pushToCloud(retryCount) {
   retryCount = retryCount || 0;
   var token = getSyncToken();
   if (!token) { setSyncStatus('error', '未连接'); return; }
 
-  // 同步锁
   if (isPushing) { pendingPush = true; return; }
   isPushing = true;
 
@@ -1486,7 +1852,6 @@ function pushToCloud(retryCount) {
   };
   var apiBase = GITHUB_CONFIG.apiBase;
 
-  // Step 1: 获取当前分支最新的commit sha
   fetch(apiBase + '/git/refs/heads/' + GITHUB_CONFIG.branch, { headers: headers })
   .then(function(res) {
     if (!res.ok) throw new Error('获取分支引用失败: ' + res.status);
@@ -1495,13 +1860,11 @@ function pushToCloud(retryCount) {
   .then(function(ref) {
     var latestCommitSha = ref.object.sha;
 
-    // Step 2: 获取最新commit对应的tree
     return fetch(apiBase + '/git/commits/' + latestCommitSha, { headers: headers })
     .then(function(res) { return res.json(); })
     .then(function(commit) {
       var baseTreeSha = commit.tree.sha;
 
-      // Step 3: 创建新的blob（文件内容）
       return fetch(apiBase + '/git/blobs', {
         method: 'POST',
         headers: headers,
@@ -1509,7 +1872,6 @@ function pushToCloud(retryCount) {
       })
       .then(function(res) { return res.json(); })
       .then(function(blob) {
-        // Step 4: 创建新的tree（基于baseTree，更新data.json）
         return fetch(apiBase + '/git/trees', {
           method: 'POST',
           headers: headers,
@@ -1525,7 +1887,6 @@ function pushToCloud(retryCount) {
         })
         .then(function(res) { return res.json(); })
         .then(function(tree) {
-          // Step 5: 创建新的commit
           return fetch(apiBase + '/git/commits', {
             method: 'POST',
             headers: headers,
@@ -1537,7 +1898,6 @@ function pushToCloud(retryCount) {
           })
           .then(function(res) { return res.json(); })
           .then(function(newCommit) {
-            // Step 6: 更新分支引用指向新commit
             return fetch(apiBase + '/git/refs/heads/' + GITHUB_CONFIG.branch, {
               method: 'PATCH',
               headers: headers,
@@ -1577,7 +1937,6 @@ function pushToCloud(retryCount) {
   });
 }
 
-// 从GitHub拉取数据
 function pullFromCloud(callback) {
   var token = getSyncToken();
   if (!token) { setSyncStatus('error', '未连接'); if (callback) callback(false); return; }
@@ -1589,7 +1948,6 @@ function pullFromCloud(callback) {
   })
   .then(function(res) {
     if (res.status === 404) {
-      // 文件不存在，首次使用，推送当前数据
       syncEnabled = true;
       pushToCloud();
       if (callback) callback(true);
@@ -1603,12 +1961,10 @@ function pullFromCloud(callback) {
     var content = decodeURIComponent(escape(atob(fileInfo.content)));
     var cloudData = JSON.parse(content);
 
-    // 合并云端数据到本地（云端优先，但保留本地未同步的更改）
     var merged = false;
     for (var key in cloudData) {
       if (key.indexOf('fw_') === 0 && key !== SYNC_TOKEN_KEY) {
         var localVal = localStorage.getItem(key);
-        // 如果本地没有或与云端不同，用云端覆盖
         if (localVal !== cloudData[key]) {
           localStorage.setItem(key, cloudData[key]);
           merged = true;
@@ -1629,7 +1985,6 @@ function pullFromCloud(callback) {
   });
 }
 
-// 设置同步状态
 function setSyncStatus(status, text) {
   var dot = document.getElementById('syncDot');
   var txt = document.getElementById('syncText');
@@ -1643,11 +1998,9 @@ function formatTime(ts) {
   return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
 }
 
-// Token弹窗
 function openTokenModal() {
   var token = getSyncToken();
   if (token) {
-    // 已有Token，显示状态并提供手动同步
     if (confirm('当前已连接云端同步。\n\n点击"确定"立即手动同步数据，\n点击"取消"关闭。')) {
       pullFromCloud(function(success) {
         if (success) {
@@ -1677,11 +2030,9 @@ function saveToken() {
   try { localStorage.setItem(SYNC_TOKEN_KEY, token); } catch(e) {}
   closeTokenModal();
   setSyncStatus('syncing', '连接中...');
-  // 测试连接并拉取数据
   pullFromCloud(function(success) {
     if (success) {
       showToast('云端同步已开启！');
-      // 重新渲染所有模块
       setTimeout(function() { location.reload(); }, 1000);
     } else {
       showToast('Token无效，请检查权限');
@@ -1689,7 +2040,6 @@ function saveToken() {
   });
 }
 
-// Toast 提示
 function showToast(msg) {
   var t = document.getElementById('toast');
   t.textContent = msg;
@@ -1698,38 +2048,38 @@ function showToast(msg) {
   t._timer = setTimeout(function() { t.classList.remove('show'); }, 2200);
 }
 
-/* ========== 今日日期 & 倒计时 ========== */
+/* ========== 日期 & 倒计时 ========== */
 function renderNavDate() {
   var d = new Date();
   var months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   var weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
-  document.getElementById('navDate').textContent =
-    d.getFullYear() + '年' + months[d.getMonth()] + d.getDate() + '日';
-  document.getElementById('navWeekday').textContent = weekdays[d.getDay()];
+  var navDateEl = document.getElementById('navDate');
+  if (navDateEl) navDateEl.textContent = d.getFullYear() + '年' + months[d.getMonth()] + d.getDate() + '日';
+  var navWeekEl = document.getElementById('navWeekday');
+  if (navWeekEl) navWeekEl.textContent = weekdays[d.getDay()];
 
-  // 中级会计考试日期：2026年9月5日
   var examDate = new Date(2026, 8, 5);
   var today = new Date(d.getFullYear(), d.getMonth(), d.getDate());
   var diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
   var badge = document.getElementById('navCountdown');
-  if (diff > 0) {
-    badge.textContent = '中级会计倒计时 ' + diff + ' 天';
-  } else if (diff === 0) {
-    badge.textContent = '今天就是中级会计考试日！';
-  } else {
-    badge.textContent = '中级会计考试已过 ' + Math.abs(diff) + ' 天';
+  if (badge) {
+    if (diff > 0) {
+      badge.textContent = '中级会计倒计时 ' + diff + ' 天';
+    } else if (diff === 0) {
+      badge.textContent = '今天就是中级会计考试日！';
+    } else {
+      badge.textContent = '中级会计考试已过 ' + Math.abs(diff) + ' 天';
+    }
   }
 
-  // 模块5大倒计时
   var cdNum = document.getElementById('cdNumber');
   if (cdNum) {
     cdNum.textContent = diff > 0 ? diff : (diff === 0 ? '0' : Math.abs(diff));
   }
 }
 
-/* ========== 模块1：每日核心计划区 ========== */
+/* ========== Panel 1: 每日计划 ========== */
 
-// 待办模板池（15+条）
 var TODO_POOL = [
   { text: '核对昨日账务凭证，确保借贷平衡', tag: 'work' },
   { text: '编制本月财务报表（资产负债表+利润表）', tag: 'work' },
@@ -1766,7 +2116,6 @@ function renderTodos() {
   var today = getTodayStr();
   var storageKey = 'fw_' + today + '_todos';
 
-  // 检查是否已生成今日待办
   var stored = lsGet(storageKey);
   if (stored) {
     try {
@@ -1781,6 +2130,7 @@ function renderTodos() {
   }
 
   var container = document.getElementById('todoList');
+  if (!container) return;
   container.innerHTML = '';
   todayTodos.forEach(function(todo, idx) {
     var item = document.createElement('div');
@@ -1794,7 +2144,6 @@ function renderTodos() {
     container.appendChild(item);
   });
 
-  // 绑定点击事件
   container.querySelectorAll('.todo-item').forEach(function(item) {
     item.addEventListener('click', function() {
       var idx = parseInt(this.querySelector('.todo-checkbox').dataset.idx);
@@ -1808,7 +2157,6 @@ function renderTodos() {
 }
 
 function generateDailyTodos() {
-  // 每日选8-10条，保证4个维度都有
   var workTodos = TODO_POOL.filter(function(t) { return t.tag === 'work'; });
   var consultTodos = TODO_POOL.filter(function(t) { return t.tag === 'consult'; });
   var videoTodos = TODO_POOL.filter(function(t) { return t.tag === 'video'; });
@@ -1820,7 +2168,6 @@ function generateDailyTodos() {
     .concat(pickFromArray(videoTodos, 2, 201))
     .concat(pickFromArray(studyTodos, 1, 301));
 
-  // 打乱顺序
   return pickFromArray(picked, picked.length, 401).map(function(t) {
     return { text: t.text, tag: t.tag, done: false };
   });
@@ -1830,14 +2177,16 @@ function updateTodoProgress() {
   var total = todayTodos.length;
   var done = todayTodos.filter(function(t) { return t.done; }).length;
   var pct = total > 0 ? Math.round(done / total * 100) : 0;
-  document.getElementById('todoProgressFill').style.width = pct + '%';
-  document.getElementById('todoProgressLabel').textContent = '完成 ' + done + ' / ' + total;
-  document.getElementById('todoProgressPct').textContent = pct + '%';
+  var fillEl = document.getElementById('todoProgressFill');
+  var labelEl = document.getElementById('todoProgressLabel');
+  var pctEl = document.getElementById('todoProgressPct');
+  if (fillEl) fillEl.style.width = pct + '%';
+  if (labelEl) labelEl.textContent = '完成 ' + done + ' / ' + total;
+  if (pctEl) pctEl.textContent = pct + '%';
 }
 
-/* ========== 模块2：自媒体内容专区 ========== */
+/* ========== Panel 2: 自媒体 ========== */
 
-// 15条短视频选题
 var TOPIC_POOL = [
   { title: '你的公司还在用纸质发票？2026年7月后再不改就晚了！', desc: '数电发票全面推行，纸质发票即将退出历史舞台。企业如何平稳过渡？这3步必须提前做。', tags: ['数电发票','2026新规','企业合规'] },
   { title: '老板必看：金税四期下这5件事千万别再做了', desc: '金税四期大数据监控下，公转私、买卖发票、虚列工资等行为无所遁形。哪些红线不能碰？', tags: ['金税四期','税务稽查','老板必看'] },
@@ -1853,26 +2202,14 @@ var TOPIC_POOL = [
   { title: '老板把公司的钱转给自己，这3种方式最安全', desc: '分红、工资、借款，哪种方式税负最低？老板个人账户与公司账户的法律边界在哪里？', tags: ['公转私','老板必看','税务筹划'] },
   { title: '跨境电商卖家注意！2025年税务合规是唯一的活路', desc: '跨境电商税务监管收紧，海外仓、直邮模式税务处理差异大。合规成本到底有多高？', tags: ['跨境电商','税务合规','出海'] },
   { title: '新注册会计师法2027年起施行，考CPA还有用吗？', desc: '新法对CPA执业范围、法律责任做了重大调整。对在校生、从业者意味着什么？', tags: ['CPA','注册会计师','职业规划'] },
-  { title: '代理记账要变天了！2026年新规下老板选代账公司看这4点', desc: '代理记账行业监管升级，无证经营被清退。企业如何辨别靠谱代账机构？避坑指南。', tags: ['代理记账','2026新规','企业服务'] }
+  { title: '代理记账要变天了！2026年新规下老板选代账公司看这4点', desc: '代理记账行业监管升级，无证经营被清退。企业如何辨别靠谱代账机构？避坑指南。', tags: ['代理记账','2026新规','企业服务'] },
+  { title: '增值税法施行后，小规模纳税人这3个变化必须知道', desc: '增值税立法对小规模纳税人影响深远：起征点调整、申报简化、优惠政策衔接，一篇文章讲清楚。', tags: ['增值税法','小规模纳税人','2026新规'] },
+  { title: '金税四期上线后，企业银行流水被监控到什么程度？', desc: '金税四期银税互动全面升级，大额转账、异常流水自动预警。企业资金往来红线在哪？', tags: ['金税四期','银税互动','资金监控'] },
+  { title: '2026年个税专项附加扣除新标准，你能多省多少？', desc: '子女教育、赡养老人、房贷利息扣除标准提高，结合最新热点政策，手把手教你填报。', tags: ['专项附加扣除','个税','省税'] },
+  { title: '数电发票时代，这5种发票不能再报销了！', desc: '数电票全面推行后，哪些传统发票退出历史舞台？企业财务人员必须掌握的报销新规。', tags: ['数电发票','报销','合规'] },
+  { title: '企业利润80万和300万，交税差多少？小微企业优惠全解读', desc: '结合最新小微企业税收优惠政策，用两个真实案例对比分析，一看就懂省税逻辑。', tags: ['小微企业','所得税','税收优惠'] }
 ];
 
-// 12条全网热点
-var HOTSPOT_LIST = [
-  { title: '增值税法正式立法', desc: '2024年12月增值税法通过，2026年1月1日起施行，税收法定进程迈出关键一步。' },
-  { title: '金税四期深化推进', desc: '全电发票、大数据预警、银税互动全面升级，企业税务透明度大幅提高。' },
-  { title: '数电发票强制推行', desc: '全国范围内数电票覆盖率超90%，纸质发票加速退出，企业需完成系统对接。' },
-  { title: '小微企业所得税优惠延续', desc: '小微企业税收优惠政策延续至2027年底，年应纳税所得额300万以内按5%征收。' },
-  { title: '研发费用加计扣除100%', desc: '制造业和科技型中小企业研发费用加计扣除比例提至100%，激励企业创新投入。' },
-  { title: '留抵退税制度完善', desc: '增量留抵退税适用范围扩大，审核流程优化，企业现金流压力进一步缓解。' },
-  { title: '灵活用工个税新政', desc: '灵活用工人员个税代扣代缴规则明确，平台企业信息报送义务加强。' },
-  { title: '个人养老金全国推广', desc: '个人养老金制度从36个试点城市推广至全国，开户人数和缴存金额持续增长。' },
-  { title: '个税专项附加扣除提升', desc: '3岁以下婴幼儿照护、子女教育专项附加扣除标准提高，每个子女每月2000元。' },
-  { title: '公平竞争审查条例施行', desc: '规范地方政府税收优惠和财政奖补行为，全国统一大市场建设加速推进。' },
-  { title: '代理记账规范试点', desc: '多省市开展代理记账行业规范治理试点，查处无证经营和违规操作。' },
-  { title: '企业财务通则征求意见', desc: '财政部就修订企业财务通则公开征求意见，强化企业财务管理和内控要求。' }
-];
-
-// 5条二创文案模板
 var REWRITE_TEMPLATES = [
   {
     hook: '你有没有发现，同样是开公司，有人一年省税几十万，有人却多交了冤枉钱？差别就在这一个细节上。',
@@ -1901,9 +2238,34 @@ var REWRITE_TEMPLATES = [
   }
 ];
 
+var SHOOTING_SCRIPTS = [
+  {
+    title: '财税新政解读类脚本',
+    duration: '60-90秒 / 5个分镜',
+    shots: [
+      { scene: '开场 (0-5s)', visual: '正面半身，手持A4纸', dialogue: '老板们注意了！2026年起这个新规直接影响你的钱包——', tip: 'A4纸上写关键词，入场即抓眼球，语速偏快' },
+      { scene: '痛点引入 (5-15s)', visual: '侧身45度，表情严肃', dialogue: '很多企业还在用老办法，结果一查就罚款。你知道是哪个环节出了问题吗？', tip: '侧身制造紧张感，停顿1秒再提问' },
+      { scene: '核心讲解 (15-45s)', visual: '正面，特写表格', dialogue: '关键变化有三点：第一，XX范围扩大了；第二，XX标准提高了；第三，XX流程简化了。', tip: '可用手指比数字，表格用大字标注重点' },
+      { scene: '案例佐证 (45-60s)', visual: '侧面，手持计算器', dialogue: '举个例子，一家年利润80万的企业，新旧政策对比多交了多少税？', tip: '计算器按键声配合，数字用字幕弹出' },
+      { scene: '行动号召 (60-90s)', visual: '正面近景，手指镜头', dialogue: '赶紧转发给你们公司财务对照检查！关注我，每天一个财税干货。', tip: '号召转发+关注双CTA，语气回到轻松' }
+    ]
+  },
+  {
+    title: '热点嫁接类脚本',
+    duration: '45-60秒 / 4个分镜',
+    shots: [
+      { scene: '热点引入 (0-5s)', visual: '手机展示热点新闻', dialogue: '最近全网都在刷这个事，但你可能没注意到背后的财税逻辑——', tip: '手机画面需打码敏感信息，语速快' },
+      { scene: '转折 (5-15s)', visual: '放下手机正面看镜头', dialogue: '表面上看是XX事件，但如果你是老板/财务，这件事跟你有什么关系？', tip: '放下手机动作干脆，眼神直视镜头' },
+      { scene: '专业解读 (15-40s)', visual: '正面配合白板', dialogue: '从税务角度看，这件事涉及三个关键点：第一，XX；第二，XX；第三，XX。', tip: '白板提前写好三点，边说边指' },
+      { scene: '互动引导 (40-60s)', visual: '正面半身，微笑', dialogue: '你们公司有没有遇到过类似情况？评论区告诉我，我帮你分析。', tip: '微笑收尾，引导评论互动，不放关注按钮' }
+    ]
+  }
+];
+
 function renderTopics() {
-  var topics = pickFromArray(TOPIC_POOL, 3, 501);
+  var topics = pickFromArray(TOPIC_POOL, 4, 501);
   var container = document.getElementById('topicList');
+  if (!container) return;
   container.innerHTML = '';
   topics.forEach(function(topic, idx) {
     var card = document.createElement('div');
@@ -1919,34 +2281,59 @@ function renderTopics() {
   });
 }
 
-function renderHotspots() {
-  var container = document.getElementById('hotspotList');
-  container.innerHTML = '';
-  HOTSPOT_LIST.forEach(function(item, idx) {
-    var rank = idx + 1;
-    var rankClass = 'r' + Math.min(rank, 6);
-    var el = document.createElement('div');
-    el.className = 'hotspot-item';
-    el.innerHTML =
-      '<div class="hotspot-rank ' + rankClass + '">' + rank + '</div>' +
-      '<div><div class="hotspot-title">' + item.title + '</div>' +
-      '<div class="hotspot-desc">' + item.desc + '</div></div>';
-    container.appendChild(el);
-  });
-}
-
 function renderRewrites() {
   var container = document.getElementById('rewriteList');
+  if (!container) return;
+  var templates = pickFromArray(REWRITE_TEMPLATES, 4, 502);
   container.innerHTML = '';
-  REWRITE_TEMPLATES.forEach(function(rt, idx) {
+  templates.forEach(function(rt, idx) {
     var el = document.createElement('div');
     el.className = 'rewrite-template';
     el.innerHTML =
-      '<div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--accent-deep);">模板 ' + (idx + 1) + '</div>' +
+      '<div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--accent-deep);">文案 ' + (idx + 1) + '</div>' +
       '<div class="rt-hook"><div class="rt-label">HOOK · 悬念钩子</div><div class="rt-content">' + rt.hook + '</div></div>' +
       '<div class="rt-core"><div class="rt-label">CORE · 核心内容</div><div class="rt-content">' + rt.core + '</div></div>' +
       '<div class="rt-cta"><div class="rt-label">CTA · 行动号召</div><div class="rt-content">' + rt.cta + '</div></div>';
     container.appendChild(el);
+  });
+}
+
+function renderScripts() {
+  var container = document.getElementById('scriptList');
+  if (!container) return;
+  container.innerHTML = '';
+  SHOOTING_SCRIPTS.forEach(function(script) {
+    var card = document.createElement('div');
+    card.className = 'script-card';
+    var shotsHtml = script.shots.map(function(shot) {
+      return '<div class="script-shot">' +
+        '<div class="shot-scene">' + shot.scene + '</div>' +
+        '<div class="shot-row"><b>画面：</b>' + shot.visual + '</div>' +
+        '<div class="shot-row"><b>台词：</b>' + shot.dialogue + '</div>' +
+        '<div class="shot-row"><b>要点：</b>' + shot.tip + '</div>' +
+      '</div>';
+    }).join('');
+    card.innerHTML =
+      '<div class="script-title">' + script.title + '</div>' +
+      '<div class="script-duration">' + script.duration + '</div>' +
+      shotsHtml;
+    container.appendChild(card);
+  });
+}
+
+function initMediaTabs() {
+  var tabs = document.querySelectorAll('.tab-btn[data-media-tab]');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = this.dataset.mediaTab;
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('#media-topic, #media-copy, #media-script, #media-note').forEach(function(c) {
+        c.classList.remove('active');
+      });
+      this.classList.add('active');
+      var el = document.getElementById(target);
+      if (el) el.classList.add('active');
+    });
   });
 }
 
@@ -1956,10 +2343,10 @@ function initInspirationNote() {
   var ta = document.getElementById('inspirationText');
   var status = document.getElementById('inspirationStatus');
   var saveBtn = document.getElementById('inspirationSaveBtn');
+  if (!ta || !status || !saveBtn) return;
 
   ta.value = lsGet(key) || '';
 
-  // 自动保存
   var saveTimer = null;
   ta.addEventListener('input', function() {
     status.textContent = '编辑中…';
@@ -1977,7 +2364,7 @@ function initInspirationNote() {
   });
 }
 
-/* ========== 模块3：每日沉淀复盘区 ========== */
+/* ========== Panel 3: 复盘 ========== */
 function initReview() {
   var today = getTodayStr();
   var fields = [
@@ -1988,6 +2375,7 @@ function initReview() {
 
   fields.forEach(function(f) {
     var ta = document.getElementById(f.id);
+    if (!ta) return;
     ta.value = lsGet(f.key) || '';
 
     var timer = null;
@@ -2004,7 +2392,477 @@ function initReview() {
   });
 }
 
-/* ========== 模块4：31位伟大女性人物故事 ========== */
+/* ========== Panel 4: 中级会计 ========== */
+
+var ACCOUNTING_PHASES = {
+  basic: {
+    name: '基础阶段',
+    startDate: '2025-11-01',
+    chapters: [
+      { ch: '第1章 存货', days: 2 },
+      { ch: '第2章 固定资产', days: 3 },
+      { ch: '第3章 无形资产', days: 2 },
+      { ch: '第4章 投资性房地产', days: 2 },
+      { ch: '第5章 长期股权投资', days: 4 },
+      { ch: '第6章 资产减值', days: 3 },
+      { ch: '第7章 收入', days: 4 },
+      { ch: '第8章 职工薪酬', days: 2 },
+      { ch: '第9章 借款费用', days: 3 },
+      { ch: '第10章 或有事项', days: 2 },
+      { ch: '第11章 收入（合同变更）', days: 2 },
+      { ch: '第12章 政府补助', days: 2 },
+      { ch: '第13章 所得税', days: 4 },
+      { ch: '第14章 外币折算', days: 2 },
+      { ch: '第15章 租赁', days: 3 }
+    ]
+  },
+  intensive: {
+    name: '强化阶段',
+    startDate: '2026-04-01',
+    chapters: [
+      { ch: '第16章 持有待售的非流动资产', days: 2 },
+      { ch: '第17章 企业合并', days: 4 },
+      { ch: '第18章 合并财务报表', days: 5 },
+      { ch: '第19章 合并报表（特殊交易）', days: 4 },
+      { ch: '第20章 会计政策变更', days: 2 },
+      { ch: '第21章 资产负债表日后事项', days: 3 },
+      { ch: '第22章 公允价值计量', days: 2 },
+      { ch: '复习：长期股权投资', days: 3 },
+      { ch: '复习：收入所得税', days: 3 }
+    ]
+  },
+  sprint: {
+    name: '冲刺阶段',
+    startDate: '2026-07-01',
+    chapters: [
+      { ch: '第23章 政府会计', days: 2 },
+      { ch: '第24章 民间非营利组织会计', days: 2 },
+      { ch: '第25章 财务报告', days: 3 },
+      { ch: '模拟卷（一）', days: 2 },
+      { ch: '模拟卷（二）', days: 2 },
+      { ch: '模拟卷（三）', days: 2 },
+      { ch: '错题回顾与巩固', days: 3 }
+    ]
+  }
+};
+
+var currentPhase = 'basic';
+
+function getPhaseStartDate(phase) {
+  return ACCOUNTING_PHASES[phase].startDate;
+}
+
+function getCurrentPhaseByDate() {
+  var today = new Date();
+  var sprintStart = new Date(ACCOUNTING_PHASES.sprint.startDate);
+  var intensiveStart = new Date(ACCOUNTING_PHASES.intensive.startDate);
+  if (today >= sprintStart) return 'sprint';
+  if (today >= intensiveStart) return 'intensive';
+  return 'basic';
+}
+
+function switchPhase(phase) {
+  currentPhase = phase;
+  document.querySelectorAll('.phase-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.phase === phase);
+  });
+  renderAccountingChapterTask();
+  renderAccountingProgress();
+  lsSet('fw_accounting_phase', phase);
+}
+
+function renderAccountingChapterTask() {
+  var container = document.getElementById('accountingChapterTask');
+  if (!container) return;
+  var phase = ACCOUNTING_PHASES[currentPhase];
+  var today = getTodayStr();
+  var phaseStart = new Date(phase.startDate);
+  var now = new Date();
+  var daysSinceStart = Math.floor((now - phaseStart) / (1000 * 60 * 60 * 24));
+
+  var cumulativeDays = 0;
+  var currentChapterIdx = -1;
+  phase.chapters.forEach(function(ch, idx) {
+    cumulativeDays += ch.days;
+    if (currentChapterIdx === -1 && daysSinceStart < cumulativeDays) {
+      currentChapterIdx = idx;
+    }
+  });
+  if (daysSinceStart < 0) currentChapterIdx = 0;
+  if (currentChapterIdx === -1) currentChapterIdx = phase.chapters.length - 1;
+
+  container.innerHTML = '';
+  phase.chapters.forEach(function(ch, idx) {
+    var item = document.createElement('div');
+    item.className = 'ac-chapter-item';
+    var doneKey = 'fw_ac_' + currentPhase + '_' + idx;
+    if (lsGet(doneKey) === '1') {
+      item.classList.add('done');
+    }
+    if (idx === currentChapterIdx) {
+      item.classList.add('current');
+    }
+    item.innerHTML =
+      '<div class="ac-chapter-check"></div>' +
+      '<div class="ac-chapter-name">' + ch.ch + (idx === currentChapterIdx ? '<span class="ac-chapter-current-tag">当前</span>' : '') + '</div>' +
+      '<div class="ac-chapter-days">' + ch.days + '天</div>';
+    item.addEventListener('click', function() {
+      if (lsGet(doneKey) === '1') {
+        lsSet(doneKey, '0');
+        item.classList.remove('done');
+      } else {
+        lsSet(doneKey, '1');
+        item.classList.add('done');
+        showToast('章节已完成：' + ch.ch);
+      }
+      renderAccountingProgress();
+    });
+    container.appendChild(item);
+  });
+}
+
+function initExerciseCheckin() {
+  var input = document.getElementById('exerciseCount');
+  var btn = document.getElementById('exerciseSaveBtn');
+  if (!input || !btn) return;
+
+  var today = getTodayStr();
+  var key = 'fw_' + today + '_exercise';
+  var existing = lsGet(key);
+  if (existing) input.value = existing;
+
+  btn.addEventListener('click', function() {
+    var count = parseInt(input.value) || 0;
+    lsSet(key, String(count));
+    showToast('今日刷题 ' + count + ' 道已记录');
+    renderExerciseHistory();
+    renderAccountingProgress();
+  });
+}
+
+function renderExerciseHistory() {
+  var container = document.getElementById('exerciseHistory');
+  if (!container) return;
+  container.innerHTML = '';
+
+  var now = new Date();
+  for (var i = 6; i >= 0; i--) {
+    var d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+    var ds = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    var count = lsGet('fw_' + ds + '_exercise') || '0';
+    var isToday = (ds === getTodayStr());
+    var item = document.createElement('div');
+    item.className = 'exercise-history-item';
+    item.innerHTML =
+      '<span class="eh-date">' + (d.getMonth()+1) + '/' + d.getDate() + (isToday ? ' (今天)' : '') + '</span>' +
+      '<span class="eh-count">' + count + ' 道</span>';
+    container.appendChild(item);
+  }
+}
+
+function calcAccountingStreak() {
+  var now = new Date();
+  var streak = 0;
+  var checkDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  for (var i = 0; i < 365; i++) {
+    var ds = checkDate.getFullYear() + '-' + String(checkDate.getMonth() + 1).padStart(2,'0') + '-' + String(checkDate.getDate()).padStart(2,'0');
+    var hasStudy = false;
+
+    var exercise = lsGet('fw_' + ds + '_exercise');
+    if (exercise && parseInt(exercise) > 0) hasStudy = true;
+
+    if (!hasStudy) {
+      var dayNum = checkDate.getDate();
+      if (lsGet('fw_checkin_day_' + dayNum) === '1') hasStudy = true;
+    }
+
+    if (hasStudy) {
+      streak++;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else {
+      if (i === 0) {
+        checkDate.setDate(checkDate.getDate() - 1);
+        continue;
+      }
+      break;
+    }
+  }
+  return streak;
+}
+
+function renderAccountingProgress() {
+  var container = document.getElementById('accountingProgress');
+  if (!container) return;
+
+  var phase = ACCOUNTING_PHASES[currentPhase];
+  var totalChapters = phase.chapters.length;
+  var doneCount = 0;
+  phase.chapters.forEach(function(ch, idx) {
+    if (lsGet('fw_ac_' + currentPhase + '_' + idx) === '1') doneCount++;
+  });
+  var chapterRate = totalChapters > 0 ? Math.round(doneCount / totalChapters * 100) : 0;
+
+  var now = new Date();
+  var monthStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2,'0');
+  var monthExercise = 0;
+  var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  for (var d = 1; d <= now.getDate(); d++) {
+    var ds = monthStr + '-' + String(d).padStart(2,'0');
+    var ex = lsGet('fw_' + ds + '_exercise');
+    if (ex) monthExercise += parseInt(ex);
+  }
+
+  var streak = calcAccountingStreak();
+
+  container.innerHTML =
+    '<div class="progress-stat-card"><div class="psc-value">' + chapterRate + '%</div><div class="psc-label">章节完成率<br>' + doneCount + '/' + totalChapters + '</div></div>' +
+    '<div class="progress-stat-card"><div class="psc-value">' + monthExercise + '</div><div class="psc-label">本月刷题总数（道）</div></div>' +
+    '<div class="progress-stat-card"><div class="psc-value">' + streak + '</div><div class="psc-label">连续学习天数</div></div>';
+}
+
+function renderAccountingModule() {
+  var savedPhase = lsGet('fw_accounting_phase');
+  if (savedPhase && ACCOUNTING_PHASES[savedPhase]) {
+    currentPhase = savedPhase;
+  } else {
+    currentPhase = getCurrentPhaseByDate();
+  }
+  document.querySelectorAll('.phase-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.phase === currentPhase);
+  });
+  renderAccountingChapterTask();
+  initExerciseCheckin();
+  renderExerciseHistory();
+  renderAccountingProgress();
+  renderCheckinCalendar();
+}
+
+/* ========== Panel 5: 英语口语 ========== */
+
+var ENGLISH_SENTENCES = [
+  { en: 'Could you do me a favor and pass the salt?', cn: '能帮我个忙把盐递过来吗？' },
+  { en: "I'm running a bit late, can you save my seat?", cn: '我要迟到一会儿，能帮我占个座吗？' },
+  { en: "It's been ages! How have you been?", cn: '好久不见！你最近怎么样？' },
+  { en: "I'll take your word for it.", cn: '我就信你说的吧。' },
+  { en: 'No worries, we can figure it out together.', cn: '别担心，我们可以一起想办法。' },
+  { en: 'That makes two of us.', cn: '我也一样。' },
+  { en: "Let's grab a coffee sometime this week.", cn: '这周找时间一起喝杯咖啡吧。' },
+  { en: "I'm not really feeling up to it today.", cn: '我今天不太想去了。' },
+  { en: "Could you say that again? I didn't catch it.", cn: '能再说一遍吗？我没听清。' },
+  { en: "It's on the tip of my tongue.", cn: '话到嘴边想不起来了。' },
+  { en: "I'll sleep on it and let you know tomorrow.", cn: '我考虑一晚上，明天答复你。' },
+  { en: "You're telling me! I've been there.", cn: '可不是嘛！我经历过。' },
+  { en: "Let's call it a day and pick this up tomorrow.", cn: '今天就到这里吧，明天继续。' },
+  { en: "I couldn't agree more.", cn: '我完全同意。' },
+  { en: 'What do you say we order takeout tonight?', cn: '今晚叫外卖怎么样？' },
+  { en: "I'm looking forward to the weekend.", cn: '我很期待周末。' },
+  { en: "That's exactly what I was thinking.", cn: '我也正是这么想的。' },
+  { en: "Sorry, I didn't mean to interrupt.", cn: '抱歉，我不是故意打断的。' },
+  { en: "It's a small world, isn't it?", cn: '世界真小，是吧？' },
+  { en: 'Let me get back to you on that.', cn: '这件事我回头再答复你。' }
+];
+
+function speakEnglish(text) {
+  if ('speechSynthesis' in window) {
+    var utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+  } else {
+    showToast('浏览器不支持语音朗读');
+  }
+}
+
+function renderEnglishCard() {
+  var idx = dateSeed(601) % ENGLISH_SENTENCES.length;
+  var sentence = ENGLISH_SENTENCES[idx];
+  var today = getTodayStr();
+  var doneKey = 'fw_' + today + '_english_done';
+
+  var ecEn = document.getElementById('ecEn');
+  var ecCn = document.getElementById('ecCn');
+  var ecWeeklyTag = document.getElementById('ecWeeklyTag');
+  if (!ecEn || !ecCn) return;
+
+  ecEn.textContent = sentence.en;
+  ecCn.textContent = sentence.cn;
+  if (ecWeeklyTag) ecWeeklyTag.textContent = '今日第' + (idx + 1) + '句';
+
+  var btn = document.getElementById('ecBtn');
+  var playBtn = document.getElementById('ecPlayBtn');
+  if (!btn) return;
+
+  if (lsGet(doneKey) === '1') {
+    btn.classList.add('done');
+    btn.textContent = '已完成 \u2713';
+  }
+
+  btn.onclick = function() {
+    if (lsGet(doneKey) === '1') {
+      lsSet(doneKey, '0');
+      btn.classList.remove('done');
+      btn.textContent = '跟读完成';
+      showToast('已取消跟读打卡');
+    } else {
+      lsSet(doneKey, '1');
+      btn.classList.add('done');
+      btn.textContent = '已完成 \u2713';
+      showToast('今日英语跟读已完成！');
+    }
+  };
+
+  if (playBtn) {
+    playBtn.onclick = function() {
+      speakEnglish(sentence.en);
+    };
+  }
+}
+
+function renderEnglishSentenceList() {
+  var container = document.getElementById('englishSentenceList');
+  if (!container) return;
+  container.innerHTML = '';
+  ENGLISH_SENTENCES.forEach(function(s, idx) {
+    var item = document.createElement('div');
+    item.className = 'english-sentence-item';
+    item.innerHTML =
+      '<div class="es-num">' + (idx + 1) + '</div>' +
+      '<div class="es-content">' +
+        '<div class="es-en">' + s.en + '</div>' +
+        '<div class="es-cn">' + s.cn + '</div>' +
+      '</div>' +
+      '<button class="es-play">&#128264;</button>';
+    container.appendChild(item);
+
+    var playBtn = item.querySelector('.es-play');
+    playBtn.addEventListener('click', function() {
+      speakEnglish(s.en);
+    });
+  });
+}
+
+/* ========== Panel 6: 运动健康 ========== */
+
+var SPORT_VIDEOS = {
+  baduanjin: [
+    { name: '八段锦完整版（国家体育总局标准）', platform: 'B站', url: 'https://www.bilibili.com/video/BV1n7411A7aE' },
+    { name: '八段锦跟练版（带口令）', platform: 'B站', url: 'https://www.bilibili.com/video/BV1B3411H7Sx' },
+    { name: '八段锦教学分解（适合初学）', platform: 'YouTube', url: 'https://www.youtube.com/watch?v=Z7f6EgQqgW8' }
+  ],
+  pamela: [
+    { name: '帕梅拉10分钟全身燃脂', platform: 'B站', url: 'https://www.bilibili.com/video/BV1GJ411x7h3' },
+    { name: '帕梅拉15分钟腹部训练', platform: 'B站', url: 'https://www.bilibili.com/video/BV1Lp4y1h7d5' },
+    { name: '帕梅拉20分钟HIIT', platform: 'YouTube', url: 'https://www.youtube.com/watch?v=cbKkB3POqaY' }
+  ]
+};
+
+function renderSportRecord() {
+  var today = getTodayStr();
+  var container = document.getElementById('sportRecord');
+  if (!container) return;
+  container.innerHTML = '';
+
+  for (var i = 0; i < 3; i++) {
+    var slot = document.createElement('div');
+    slot.className = 'sport-slot';
+    var contentKey = 'fw_' + today + '_sport_' + i;
+    var content = lsGet(contentKey) || '';
+
+    if (content) {
+      slot.classList.add('done');
+    }
+
+    slot.innerHTML =
+      '<div class="ss-icon">' + ['\u8DD1','\u745C','\u8DF3'][i] + '</div>' +
+      '<div class="ss-label">第' + (i + 1) + '次运动</div>' +
+      '<input class="ss-input" type="text" placeholder="填写运动内容" value="' + content.replace(/"/g, '&quot;') + '">';
+
+    container.appendChild(slot);
+
+    (function(key, el) {
+      var input = el.querySelector('.ss-input');
+      input.addEventListener('input', function() {
+        lsSet(key, input.value);
+        if (input.value.trim()) {
+          el.classList.add('done');
+        } else {
+          el.classList.remove('done');
+        }
+      });
+    })(contentKey, slot);
+  }
+}
+
+function renderVideoLinks() {
+  var bdContainer = document.getElementById('baduanjinLinks');
+  var pmContainer = document.getElementById('pamelaLinks');
+  if (bdContainer) {
+    bdContainer.innerHTML = '<div class="vlc-title">八段锦</div>';
+    SPORT_VIDEOS.baduanjin.forEach(function(v) {
+      bdContainer.innerHTML +=
+        '<div class="video-link-item">' +
+          '<span class="vli-name">' + v.name + '</span>' +
+          '<span class="vli-platform">' + v.platform + '</span>' +
+          '<a class="vli-link" href="' + v.url + '" target="_blank" rel="noopener">跟练 &rarr;</a>' +
+        '</div>';
+    });
+  }
+  if (pmContainer) {
+    pmContainer.innerHTML = '<div class="vlc-title">帕梅拉</div>';
+    SPORT_VIDEOS.pamela.forEach(function(v) {
+      pmContainer.innerHTML +=
+        '<div class="video-link-item">' +
+          '<span class="vli-name">' + v.name + '</span>' +
+          '<span class="vli-platform">' + v.platform + '</span>' +
+          '<a class="vli-link" href="' + v.url + '" target="_blank" rel="noopener">跟练 &rarr;</a>' +
+        '</div>';
+    });
+  }
+}
+
+/* ========== 备考打卡日历 ========== */
+function renderCheckinCalendar() {
+  var container = document.getElementById('checkinCalendar');
+  if (!container) return;
+  container.innerHTML = '';
+  var today = getTodayStr();
+
+  for (var i = 1; i <= 30; i++) {
+    var day = document.createElement('div');
+    day.className = 'checkin-day';
+    day.textContent = i;
+
+    var checkKey = 'fw_checkin_day_' + i;
+    if (lsGet(checkKey) === '1') {
+      day.classList.add('checked');
+    }
+
+    var todayDate = new Date().getDate();
+    if (i === todayDate) {
+      day.classList.add('today');
+    }
+
+    day.addEventListener('click', function() {
+      var dayNum = parseInt(this.textContent);
+      var key = 'fw_checkin_day_' + dayNum;
+      if (lsGet(key) === '1') {
+        lsSet(key, '0');
+        this.classList.remove('checked');
+        showToast('第' + dayNum + '天打卡已取消');
+      } else {
+        lsSet(key, '1');
+        this.classList.add('checked');
+        showToast('第' + dayNum + '天打卡成功！');
+      }
+    });
+
+    container.appendChild(day);
+  }
+}
+
+/* ========== Panel 7: 女性故事 ========== */
 var WOMEN_LIST = [
   {
     name: '屠呦呦', field: '药学家', years: '1930—', tag: '青蒿素之母',
@@ -2048,7 +2906,6 @@ var WOMEN_LIST = [
   }
 ];
 
-// 继续添加女性人物 11-21
 var WOMEN_LIST_2 = [
   {
     name: '杨绛', field: '作家·翻译家', years: '1911—2016', tag: '最贤的妻最才的女',
@@ -2096,7 +2953,6 @@ var WOMEN_LIST_2 = [
   }
 ];
 
-// 继续添加女性人物 22-31
 var WOMEN_LIST_3 = [
   {
     name: '海伦·凯勒', field: '作家·社会活动家', years: '1880—1968', tag: '黑暗中的光',
@@ -2140,19 +2996,24 @@ var WOMEN_LIST_3 = [
   }
 ];
 
-// 合并所有女性数据
 var ALL_WOMEN = WOMEN_LIST.concat(WOMEN_LIST_2, WOMEN_LIST_3);
 
 function renderWoman() {
   var woman = pickByDate(ALL_WOMEN, 601);
-  document.getElementById('womanAvatar').textContent = woman.name.charAt(0);
-  document.getElementById('womanName').textContent = woman.name;
-  document.getElementById('womanMeta').textContent = woman.field + ' · ' + woman.years;
-  document.getElementById('womanTag').textContent = woman.tag;
-  document.getElementById('womanStory').textContent = woman.story;
+  var avatarEl = document.getElementById('womanAvatar');
+  var nameEl = document.getElementById('womanName');
+  var metaEl = document.getElementById('womanMeta');
+  var tagEl = document.getElementById('womanTag');
+  var storyEl = document.getElementById('womanStory');
+  if (!avatarEl || !nameEl) return;
+  avatarEl.textContent = woman.name.charAt(0);
+  nameEl.textContent = woman.name;
+  metaEl.textContent = woman.field + ' · ' + woman.years;
+  tagEl.textContent = woman.tag;
+  storyEl.textContent = woman.story;
 }
 
-/* ========== 50条励志语录（结合财务专业特色+女性力量感） ========== */
+/* ========== 50条励志语录 ========== */
 var QUOTES = [
   '每一次试算平衡，都是人生的对账——借方付出的努力，贷方终会回报。',
   '账可以重做，人生不能重来。但每一天的复式记账，都在书写你的资产。',
@@ -2209,46 +3070,12 @@ var QUOTES = [
 
 function renderDailyQuote() {
   var quote = pickByDate(QUOTES, 701);
-  document.getElementById('dailyQuoteArea').textContent = '"' + quote + '"';
+  var el = document.getElementById('dailyQuoteArea');
+  if (el) el.textContent = '"' + quote + '"';
 }
 
-/* ========== 悬浮语录 ========== */
-var currentQuoteIdx = 0;
-function initFloatingQuote() {
-  currentQuoteIdx = dateSeed(701) % QUOTES.length;
-  renderFloatingQuote();
-
-  var fq = document.getElementById('floatingQuote');
-  var fqToggle = document.getElementById('fqToggle');
-  var fqText = document.getElementById('fqText');
-
-  // 点击正文换一条
-  fqText.addEventListener('click', function(e) {
-    e.stopPropagation();
-    currentQuoteIdx = (currentQuoteIdx + 1) % QUOTES.length;
-    renderFloatingQuote();
-  });
-
-  // 点击toggle最小化/展开
-  fqToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if (fq.classList.contains('minimized')) {
-      fq.classList.remove('minimized');
-      fqToggle.textContent = '—';
-    } else {
-      fq.classList.add('minimized');
-      fqToggle.textContent = '+';
-    }
-  });
-}
-
-function renderFloatingQuote() {
-  document.getElementById('fqText').textContent = QUOTES[currentQuoteIdx];
-}
-
-/* ========== 模块5：中级会计三科章节知识点 ========== */
+/* ========== STUDY_CHAPTERS (42条) ========== */
 var STUDY_CHAPTERS = [
-  // 《中级会计实务》25章
   { subject: '中级会计实务', chapter: '第1章 存货', point: '存货的初始计量：采购成本包括购买价款、相关税费、运输费、装卸费、保险费等。存货发出计价方法：先进先出法、月末一次加权平均法、移动加权平均法、个别计价法。期末按成本与可变现净值孰低计量。' },
   { subject: '中级会计实务', chapter: '第2章 固定资产', point: '固定资产初始计量：外购成本包括购买价款、相关税费、使固定资产达到预定可使用状态前发生的可归属于该项资产的运输费、装卸费、安装费和专业人员服务费等。折旧方法：年限平均法、工作量法、双倍余额递减法、年数总和法。' },
   { subject: '中级会计实务', chapter: '第3章 无形资产', point: '自行研发无形资产：研究阶段支出全部费用化，开发阶段支出满足资本化条件的予以资本化。无形资产摊销：使用寿命有限的摊销，使用寿命不确定的不摊销但每年减值测试。' },
@@ -2274,7 +3101,6 @@ var STUDY_CHAPTERS = [
   { subject: '中级会计实务', chapter: '第23章 政府会计', point: '政府会计由预算会计和财务会计构成。预算会计实行收付实现制，财务会计实行权责发生制。政府会计要素包括预算收入、预算支出、预算结余和资产、负债、净资产、收入、费用。' },
   { subject: '中级会计实务', chapter: '第24章 民间非营利组织会计', point: '民间非营利组织会计以权责发生制为核算基础。收入按来源分为交换交易收入和非交换交易收入。净资产按是否受限分为限定性净资产和非限定性净资产。' },
   { subject: '中级会计实务', chapter: '第25章 财务报告', point: '财务报告包括财务报表和其他应当在财务报告中披露的相关信息和资料。财务报表至少应当包括资产负债表、利润表、现金流量表、所有者权益变动表和附注。' },
-  // 《财务管理》10章
   { subject: '财务管理', chapter: '第1章 总论', point: '财务管理目标理论：利润最大化、股东财富最大化、企业价值最大化、相关者利益最大化。股东财富最大化是本书采纳的观点。利益冲突的协调：所有者与经营者通过解聘、接收、股票期权协调；所有者与债权人通过限制性借款、收回借款协调。' },
   { subject: '财务管理', chapter: '第2章 财务管理基础', point: '货币时间价值：复利终值F=P(1+i)^n，复利现值P=F/(1+i)^n。普通年金终值F=A×(F/A,i,n)，普通年金现值P=A×(P/A,i,n)。风险与收益：期望收益率=Σ(概率×可能收益率)，标准差衡量风险大小。' },
   { subject: '财务管理', chapter: '第3章 预算管理', point: '预算编制方法：固定预算与弹性预算、增量预算与零基预算、定期预算与滚动预算。全面预算体系包括业务预算（销售预算、生产预算、直接材料预算等）、专门决策预算和财务预算（现金预算、预计利润表、预计资产负债表）。' },
@@ -2285,7 +3111,6 @@ var STUDY_CHAPTERS = [
   { subject: '财务管理', chapter: '第8章 成本管理', point: '本量利分析：边际贡献=销售收入-变动成本，息税前利润=边际贡献-固定成本。保本点销量=固定成本/(单价-单位变动成本)。目标利润=（单价-单位变动成本）×销量-固定成本。标准成本差异分析：直接材料差异、直接人工差异、变动制造费用差异。' },
   { subject: '财务管理', chapter: '第9章 收入与分配管理', point: '股利分配政策：剩余股利政策、固定或稳定增长股利政策、固定股利支付率政策、低正常股利加额外股利政策。股票分割会降低每股市价，增加股数，不改变股东权益结构。股票回购减少流通在外的股数，提高每股收益。' },
   { subject: '财务管理', chapter: '第10章 财务分析与评价', point: '偿债能力指标：流动比率=流动资产/流动负债，资产负债率=负债总额/资产总额。营运能力指标：应收账款周转率=赊销收入净额/应收账款平均余额，存货周转率=营业成本/存货平均余额。盈利能力指标：营业净利率=净利润/营业收入，净资产收益率=净利润/平均净资产。杜邦分析体系：ROE=营业净利率×总资产周转率×权益乘数。' },
-  // 《经济法》7章
   { subject: '经济法', chapter: '第1章 总论', point: '法律行为是民事主体通过意思表示设立、变更或终止民事法律关系的行为。法律行为的有效要件：行为人具有相应的民事行为能力、意思表示真实、不违反法律和社会公共利益。无效民事行为自始没有法律约束力。可撤销民事行为包括重大误解、欺诈、胁迫、显失公平。' },
   { subject: '经济法', chapter: '第2章 公司法律制度', point: '有限责任公司设立条件：股东人数1-50人，有符合公司章程规定的全体股东认缴的出资额，股东共同制定公司章程，有公司名称和住所。股东会职权包括决定公司的经营方针和投资计划、选举和更换非职工代表担任的董事监事等。股权转让：其他股东过半数同意。' },
   { subject: '经济法', chapter: '第3章 合伙企业法律制度', point: '普通合伙企业由2人以上普通合伙人组成，合伙人对合伙企业债务承担无限连带责任。有限合伙企业由2-50个合伙人设立，至少1个普通合伙人和1个有限合伙人。有限合伙人不得以劳务出资，不得执行合伙事务，不得对外代表有限合伙企业。' },
@@ -2295,155 +3120,7 @@ var STUDY_CHAPTERS = [
   { subject: '经济法', chapter: '第7章 企业所得税法律制度', point: '企业所得税纳税人为居民企业和非居民企业。基本税率25%，小型微利企业适用20%（实际优惠后更低），高新技术企业适用15%。应纳税所得额=收入总额-不征税收入-免税收入-各项扣除-允许弥补的以前年度亏损。公益性捐赠支出不超过年度利润总额12%的部分准予扣除。研发费用按实际发生额的100%加计扣除。' }
 ];
 
-function renderStudyChapter() {
-  var chapter = pickByDate(STUDY_CHAPTERS, 801);
-  var el = document.getElementById('studyChapter');
-  el.innerHTML =
-    '<div class="sc-subject">' + chapter.subject + '</div>' +
-    '<div class="sc-chapter">' + chapter.chapter + '</div>' +
-    '<div class="sc-point">' + chapter.point + '</div>';
-}
-
-/* ========== 模块5：20句英语跟读句子 ========== */
-var ENGLISH_SENTENCES = [
-  { en: 'The balance sheet is a snapshot of a company\'s financial position at a specific point in time.', cn: '资产负债表是公司在某一特定时点财务状况的快照。' },
-  { en: 'Accrual accounting recognizes revenue when it is earned and expenses when they are incurred.', cn: '权责发生制在收入实现时确认收入，在费用发生时确认费用。' },
-  { en: 'Cash flow from operating activities is the lifeblood of any business.', cn: '经营活动产生的现金流量是任何企业的生命线。' },
-  { en: 'Depreciation allocates the cost of a tangible asset over its useful life.', cn: '折旧将固定资产的成本在其使用寿命内进行分摊。' },
-  { en: 'Internal controls are designed to ensure the reliability of financial reporting.', cn: '内部控制旨在确保财务报告的可靠性。' },
-  { en: 'The going concern assumption assumes a business will continue to operate indefinitely.', cn: '持续经营假设假定企业将无限期地持续运营。' },
-  { en: 'VAT is a consumption tax levied on the value added at each stage of production and distribution.', cn: '增值税是对生产和分销各环节增值额征收的消费税。' },
-  { en: 'An audit provides reasonable assurance that financial statements are free from material misstatement.', cn: '审计为财务报表不存在重大错报提供合理保证。' },
-  { en: 'Working capital is the difference between current assets and current liabilities.', cn: '营运资金是流动资产与流动负债之间的差额。' },
-  { en: 'The matching principle requires expenses to be recognized in the same period as related revenues.', cn: '配比原则要求费用在相关收入确认的同一期间确认。' },
-  { en: 'Goodwill is an intangible asset that arises when one company acquires another for a premium price.', cn: '商誉是一家公司以溢价收购另一家公司时产生的无形资产。' },
-  { en: 'Tax planning involves arranging one\'s affairs within the law to minimize tax liability.', cn: '税务筹划是在法律范围内安排事务以最小化税务负担。' },
-  { en: 'The time value of money is the concept that money available now is worth more than the same amount later.', cn: '货币时间价值是指现在可用的货币比未来等额货币更有价值的概念。' },
-  { en: 'Return on equity measures how efficiently a company uses shareholders\' capital to generate profits.', cn: '净资产收益率衡量公司使用股东资本创造利润的效率。' },
-  { en: 'Earnings per share is one of the most widely used indicators of corporate profitability.', cn: '每股收益是衡量企业盈利能力最广泛使用的指标之一。' },
-  { en: 'A consolidated financial statement combines the results of a parent company and its subsidiaries.', cn: '合并财务报表将母公司及其子公司的经营成果合并在一起。' },
-  { en: 'Deferred tax assets arise when taxes have been paid or carried forward but not yet recognized in the income statement.', cn: '递延所得税资产产生于已缴纳或结转但尚未在利润表中确认的税款。' },
-  { en: 'Risk management is the process of identifying, assessing and prioritizing risks to an organization.', cn: '风险管理是识别、评估和确定组织风险优先级的过程。' },
-  { en: 'Corporate governance refers to the system of rules, practices and processes by which a company is directed.', cn: '公司治理是指指导和控制公司的规则、惯例和流程体系。' },
-  { en: 'Financial statements tell the story of a business in numbers, and numbers never lie.', cn: '财务报表用数字讲述企业的故事，而数字从不说谎。' }
-];
-
-function getWeekNumber() {
-  var d = new Date();
-  var onejan = new Date(d.getFullYear(), 0, 1);
-  return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-}
-
-function renderEnglishCard() {
-  var weekNum = getWeekNumber();
-  var idx = weekNum % ENGLISH_SENTENCES.length;
-  var sentence = ENGLISH_SENTENCES[idx];
-  var today = getTodayStr();
-  var doneKey = 'fw_' + today + '_english_done';
-
-  document.getElementById('ecEn').textContent = sentence.en;
-  document.getElementById('ecCn').textContent = sentence.cn;
-  document.getElementById('ecWeeklyTag').textContent = '第' + weekNum + '周';
-
-  var btn = document.getElementById('ecBtn');
-  if (lsGet(doneKey) === '1') {
-    btn.classList.add('done');
-    btn.textContent = '已完成 ✓';
-  }
-
-  btn.addEventListener('click', function() {
-    if (lsGet(doneKey) === '1') {
-      lsSet(doneKey, '0');
-      btn.classList.remove('done');
-      btn.textContent = '跟读完成';
-      showToast('已取消跟读打卡');
-    } else {
-      lsSet(doneKey, '1');
-      btn.classList.add('done');
-      btn.textContent = '已完成 ✓';
-      showToast('本周英语跟读已完成！');
-    }
-  });
-}
-
-/* ========== 模块5：运动打卡 ========== */
-function renderSportRecord() {
-  var today = getTodayStr();
-  var container = document.getElementById('sportRecord');
-  container.innerHTML = '';
-
-  for (var i = 0; i < 3; i++) {
-    var slot = document.createElement('div');
-    slot.className = 'sport-slot';
-    var contentKey = 'fw_' + today + '_sport_' + i;
-    var content = lsGet(contentKey) || '';
-
-    if (content) {
-      slot.classList.add('done');
-    }
-
-    slot.innerHTML =
-      '<div class="ss-icon">' + ['\u8DD1', '\u745C', '\u8DF3'][i] + '</div>' +
-      '<div class="ss-label">第' + (i + 1) + '次运动</div>' +
-      '<input class="ss-input" type="text" placeholder="填写运动内容" value="' + content.replace(/"/g, '&quot;') + '">';
-
-    container.appendChild(slot);
-
-    (function(key, el) {
-      var input = el.querySelector('.ss-input');
-      input.addEventListener('input', function() {
-        lsSet(key, input.value);
-        if (input.value.trim()) {
-          el.classList.add('done');
-        } else {
-          el.classList.remove('done');
-        }
-      });
-    })(contentKey, slot);
-  }
-}
-
-/* ========== 模块5：备考打卡日历 ========== */
-function renderCheckinCalendar() {
-  var container = document.getElementById('checkinCalendar');
-  container.innerHTML = '';
-  var today = getTodayStr();
-
-  for (var i = 1; i <= 30; i++) {
-    var day = document.createElement('div');
-    day.className = 'checkin-day';
-    day.textContent = i;
-
-    var checkKey = 'fw_checkin_day_' + i;
-    if (lsGet(checkKey) === '1') {
-      day.classList.add('checked');
-    }
-
-    // 标记今天（用日期号数）
-    var todayDate = new Date().getDate();
-    if (i === todayDate) {
-      day.classList.add('today');
-    }
-
-    day.addEventListener('click', function() {
-      var dayNum = parseInt(this.textContent);
-      var key = 'fw_checkin_day_' + dayNum;
-      if (lsGet(key) === '1') {
-        lsSet(key, '0');
-        this.classList.remove('checked');
-        showToast('第' + dayNum + '天打卡已取消');
-      } else {
-        lsSet(key, '1');
-        this.classList.add('checked');
-        showToast('第' + dayNum + '天打卡成功！');
-      }
-    });
-
-    container.appendChild(day);
-  }
-}
-
-/* ========== 模块5：10个优质博客源 ========== */
+/* ========== Panel 9: 博客 ========== */
 var BLOG_SOURCES = [
   { source: '国家税务总局', title: '关于增值税法实施有关问题的公告解读', summary: '2026年1月1日增值税法正式实施，税务总局发布配套公告，明确过渡期政策安排、税率适用衔接、申报表调整等关键问题。', url: 'https://www.chinatax.gov.cn' },
   { source: '中国会计视野', title: '2026年会计行业发展趋势：数字化与智能化转型加速', summary: '从财务共享中心到智能财务平台，RPA机器人、AI审核、自动对账正在重塑会计人的工作方式。未来5年基础核算岗位将减少40%。', url: 'https://www.esnai.com' },
@@ -2458,10 +3135,10 @@ var BLOG_SOURCES = [
 ];
 
 function renderBlogs() {
-  // 每日轮换展示3-5条
-  var count = 3 + (dateSeed(901) % 3); // 3-5条
+  var count = 3 + (dateSeed(901) % 3);
   var blogs = pickFromArray(BLOG_SOURCES, count, 901);
   var container = document.getElementById('blogList');
+  if (!container) return;
   container.innerHTML = '';
 
   blogs.forEach(function(blog) {
@@ -2472,34 +3149,14 @@ function renderBlogs() {
       '<div class="blog-content">' +
         '<div class="blog-title">' + blog.title + '</div>' +
         '<div class="blog-summary">' + blog.summary + '</div>' +
-        '<a class="blog-link" href="' + blog.url + '" target="_blank" rel="noopener">阅读原文 →</a>' +
+        '<a class="blog-link" href="' + blog.url + '" target="_blank" rel="noopener">阅读原文 &rarr;</a>' +
       '</div>';
     container.appendChild(el);
   });
 }
 
-/* ========== Tab切换逻辑 ========== */
-function initTabs() {
-  var tabs = document.querySelectorAll('.tab-btn[data-tab]');
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      var target = this.dataset.tab;
-      document.querySelectorAll('.tab-btn[data-tab]').forEach(function(t) {
-        t.classList.remove('active');
-      });
-      document.querySelectorAll('#tab1, #tab2, #tab3, #tab4').forEach(function(c) {
-        c.classList.remove('active');
-      });
-      this.classList.add('active');
-      var el = document.getElementById(target);
-      if (el) el.classList.add('active');
-    });
-  });
-}
+/* ========== Panel 8: 统计面板 ========== */
 
-/* ========== 模块6：打卡数据统计面板 ========== */
-
-// 日期工具函数
 function formatDateStr(year, month, day) {
   return year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
 }
@@ -2526,7 +3183,6 @@ function getMonthDateStrs(year, month) {
   return dates;
 }
 
-// 单日打卡数据采集
 function getDayCheckinData(dateStr) {
   var result = { study: false, english: false, sport: false, review: false, todos_done: 0, todos_total: 0 };
   var d = parseDateStr(dateStr);
@@ -2557,7 +3213,6 @@ function batchCollectCheckinData(dateStrs) {
   return map;
 }
 
-// 连续打卡计算（从昨天往前数，每日完成≥3项算连续）
 function calcCheckinStreak() {
   var todayDate = parseDateStr(getTodayStr());
   var checkDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() - 1);
@@ -2577,7 +3232,6 @@ function calcCheckinStreak() {
     }
   }
 
-  // 断卡检测：昨天完成<3项
   var yDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() - 1);
   var yStr = formatDateStr(yDate.getFullYear(), yDate.getMonth() + 1, yDate.getDate());
   var yData = getDayCheckinData(yStr);
@@ -2586,7 +3240,6 @@ function calcCheckinStreak() {
   return { streak: streak, broken: (yCount < 3), lastFullDate: lastFullDate, yesterdayCount: yCount };
 }
 
-// 完成率计算
 function calcCompletionRate(dateStrs) {
   var map = batchCollectCheckinData(dateStrs);
   var stats = {
@@ -2614,7 +3267,6 @@ function calcCompletionRate(dateStrs) {
   return stats;
 }
 
-// 渲染：本月总览
 function renderStatsOverview() {
   var now = new Date();
   var year = now.getFullYear();
@@ -2628,15 +3280,20 @@ function renderStatsOverview() {
   updateStatsCard('scReviewValue', 'scReviewRate', rate.review.done, today, Math.round(rate.review.done/today*100));
 
   var streakInfo = calcCheckinStreak();
-  document.getElementById('streakValue').textContent = streakInfo.streak + ' 天';
-  document.getElementById('streakDot').className = 'streak-dot' + (streakInfo.broken ? ' warn' : '');
+  var svEl = document.getElementById('streakValue');
+  var sdEl = document.getElementById('streakDot');
+  if (svEl) svEl.textContent = streakInfo.streak + ' 天';
+  if (sdEl) sdEl.className = 'streak-dot' + (streakInfo.broken ? ' warn' : '');
 
   var warnItem = document.getElementById('streakWarnItem');
-  if (streakInfo.broken) {
-    warnItem.classList.remove('hidden');
-    document.getElementById('streakWarnText').textContent = '昨日仅完成' + streakInfo.yesterdayCount + '/4项，今日加油！';
-  } else {
-    warnItem.classList.add('hidden');
+  if (warnItem) {
+    if (streakInfo.broken) {
+      warnItem.classList.remove('hidden');
+      var swtEl = document.getElementById('streakWarnText');
+      if (swtEl) swtEl.textContent = '昨日仅完成' + streakInfo.yesterdayCount + '/4项，今日加油！';
+    } else {
+      warnItem.classList.add('hidden');
+    }
   }
 
   renderMonthlyProgressBars(rate, today);
@@ -2645,14 +3302,18 @@ function renderStatsOverview() {
 }
 
 function updateStatsCard(valId, rateId, done, total, pct) {
-  document.getElementById(valId).textContent = done + '/' + total;
-  var el = document.getElementById(rateId);
-  el.textContent = '完成率 ' + pct + '%';
-  el.className = 'stats-card-rate ' + (pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low');
+  var valEl = document.getElementById(valId);
+  var rateEl = document.getElementById(rateId);
+  if (valEl) valEl.textContent = done + '/' + total;
+  if (rateEl) {
+    rateEl.textContent = '完成率 ' + pct + '%';
+    rateEl.className = 'stats-card-rate ' + (pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low');
+  }
 }
 
 function renderMonthlyProgressBars(rate, today) {
   var container = document.getElementById('statsMonthly');
+  if (!container) return;
   var items = [
     {label:'中级会计备考', pct: Math.round(rate.study.done/today*100), cls:'bar-study'},
     {label:'英语跟读', pct: Math.round(rate.english.done/today*100), cls:'bar-english'},
@@ -2670,13 +3331,13 @@ function renderMonthlyProgressBars(rate, today) {
   });
 }
 
-// 渲染：周度汇总
 function renderStatsWeekly() {
   var dates = getThisWeekDateStrs();
   var map = batchCollectCheckinData(dates);
   var today = getTodayStr();
   var weekdays = ['一','二','三','四','五','六','日'];
   var tbody = document.getElementById('statsWeeklyBody');
+  if (!tbody) return;
   tbody.innerHTML = '';
 
   dates.forEach(function(ds, idx) {
@@ -2696,16 +3357,19 @@ function renderStatsWeekly() {
   });
 
   var rate = calcCompletionRate(dates);
-  document.getElementById('statsWeeklySummary').innerHTML =
-    '<div>备考：<span>' + rate.study.pct + '%</span> (' + rate.study.done + '/' + rate.study.total + ')</div>' +
-    '<div>英语：<span>' + rate.english.pct + '%</span> (' + rate.english.done + '/' + rate.english.total + ')</div>' +
-    '<div>运动：<span>' + rate.sport.pct + '%</span> (' + rate.sport.done + '/' + rate.sport.total + ')</div>' +
-    '<div>复盘：<span>' + rate.review.pct + '%</span> (' + rate.review.done + '/' + rate.review.total + ')</div>';
+  var summaryEl = document.getElementById('statsWeeklySummary');
+  if (summaryEl) {
+    summaryEl.innerHTML =
+      '<div>备考：<span>' + rate.study.pct + '%</span> (' + rate.study.done + '/' + rate.study.total + ')</div>' +
+      '<div>英语：<span>' + rate.english.pct + '%</span> (' + rate.english.done + '/' + rate.english.total + ')</div>' +
+      '<div>运动：<span>' + rate.sport.pct + '%</span> (' + rate.sport.done + '/' + rate.sport.total + ')</div>' +
+      '<div>复盘：<span>' + rate.review.pct + '%</span> (' + rate.review.done + '/' + rate.review.total + ')</div>';
+  }
 }
 
-// 渲染：历史记录
 function renderStatsHistory() {
   var select = document.getElementById('statsHistoryMonth');
+  if (!select) return;
   var now = new Date();
   var curYear = now.getFullYear();
   var curMonth = now.getMonth() + 1;
@@ -2727,6 +3391,7 @@ function renderStatsHistory() {
 
 function renderHistoryTable() {
   var select = document.getElementById('statsHistoryMonth');
+  if (!select) return;
   var parts = select.value.split('-');
   var year = parseInt(parts[0]), month = parseInt(parts[1]);
   var dates = getMonthDateStrs(year, month);
@@ -2735,17 +3400,21 @@ function renderHistoryTable() {
   var today = getTodayStr();
   var now = new Date();
 
-  document.getElementById('statsHistoryTotal').textContent =
-    '备考 ' + rate.study.done + '/' + rate.study.total + ' | 英语 ' + rate.english.done + '/' + rate.english.total +
-    ' | 运动 ' + rate.sport.done + '/' + rate.sport.total + ' | 复盘 ' + rate.review.done + '/' + rate.review.total;
+  var totalEl = document.getElementById('statsHistoryTotal');
+  if (totalEl) {
+    totalEl.textContent =
+      '备考 ' + rate.study.done + '/' + rate.study.total + ' | 英语 ' + rate.english.done + '/' + rate.english.total +
+      ' | 运动 ' + rate.sport.done + '/' + rate.sport.total + ' | 复盘 ' + rate.review.done + '/' + rate.review.total;
+  }
 
   var tbody = document.getElementById('statsHistoryBody');
+  if (!tbody) return;
   tbody.innerHTML = '';
 
   dates.forEach(function(ds) {
     var d = map[ds];
     var dateObj = parseDateStr(ds);
-    if (dateObj > now) return; // 跳过未来日期
+    if (dateObj > now) return;
     var isToday = (ds === today);
     var p = ds.split('-');
     var tr = document.createElement('tr');
@@ -2773,20 +3442,23 @@ function initStatsTabs() {
       tabs.forEach(function(t) { t.classList.remove('active'); });
       this.classList.add('active');
       ['stats-overview','stats-weekly','stats-history'].forEach(function(id) {
-        document.getElementById(id).classList.remove('active');
+        var el = document.getElementById(id);
+        if (el) el.classList.remove('active');
       });
-      document.getElementById(target).classList.add('active');
+      var targetEl = document.getElementById(target);
+      if (targetEl) targetEl.classList.add('active');
       if (target === 'stats-weekly') renderStatsWeekly();
       if (target === 'stats-history') renderStatsHistory();
       if (target === 'stats-overview') renderStatsOverview();
     });
   });
 }
+
+/* ========== 日期检测 ========== */
 function checkDateChange() {
   var today = getTodayStr();
   var storedDate = lsGet('fw_current_date');
   if (storedDate && storedDate !== today) {
-    // 日期变了，刷新当日内容
     lsSet('fw_current_date', today);
     showToast('新的一天，内容已自动更新');
     setTimeout(function() {
@@ -2797,43 +3469,119 @@ function checkDateChange() {
   }
 }
 
+/* ========== Panel切换 ========== */
+var currentPanel = 'panel-todo';
+var panelRendered = {};
+
+function switchPanel(panelId) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+  var target = document.getElementById(panelId);
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('.menu-item').forEach(function(m) { m.classList.remove('active'); });
+  var menuEl = document.querySelector('.menu-item[data-panel="' + panelId + '"]');
+  if (menuEl) menuEl.classList.add('active');
+
+  currentPanel = panelId;
+
+  if (!panelRendered[panelId]) {
+    renderPanel(panelId);
+    panelRendered[panelId] = true;
+  } else {
+    refreshPanel(panelId);
+  }
+
+  lsSet('fw_current_panel', panelId);
+}
+
+function renderPanel(panelId) {
+  switch (panelId) {
+    case 'panel-todo':
+      renderTodos();
+      break;
+    case 'panel-media':
+      renderTopics();
+      renderRewrites();
+      renderScripts();
+      initMediaTabs();
+      initInspirationNote();
+      break;
+    case 'panel-review':
+      initReview();
+      break;
+    case 'panel-accounting':
+      renderAccountingModule();
+      break;
+    case 'panel-english':
+      renderEnglishCard();
+      renderEnglishSentenceList();
+      break;
+    case 'panel-sport':
+      renderSportRecord();
+      renderVideoLinks();
+      break;
+    case 'panel-woman':
+      renderWoman();
+      renderDailyQuote();
+      break;
+    case 'panel-stats':
+      renderStatsPanel();
+      initStatsTabs();
+      break;
+    case 'panel-blog':
+      renderBlogs();
+      break;
+  }
+}
+
+function refreshPanel(panelId) {
+  switch (panelId) {
+    case 'panel-todo':
+      renderTodos();
+      break;
+    case 'panel-media':
+      renderTopics();
+      renderRewrites();
+      renderScripts();
+      break;
+    case 'panel-accounting':
+      renderAccountingProgress();
+      renderExerciseHistory();
+      break;
+    case 'panel-stats':
+      renderStatsPanel();
+      break;
+    case 'panel-blog':
+      renderBlogs();
+      break;
+  }
+}
+
 /* ========== 初始化 ========== */
 function renderAllModules() {
-  // 渲染所有模块
   renderNavDate();
-  renderTodos();
-  renderTopics();
-  renderHotspots();
-  renderRewrites();
-  initInspirationNote();
-  initReview();
-  renderWoman();
-  renderDailyQuote();
-  initFloatingQuote();
-  renderStudyChapter();
-  renderEnglishCard();
-  renderSportRecord();
-  renderCheckinCalendar();
-  renderBlogs();
-  renderStatsPanel();
-  initStatsTabs();
-  initTabs();
+  var savedPanel = lsGet('fw_current_panel') || 'panel-todo';
+  if (!document.getElementById(savedPanel)) savedPanel = 'panel-todo';
+  renderPanel(savedPanel);
+  panelRendered[savedPanel] = true;
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+  var targetEl = document.getElementById(savedPanel);
+  if (targetEl) targetEl.classList.add('active');
+  document.querySelectorAll('.menu-item').forEach(function(m) { m.classList.remove('active'); });
+  var menuEl = document.querySelector('.menu-item[data-panel="' + savedPanel + '"]');
+  if (menuEl) menuEl.classList.add('active');
+  currentPanel = savedPanel;
 }
 
 function init() {
-  // 初始化阶段暂时禁用同步（等拉取完成后再开启）
   syncEnabled = false;
 
-  // 记录今日日期（此时不会触发云端同步）
   try { localStorage.setItem('fw_current_date', getTodayStr()); } catch(e) {}
 
-  // 检查是否有Token
   var token = getSyncToken();
   if (token) {
-    // 有Token：先从云端拉取数据，再渲染
     setSyncStatus('syncing', '拉取中...');
     pullFromCloud(function(success) {
-      // 拉取完成后，开启同步并渲染
       syncEnabled = true;
       renderAllModules();
       if (success) {
@@ -2841,26 +3589,20 @@ function init() {
       }
     });
   } else {
-    // 无Token：直接渲染本地数据
     setSyncStatus('error', '未连接');
     syncEnabled = true;
     renderAllModules();
   }
 
-  // 每分钟检测日期变化
   setInterval(checkDateChange, 60000);
-
-  // 每分钟更新倒计时
   setInterval(renderNavDate, 60000);
 
-  // 每5分钟自动同步一次
   setInterval(function() {
     if (syncEnabled && getSyncToken()) {
       scheduleCloudSync();
     }
   }, 300000);
 
-  // 页面关闭前强制同步一次
   window.addEventListener('beforeunload', function() {
     if (syncEnabled && getSyncToken() && !isPushing) {
       pushToCloud();
@@ -2868,7 +3610,6 @@ function init() {
   });
 }
 
-// DOM加载完成后初始化
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
