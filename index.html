@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>财税知性工作台 · AI Daily</title>
+<style>
+/* ========== 全局变量 ========== */
+:root {
+  --bg-primary: #f7f5f0;
+  --bg-card: #ffffff;
+  --bg-soft: #f0ede6;
+  --bg-dark: #2d2a26;
+  --accent: #6b8e7f;
+  --accent-light: #8baea0;
+  --accent-deep: #4a6b5e;
+  --gold: #c4a882;
+  --gold-light: #ddc9a8;
+  --text-primary: #2d2a26;
+  --text-secondary: #6b6660;
+  --text-light: #9b9590;
+  --border: #e0ddd5;
+  --shadow: 0 2px 12px rgba(45, 42, 38, 0.06);
+  --shadow-hover: 0 4px 20px rgba(45, 42, 38, 0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-zh: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --font-en: 'Cormorant Garamond', 'Georgia', serif;
+  --font-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ========== 顶部导航 ========== */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-bar .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.top-bar .brand-icon {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 20px; font-weight: 700;
+  font-family: var(--font-en);
+}
+.top-bar .brand-text {
+  font-family: var(--font-zh);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+}
+.top-bar .brand-sub {
+  font-size: 11px;
+  color: var(--text-light);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.top-bar .date-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.top-bar .date-info .countdown-badge {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ========== 主容器 ========== */
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 32px 80px;
+}
+
+/* ========== 模块通用卡片 ========== */
+.module-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.module-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+.module-header {
+  padding: 20px 28px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.module-header .title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.module-header .module-num {
+  width: 32px; height: 32px;
+  background: var(--bg-soft);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-en);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+.module-header h2 {
+  font-family: var(--font-zh);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.module-header .module-sub {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-left: 8px;
+}
+.module-header .refresh-tag {
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(107, 142, 127, 0.08);
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.module-body {
+  padding: 24px 28px;
+}
+
+/* ========== 双列布局 ========== */
+.dual-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.triple-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 900px) {
+  .dual-col, .triple-col { grid-template-columns: 1fr; }
+}
+
+/* ========== 模块1：每日核心计划区 ========== */
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.todo-item:hover { background: var(--bg-soft); }
+.todo-item.done { opacity: 0.5; }
+.todo-item.done .todo-text { text-decoration: line-through; }
+.todo-checkbox {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.todo-checkbox.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.todo-checkbox.checked::after {
+  content: '✓';
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.todo-content { flex: 1; }
+.todo-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: text-decoration 0.2s;
+}
+.todo-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.todo-tag.work { background: rgba(107,142,127,0.12); color: var(--accent-deep); }
+.todo-tag.consult { background: rgba(196,168,130,0.15); color: #9b7d5a; }
+.todo-tag.video { background: rgba(180,100,100,0.1); color: #a06060; }
+.todo-tag.study { background: rgba(100,100,160,0.1); color: #6868a0; }
+.todo-progress-bar {
+  height: 6px;
+  background: var(--bg-soft);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.todo-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.todo-progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 6px;
+}
+
+/* ========== 模块2：自媒体内容专区 ========== */
+.topic-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  border-left: 3px solid var(--accent);
+  transition: all 0.2s;
+}
+.topic-card:hover {
+  border-left-color: var(--gold);
+  transform: translateX(2px);
+}
+.topic-card .topic-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.topic-card .topic-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.topic-card .topic-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.topic-card .topic-badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.6);
+  color: var(--text-secondary);
+}
+
+.hotspot-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.hotspot-item:last-child { border-bottom: none; }
+.hotspot-rank {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: var(--font-en);
+}
+.hotspot-rank.r1 { background: #e8554e; color: #fff; }
+.hotspot-rank.r2 { background: #e8894e; color: #fff; }
+.hotspot-rank.r3 { background: #e8b04e; color: #fff; }
+.hotspot-rank.r4, .hotspot-rank.r5, .hotspot-rank.r6 { background: var(--bg-soft); color: var(--text-secondary); }
+.hotspot-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.hotspot-desc {
+  font-size: 11px;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.rewrite-template {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.rewrite-template .rt-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+.rewrite-template .rt-content {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+.rewrite-template .rt-hook { border-left: 3px solid #e8554e; padding-left: 10px; margin-bottom: 8px; }
+.rewrite-template .rt-core { border-left: 3px solid var(--accent); padding-left: 10px; margin-bottom: 8px; }
+.rewrite-template .rt-cta { border-left: 3px solid var(--gold); padding-left: 10px; }
+
+.inspiration-note {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  min-height: 180px;
+}
+.inspiration-note textarea {
+  width: 100%;
+  min-height: 140px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-primary);
+  resize: vertical;
+  outline: none;
+}
+.inspiration-note textarea::placeholder { color: var(--text-light); }
+.note-save-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+.note-save-bar .save-status {
+  font-size: 11px;
+  color: var(--text-light);
+}
+.note-save-bar .save-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.note-save-bar .save-btn:hover { background: var(--accent-deep); }
+
+/* ========== 模块3：复盘区 ========== */
+.review-section {
+  margin-bottom: 18px;
+}
+.review-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.review-label .label-icon {
+  width: 20px; height: 20px;
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+}
+.review-label.gain .label-icon { background: rgba(107,142,127,0.15); }
+.review-label.pit .label-icon { background: rgba(232,85,78,0.1); }
+.review-label.plan .label-icon { background: rgba(196,168,130,0.15); }
+.review-textarea {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.review-textarea:focus { border-color: var(--accent); }
+
+/* ========== 模块4：女性人物 + 励志语录 ========== */
+.woman-feature {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+.woman-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-zh);
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(107,142,127,0.25);
+}
+.woman-info { flex: 1; }
+.woman-name {
+  font-family: var(--font-zh);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.woman-meta {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.woman-tag {
+  display: inline-block;
+  font-size: 11px;
+  background: rgba(196,168,130,0.15);
+  color: #9b7d5a;
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.woman-story {
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.woman-story::-webkit-scrollbar { width: 4px; }
+.woman-story::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ========== 悬浮励志语录 ========== */
+.floating-quote {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  max-width: 340px;
+  background: linear-gradient(135deg, var(--bg-dark), #3d3a36);
+  color: #f0ede6;
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 8px 32px rgba(45,42,38,0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(196,168,130,0.2);
+}
+.floating-quote:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(45,42,38,0.35);
+}
+.floating-quote.minimized {
+  padding: 10px 16px;
+  max-width: 200px;
+}
+.floating-quote .fq-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.floating-quote .fq-text {
+  font-family: var(--font-zh);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.floating-quote .fq-text::before {
+  content: '"';
+  font-family: var(--font-en);
+  font-size: 28px;
+  color: var(--gold);
+  vertical-align: -6px;
+  margin-right: 2px;
+}
+.floating-quote.minimized .fq-text {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.floating-quote .fq-toggle {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 14px;
+  color: var(--text-light);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.floating-quote:hover .fq-toggle { opacity: 1; }
+
+/* ========== 模块5：自律打卡专区 ========== */
+.countdown-hero {
+  text-align: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, var(--bg-dark), #4a4640);
+  border-radius: var(--radius);
+  color: #f0ede6;
+  margin-bottom: 20px;
+}
+.countdown-hero .cd-label {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.countdown-hero .cd-number {
+  font-family: var(--font-en);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+.countdown-hero .cd-unit {
+  font-size: 16px;
+  color: var(--gold-light);
+  margin-left: 4px;
+}
+.countdown-hero .cd-exam {
+  font-size: 13px;
+  color: rgba(240,237,230,0.7);
+  margin-top: 8px;
+}
+
+.study-checkin {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+.checkin-day {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+}
+.checkin-day.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.checkin-day.today {
+  border-color: var(--gold);
+  border-width: 2px;
+}
+.checkin-day:hover { transform: scale(1.08); }
+
+.study-chapter {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+.study-chapter .sc-subject {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin-bottom: 4px;
+}
+.study-chapter .sc-chapter {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.study-chapter .sc-point {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.english-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+.english-card .ec-en {
+  font-family: var(--font-en);
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.english-card .ec-cn {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.english-card .ec-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.english-card .ec-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.english-card .ec-btn:hover { background: var(--accent-deep); }
+.english-card .ec-btn.done { background: var(--accent-light); }
+.english-card .ec-weekly-tag {
+  font-size: 11px;
+  color: var(--text-light);
+  margin-left: auto;
+}
+
+.sport-record {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+.sport-slot {
+  flex: 1;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sport-slot:hover { border-color: var(--accent); }
+.sport-slot.done {
+  border-style: solid;
+  border-color: var(--accent);
+  background: rgba(107,142,127,0.06);
+}
+.sport-slot .ss-icon { font-size: 24px; margin-bottom: 4px; }
+.sport-slot .ss-label { font-size: 11px; color: var(--text-secondary); }
+.sport-slot .ss-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  text-align: center;
+  font-size: 12px;
+  padding: 4px 0;
+  outline: none;
+  margin-top: 4px;
+  color: var(--text-primary);
+}
+.sport-slot.done .ss-input { border-bottom-color: var(--accent); }
+
+.blog-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.blog-item:last-child { border-bottom: none; }
+.blog-source {
+  flex-shrink: 0;
+  width: 70px;
+}
+.blog-source .bs-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  background: rgba(107,142,127,0.08);
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+.blog-content { flex: 1; }
+.blog-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+.blog-summary {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.blog-link {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 4px;
+  display: inline-block;
+}
+.blog-link:hover { text-decoration: underline; }
+
+/* ========== Tab切换 ========== */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-light);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-family: var(--font-sans);
+}
+.tab-btn.active {
+  color: var(--accent-deep);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ========== Toast ========== */
+.toast {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: var(--bg-dark);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 300;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ========== 杂项 ========== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 20px 0;
+}
+.sub-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sub-section-title::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.footer-bar {
+  text-align: center;
+  padding: 32px 0;
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+.footer-bar .heart { color: #e8554e; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ========== 顶部导航栏 ========== -->
+<div class="top-bar">
+  <div class="brand">
+    <div class="brand-icon">F</div>
+    <div>
+      <div class="brand-text">财税知性工作台</div>
+      <div class="brand-sub">AI DAILY WORKSPACE</div>
+    </div>
+  </div>
+  <div class="date-info">
+    <span id="navDate"></span>
+    <span id="navWeekday"></span>
+    <span class="countdown-badge" id="navCountdown">中级会计倒计时 -- 天</span>
+  </div>
+</div>
+
+<!-- ========== 主容器 ========== -->
+<div class="main-container">
+
+  <!-- ========== 模块1：每日核心计划区 ========== -->
+  <div class="module-card">
+    <div class="module-header">
+      <div class="title-area">
+        <div class="module-num">01</div>
+        <div>
+          <h2>每日核心计划区</h2>
+          <span class="module-sub">Daily Core Plan</span>
+        </div>
+      </div>
+      <span class="refresh-tag">每日自动生成</span>
+    </div>
+    <div class="module-body">
+      <div id="todoList"></div>
+      <div class="todo-progress-bar">
+        <div class="todo-progress-fill" id="todoProgressFill" style="width:0%"></div>
+      </div>
+      <div class="todo-progress-text">
+        <span id="todoProgressLabel">完成 0 / 0</span>
+        <span id="todoProgressPct">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 模块2：自媒体内容专区 ========== -->
+  <div class="module-card">
+    <div class="module-header">
+      <div class="title-area">
+        <div class="module-num">02</div>
+        <div>
+          <h2>自媒体内容专区</h2>
+          <span class="module-sub">Content Creation Hub</span>
+        </div>
+      </div>
+      <span class="refresh-tag">每日更新</span>
+    </div>
+    <div class="module-body">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="tab1">每日选题</button>
+        <button class="tab-btn" data-tab="tab2">全网热点</button>
+        <button class="tab-btn" data-tab="tab3">二创文案库</button>
+        <button class="tab-btn" data-tab="tab4">灵感备忘录</button>
+      </div>
+
+      <!-- Tab1: 每日3条选题 -->
+      <div class="tab-content active" id="tab1">
+        <div class="sub-section-title">今日3条财税爆款短视频选题</div>
+        <div id="topicList"></div>
+      </div>
+
+      <!-- Tab2: 热点 -->
+      <div class="tab-content" id="tab2">
+        <div class="sub-section-title">全网财税赛道最新热点</div>
+        <div id="hotspotList"></div>
+      </div>
+
+      <!-- Tab3: 二创文案库 -->
+      <div class="tab-content" id="tab3">
+        <div class="sub-section-title">财税视频二创改写文案库</div>
+        <div id="rewriteList"></div>
+      </div>
+
+      <!-- Tab4: 灵感备忘录 -->
+      <div class="tab-content" id="tab4">
+        <div class="sub-section-title">灵感备忘录</div>
+        <div class="inspiration-note">
+          <textarea id="inspirationText" placeholder="随手记录灵感火花，好的选题往往就在一瞬间闪现……"></textarea>
+        </div>
+        <div class="note-save-bar">
+          <span class="save-status" id="inspirationStatus">未保存</span>
+          <button class="save-btn" id="inspirationSaveBtn">保存笔记</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 模块3：每日沉淀复盘区 ========== -->
+  <div class="module-card">
+    <div class="module-header">
+      <div class="title-area">
+        <div class="module-num">03</div>
+        <div>
+          <h2>每日沉淀复盘区</h2>
+          <span class="module-sub">Daily Reflection</span>
+        </div>
+      </div>
+      <span class="refresh-tag">自动保存</span>
+    </div>
+    <div class="module-body">
+      <div class="review-section">
+        <div class="review-label gain"><span class="label-icon">✦</span>今日工作收获</div>
+        <textarea class="review-textarea" id="reviewGain" placeholder="记录今天在工作中获得的成长与收获……"></textarea>
+      </div>
+      <div class="review-section">
+        <div class="review-label pit"><span class="label-icon">!</span>踩坑问题</div>
+        <textarea class="review-textarea" id="reviewPit" placeholder="今天踩了哪些坑？记录下来，避免再犯……"></textarea>
+      </div>
+      <div class="review-section">
+        <div class="review-label plan"><span class="label-icon">→</span>明日优化方案</div>
+        <textarea class="review-textarea" id="reviewPlan" placeholder="明天要怎么做得更好？写下你的优化计划……"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 模块4：固定每日更新栏目 ========== -->
+  <div class="module-card">
+    <div class="module-header">
+      <div class="title-area">
+        <div class="module-num">04</div>
+        <div>
+          <h2>每日人物 & 励志语录</h2>
+          <span class="module-sub">Daily Inspiration</span>
+        </div>
+      </div>
+      <span class="refresh-tag">每日轮换</span>
+    </div>
+    <div class="module-body">
+      <div class="sub-section-title">今日伟大女性人物故事</div>
+      <div class="woman-feature">
+        <div class="woman-avatar" id="womanAvatar"></div>
+        <div class="woman-info">
+          <div class="woman-name" id="womanName"></div>
+          <div class="woman-meta" id="womanMeta"></div>
+          <span class="woman-tag" id="womanTag"></span>
+          <div class="woman-story" id="womanStory"></div>
+        </div>
+      </div>
+      <div class="section-divider"></div>
+      <div class="sub-section-title">今日励志语录</div>
+      <div id="dailyQuoteArea" style="font-family:var(--font-zh);font-size:15px;line-height:1.9;color:var(--text-secondary);padding:16px 20px;background:var(--bg-soft);border-radius:var(--radius-sm);border-left:3px solid var(--gold);"></div>
+    </div>
+  </div>
+
+  <!-- ========== 模块5：自律打卡专区 ========== -->
+  <div class="module-card">
+    <div class="module-header">
+      <div class="title-area">
+        <div class="module-num">05</div>
+        <div>
+          <h2>自律打卡专区</h2>
+          <span class="module-sub">Self-Discipline Zone</span>
+        </div>
+      </div>
+      <span class="refresh-tag">坚持就是力量</span>
+    </div>
+    <div class="module-body">
+      <div class="dual-col">
+
+        <!-- 左列 -->
+        <div>
+          <div class="countdown-hero">
+            <div class="cd-label">中级会计考试倒计时</div>
+            <div><span class="cd-number" id="cdNumber">--</span><span class="cd-unit">天</span></div>
+            <div class="cd-exam" id="cdExamDate">2026年9月5日</div>
+          </div>
+
+          <div class="sub-section-title">每日备考打卡（30天）</div>
+          <div class="study-checkin" id="checkinCalendar"></div>
+
+          <div class="study-chapter" id="studyChapter"></div>
+        </div>
+
+        <!-- 右列 -->
+        <div>
+          <div class="sub-section-title">每周英语音频跟读</div>
+          <div class="english-card" id="englishCard">
+            <div class="ec-en" id="ecEn"></div>
+            <div class="ec-cn" id="ecCn"></div>
+            <div class="ec-actions">
+              <button class="ec-btn" id="ecBtn">跟读完成</button>
+              <span class="ec-weekly-tag" id="ecWeeklyTag"></span>
+            </div>
+          </div>
+
+          <div class="sub-section-title" style="margin-top:16px;">每周3次运动打卡</div>
+          <div class="sport-record" id="sportRecord"></div>
+
+          <div class="sub-section-title" style="margin-top:20px;">优质财经/会计博客精选</div>
+          <div id="blogList"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main-container -->
+
+<!-- ========== 悬浮励志语录 ========== -->
+<div class="floating-quote" id="floatingQuote">
+  <span class="fq-toggle" id="fqToggle">—</span>
+  <div class="fq-label">DAILY QUOTE</div>
+  <div class="fq-text" id="fqText"></div>
+</div>
+
+<!-- ========== Toast ========== -->
+<div class="toast" id="toast"></div>
+
+<!-- ========== 底部 ========== -->
+<div class="footer-bar">
+  财税知性工作台 · AI Daily Workspace<br>
+  <span class="heart">♥</span> 每一天都在成为更好的自己 · Powered by Focus & Discipline
+</div>
+
+<script>
+/* ============================================================
+   财税知性工作台 · 核心JavaScript
+   ============================================================ */
+
+/* ========== 工具函数 ========== */
+
+// 获取今日日期字符串 YYYY-MM-DD
+function getTodayStr() {
+  var d = new Date();
+  return d.getFullYear() + '-' +
+    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+    String(d.getDate()).padStart(2, '0');
+}
+
+// 日期种子算法：用日期数字生成伪随机种子
+function dateSeed(offset) {
+  var d = new Date();
+  var base = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  var seed = (base + (offset || 0)) * 2654435761;
+  return Math.abs(seed);
+}
+
+// 基于种子从数组中选取元素（不重复选count个）
+function pickFromArray(arr, count, seedOffset) {
+  var seed = dateSeed(seedOffset || 0);
+  var pool = arr.slice();
+  var result = [];
+  for (var i = 0; i < count && pool.length > 0; i++) {
+    var idx = seed % pool.length;
+    seed = Math.floor(seed / pool.length) + (i + 1) * 7919;
+    if (seed === 0) seed = 1;
+    result.push(pool.splice(idx, 1)[0]);
+  }
+  return result;
+}
+
+// 按日期索引选取单个元素
+function pickByDate(arr, seedOffset) {
+  var seed = dateSeed(seedOffset || 0);
+  return arr[seed % arr.length];
+}
+
+// localStorage 安全读写
+function lsGet(key) {
+  try { return localStorage.getItem(key); } catch(e) { return null; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, val); } catch(e) {}
+}
+
+// Toast 提示
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function() { t.classList.remove('show'); }, 2200);
+}
+
+/* ========== 今日日期 & 倒计时 ========== */
+function renderNavDate() {
+  var d = new Date();
+  var months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  var weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  document.getElementById('navDate').textContent =
+    d.getFullYear() + '年' + months[d.getMonth()] + d.getDate() + '日';
+  document.getElementById('navWeekday').textContent = weekdays[d.getDay()];
+
+  // 中级会计考试日期：2026年9月5日
+  var examDate = new Date(2026, 8, 5);
+  var today = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  var diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+  var badge = document.getElementById('navCountdown');
+  if (diff > 0) {
+    badge.textContent = '中级会计倒计时 ' + diff + ' 天';
+  } else if (diff === 0) {
+    badge.textContent = '今天就是中级会计考试日！';
+  } else {
+    badge.textContent = '中级会计考试已过 ' + Math.abs(diff) + ' 天';
+  }
+
+  // 模块5大倒计时
+  var cdNum = document.getElementById('cdNumber');
+  if (cdNum) {
+    cdNum.textContent = diff > 0 ? diff : (diff === 0 ? '0' : Math.abs(diff));
+  }
+}
+
+/* ========== 模块1：每日核心计划区 ========== */
+
+// 待办模板池（15+条）
+var TODO_POOL = [
+  { text: '核对昨日账务凭证，确保借贷平衡', tag: 'work' },
+  { text: '编制本月财务报表（资产负债表+利润表）', tag: 'work' },
+  { text: '银行对账单核对，排查未达账项', tag: 'work' },
+  { text: '审核费用报销单，重点关注发票合规性', tag: 'work' },
+  { text: '完成月末结账准备工作', tag: 'work' },
+  { text: '跟进应收账款回款进度', tag: 'work' },
+  { text: '发票开具与进项税认证', tag: 'work' },
+  { text: '税务申报数据准备与核对', tag: 'work' },
+  { text: '回复客户税务咨询消息', tag: 'consult' },
+  { text: '整理客户财税优化方案', tag: 'consult' },
+  { text: '准备新咨询客户报价方案', tag: 'consult' },
+  { text: '跟进代账客户合同续签', tag: 'consult' },
+  { text: '拍摄1条财税短视频', tag: 'video' },
+  { text: '剪辑昨日拍摄素材', tag: 'video' },
+  { text: '回复评论区粉丝问题', tag: 'video' },
+  { text: '研究对标账号爆款内容', tag: 'video' },
+  { text: '整理本周自媒体选题清单', tag: 'video' },
+  { text: '中级会计实务章节刷题', tag: 'study' },
+  { text: '经济法条文背诵', tag: 'study' },
+  { text: '财管公式默写与练习', tag: 'study' }
+];
+
+var TODO_TAG_LABELS = {
+  work: '工作',
+  consult: '咨询',
+  video: '自媒体',
+  study: '学习'
+};
+
+var todayTodos = [];
+
+function renderTodos() {
+  var today = getTodayStr();
+  var storageKey = 'fw_' + today + '_todos';
+
+  // 检查是否已生成今日待办
+  var stored = lsGet(storageKey);
+  if (stored) {
+    try {
+      todayTodos = JSON.parse(stored);
+    } catch(e) {
+      todayTodos = generateDailyTodos();
+      lsSet(storageKey, JSON.stringify(todayTodos));
+    }
+  } else {
+    todayTodos = generateDailyTodos();
+    lsSet(storageKey, JSON.stringify(todayTodos));
+  }
+
+  var container = document.getElementById('todoList');
+  container.innerHTML = '';
+  todayTodos.forEach(function(todo, idx) {
+    var item = document.createElement('div');
+    item.className = 'todo-item' + (todo.done ? ' done' : '');
+    item.innerHTML =
+      '<div class="todo-checkbox' + (todo.done ? ' checked' : '') + '" data-idx="' + idx + '"></div>' +
+      '<div class="todo-content">' +
+        '<span class="todo-text">' + todo.text + '</span>' +
+        '<span class="todo-tag ' + todo.tag + '">' + TODO_TAG_LABELS[todo.tag] + '</span>' +
+      '</div>';
+    container.appendChild(item);
+  });
+
+  // 绑定点击事件
+  container.querySelectorAll('.todo-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var idx = parseInt(this.querySelector('.todo-checkbox').dataset.idx);
+      todayTodos[idx].done = !todayTodos[idx].done;
+      lsSet(storageKey, JSON.stringify(todayTodos));
+      renderTodos();
+    });
+  });
+
+  updateTodoProgress();
+}
+
+function generateDailyTodos() {
+  // 每日选8-10条，保证4个维度都有
+  var workTodos = TODO_POOL.filter(function(t) { return t.tag === 'work'; });
+  var consultTodos = TODO_POOL.filter(function(t) { return t.tag === 'consult'; });
+  var videoTodos = TODO_POOL.filter(function(t) { return t.tag === 'video'; });
+  var studyTodos = TODO_POOL.filter(function(t) { return t.tag === 'study'; });
+
+  var picked = []
+    .concat(pickFromArray(workTodos, 4, 1))
+    .concat(pickFromArray(consultTodos, 2, 101))
+    .concat(pickFromArray(videoTodos, 2, 201))
+    .concat(pickFromArray(studyTodos, 1, 301));
+
+  // 打乱顺序
+  return pickFromArray(picked, picked.length, 401).map(function(t) {
+    return { text: t.text, tag: t.tag, done: false };
+  });
+}
+
+function updateTodoProgress() {
+  var total = todayTodos.length;
+  var done = todayTodos.filter(function(t) { return t.done; }).length;
+  var pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('todoProgressFill').style.width = pct + '%';
+  document.getElementById('todoProgressLabel').textContent = '完成 ' + done + ' / ' + total;
+  document.getElementById('todoProgressPct').textContent = pct + '%';
+}
+
+/* ========== 模块2：自媒体内容专区 ========== */
+
+// 15条短视频选题
+var TOPIC_POOL = [
+  { title: '你的公司还在用纸质发票？2026年7月后再不改就晚了！', desc: '数电发票全面推行，纸质发票即将退出历史舞台。企业如何平稳过渡？这3步必须提前做。', tags: ['数电发票','2026新规','企业合规'] },
+  { title: '老板必看：金税四期下这5件事千万别再做了', desc: '金税四期大数据监控下，公转私、买卖发票、虚列工资等行为无所遁形。哪些红线不能碰？', tags: ['金税四期','税务稽查','老板必看'] },
+  { title: '小微企业所得税只要5%？手把手教你算省了多少', desc: '小微优惠延续到2027年底！年利润100万以内实际税负5%，用真实案例算给你看。', tags: ['小微企业','所得税优惠','省税'] },
+  { title: '2026年增值税法正式实施，这3个变化直接影响你的钱包', desc: '增值税立法后，税率结构、征收范围、留抵退税都有重大调整。企业和个人都要关注。', tags: ['增值税法','2026新规','税率变化'] },
+  { title: '月入1万和月入10万，交的税差多少？一张图看懂', desc: '个税累进税率下，不同收入段实际税负差异巨大。用可视化图表直观展示，一看就懂。', tags: ['个人所得税','税率','科普'] },
+  { title: '个人养老金每年省税几千块，到底值不值得交？', desc: '每年1.2万额度，递延纳税。高收入人群每年省税5400元。但取出时收3%个税，划算吗？', tags: ['个人养老金','省税','个税优化'] },
+  { title: '灵活用工平台"避税通道"关闭！老板们该怎么办？', desc: '多地叫停灵活用工平台违规核定征收。企业用工模式如何合规调整？3个替代方案。', tags: ['灵活用工','核定征收','合规'] },
+  { title: '研发费用加计扣除100%，但90%的企业都踩了这些坑', desc: '加计扣除力度加码，但备查资料不完善、费用归集不准等问题频发。常见错误清单。', tags: ['研发费用','加计扣除','税收优惠'] },
+  { title: '留抵退税新政来了！这笔钱你可能还没退，赶紧查', desc: '增量留抵退税条件放宽，制造业等行业全额退还。教你3步判断企业是否符合条件。', tags: ['留抵退税','退税','现金流'] },
+  { title: '个税汇算清缴又退钱了！3分钟教你多退几千块', desc: '专项附加扣除填报技巧，漏填、少填的补上。年终奖单独计税还是合并计税？教你选。', tags: ['个税汇算','退税','专项附加'] },
+  { title: '核定征收全面收紧，税收洼地还能不能用了？', desc: '多地取消个人独资企业核定征收，税收洼地政策趋严。企业该如何合法合规地节税？', tags: ['核定征收','税收洼地','合规'] },
+  { title: '老板把公司的钱转给自己，这3种方式最安全', desc: '分红、工资、借款，哪种方式税负最低？老板个人账户与公司账户的法律边界在哪里？', tags: ['公转私','老板必看','税务筹划'] },
+  { title: '跨境电商卖家注意！2025年税务合规是唯一的活路', desc: '跨境电商税务监管收紧，海外仓、直邮模式税务处理差异大。合规成本到底有多高？', tags: ['跨境电商','税务合规','出海'] },
+  { title: '新注册会计师法2027年起施行，考CPA还有用吗？', desc: '新法对CPA执业范围、法律责任做了重大调整。对在校生、从业者意味着什么？', tags: ['CPA','注册会计师','职业规划'] },
+  { title: '代理记账要变天了！2026年新规下老板选代账公司看这4点', desc: '代理记账行业监管升级，无证经营被清退。企业如何辨别靠谱代账机构？避坑指南。', tags: ['代理记账','2026新规','企业服务'] }
+];
+
+// 12条全网热点
+var HOTSPOT_LIST = [
+  { title: '增值税法正式立法', desc: '2024年12月增值税法通过，2026年1月1日起施行，税收法定进程迈出关键一步。' },
+  { title: '金税四期深化推进', desc: '全电发票、大数据预警、银税互动全面升级，企业税务透明度大幅提高。' },
+  { title: '数电发票强制推行', desc: '全国范围内数电票覆盖率超90%，纸质发票加速退出，企业需完成系统对接。' },
+  { title: '小微企业所得税优惠延续', desc: '小微企业税收优惠政策延续至2027年底，年应纳税所得额300万以内按5%征收。' },
+  { title: '研发费用加计扣除100%', desc: '制造业和科技型中小企业研发费用加计扣除比例提至100%，激励企业创新投入。' },
+  { title: '留抵退税制度完善', desc: '增量留抵退税适用范围扩大，审核流程优化，企业现金流压力进一步缓解。' },
+  { title: '灵活用工个税新政', desc: '灵活用工人员个税代扣代缴规则明确，平台企业信息报送义务加强。' },
+  { title: '个人养老金全国推广', desc: '个人养老金制度从36个试点城市推广至全国，开户人数和缴存金额持续增长。' },
+  { title: '个税专项附加扣除提升', desc: '3岁以下婴幼儿照护、子女教育专项附加扣除标准提高，每个子女每月2000元。' },
+  { title: '公平竞争审查条例施行', desc: '规范地方政府税收优惠和财政奖补行为，全国统一大市场建设加速推进。' },
+  { title: '代理记账规范试点', desc: '多省市开展代理记账行业规范治理试点，查处无证经营和违规操作。' },
+  { title: '企业财务通则征求意见', desc: '财政部就修订企业财务通则公开征求意见，强化企业财务管理和内控要求。' }
+];
+
+// 5条二创文案模板
+var REWRITE_TEMPLATES = [
+  {
+    hook: '你有没有发现，同样是开公司，有人一年省税几十万，有人却多交了冤枉钱？差别就在这一个细节上。',
+    core: '今天给你拆解一个真实案例：一家年利润80万的小微企业，通过合理运用研发费用加计扣除和小微优惠，实际税负从20万降到4万。关键操作有三步：第一步，梳理研发项目台账；第二步，归集研发人员工资和直接投入费用；第三步，在汇算清缴时填报加计扣除明细表。每一步都有备查资料要求，漏一个都可能被税务稽查剔除。',
+    cta: '点赞收藏，下次汇算清缴前翻出来对照检查。关注我，每天一个财税省税小技巧，让你的企业合法合规少交税！'
+  },
+  {
+    hook: '老板们注意了！2026年起这件事不做，你的公司可能面临巨额罚款。',
+    core: '数电发票全面推行后，所有发票数据都在税务系统里实时比对。以前那种"先开票后补合同"的操作行不通了。系统会自动比对发票品名、金额、频次与你的经营范围是否匹配。一旦触发预警，轻则约谈，重则稽查。正确的做法是：每张开票申请都要有对应的业务合同、物流单据和收款记录，形成完整的证据链。',
+    cta: '赶紧转发给你们公司财务，对照检查一下开票流程。有问题评论区问我，有问必答！'
+  },
+  {
+    hook: '我做财税咨询8年，看过太多企业因为这个小问题被罚几十万，今天一次性讲清楚。',
+    core: '公转私是税务稽查的重点。很多老板觉得公司是自己的，钱当然可以随便转。但税法规定，公司账户转个人账户必须有合法名目：要么是工资薪金（代扣个税），要么是分红（20%个税），要么是借款（年底必须归还否则视同分红）。最危险的是通过个人卡收公司款项，一旦被查，补税+滞纳金+罚款可能超过转出金额的50%。',
+    cta: '如果你公司也有公转私的情况，评论区扣1，我私信你一份合规方案模板。关注我，远离税务风险！'
+  },
+  {
+    hook: '月入3万和月入10万，到手差多少？结果可能出乎你意料。',
+    core: '来算笔账：月薪3万，扣除五险一金和5000起征点后，每月个税约2750元，到手约2.4万。月薪10万，个税约2.7万，到手约6.6万。收入涨了3.3倍，到手只涨了2.75倍。这就是累进税率的威力。但如果你善于用专项附加扣除：房贷利息1000、子女教育2000、赡养老人2000，每月又能多省几百。高收入人群还可以考虑个人养老金递延纳税。',
+    cta: '你的月薪到手多少？评论区报个数，我帮你算算有没有优化空间。收藏这个视频，年底汇算清缴用得上！'
+  },
+  {
+    hook: '核定征收要取消了？别慌，先搞清楚这3件事再行动。',
+    core: '最近很多做个体户和个人独资企业的老板问我：核定征收是不是要全面取消了？准确说，是"逐步规范"——对文化传媒、医药、网络直播等特定行业加强管理，但对符合条件的小规模纳税人仍可适用。关键看你的业务是否属于限制类行业，以及当地税务机关的执行口径。建议：第一，提前测算查账征收下的税负；第二，完善成本费用票据；第三，与主管税务所沟通确认。',
+    cta: '不确定自己是否受影响？评论区留下你的行业和经营模式，我帮你分析。关注我，第一时间获取最新税务政策解读！'
+  }
+];
+
+function renderTopics() {
+  var topics = pickFromArray(TOPIC_POOL, 3, 501);
+  var container = document.getElementById('topicList');
+  container.innerHTML = '';
+  topics.forEach(function(topic, idx) {
+    var card = document.createElement('div');
+    card.className = 'topic-card';
+    var badges = topic.tags.map(function(t) {
+      return '<span class="topic-badge">' + t + '</span>';
+    }).join('');
+    card.innerHTML =
+      '<div class="topic-title">' + (idx + 1) + '. ' + topic.title + '</div>' +
+      '<div class="topic-desc">' + topic.desc + '</div>' +
+      '<div class="topic-meta">' + badges + '</div>';
+    container.appendChild(card);
+  });
+}
+
+function renderHotspots() {
+  var container = document.getElementById('hotspotList');
+  container.innerHTML = '';
+  HOTSPOT_LIST.forEach(function(item, idx) {
+    var rank = idx + 1;
+    var rankClass = 'r' + Math.min(rank, 6);
+    var el = document.createElement('div');
+    el.className = 'hotspot-item';
+    el.innerHTML =
+      '<div class="hotspot-rank ' + rankClass + '">' + rank + '</div>' +
+      '<div><div class="hotspot-title">' + item.title + '</div>' +
+      '<div class="hotspot-desc">' + item.desc + '</div></div>';
+    container.appendChild(el);
+  });
+}
+
+function renderRewrites() {
+  var container = document.getElementById('rewriteList');
+  container.innerHTML = '';
+  REWRITE_TEMPLATES.forEach(function(rt, idx) {
+    var el = document.createElement('div');
+    el.className = 'rewrite-template';
+    el.innerHTML =
+      '<div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--accent-deep);">模板 ' + (idx + 1) + '</div>' +
+      '<div class="rt-hook"><div class="rt-label">HOOK · 悬念钩子</div><div class="rt-content">' + rt.hook + '</div></div>' +
+      '<div class="rt-core"><div class="rt-label">CORE · 核心内容</div><div class="rt-content">' + rt.core + '</div></div>' +
+      '<div class="rt-cta"><div class="rt-label">CTA · 行动号召</div><div class="rt-content">' + rt.cta + '</div></div>';
+    container.appendChild(el);
+  });
+}
+
+function initInspirationNote() {
+  var today = getTodayStr();
+  var key = 'fw_' + today + '_inspiration';
+  var ta = document.getElementById('inspirationText');
+  var status = document.getElementById('inspirationStatus');
+  var saveBtn = document.getElementById('inspirationSaveBtn');
+
+  ta.value = lsGet(key) || '';
+
+  // 自动保存
+  var saveTimer = null;
+  ta.addEventListener('input', function() {
+    status.textContent = '编辑中…';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function() {
+      lsSet(key, ta.value);
+      status.textContent = '已自动保存 ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'});
+    }, 800);
+  });
+
+  saveBtn.addEventListener('click', function() {
+    lsSet(key, ta.value);
+    status.textContent = '已保存 ' + new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'});
+    showToast('灵感笔记已保存');
+  });
+}
+
+/* ========== 模块3：每日沉淀复盘区 ========== */
+function initReview() {
+  var today = getTodayStr();
+  var fields = [
+    { id: 'reviewGain', key: 'fw_' + today + '_review_gain' },
+    { id: 'reviewPit', key: 'fw_' + today + '_review_pit' },
+    { id: 'reviewPlan', key: 'fw_' + today + '_review_plan' }
+  ];
+
+  fields.forEach(function(f) {
+    var ta = document.getElementById(f.id);
+    ta.value = lsGet(f.key) || '';
+
+    var timer = null;
+    ta.addEventListener('input', function() {
+      clearTimeout(timer);
+      timer = setTimeout(function() {
+        lsSet(f.key, ta.value);
+      }, 600);
+    });
+
+    ta.addEventListener('blur', function() {
+      lsSet(f.key, ta.value);
+    });
+  });
+}
+
+/* ========== 模块4：31位伟大女性人物故事 ========== */
+var WOMEN_LIST = [
+  {
+    name: '屠呦呦', field: '药学家', years: '1930—', tag: '青蒿素之母',
+    story: '屠呦呦出生于浙江宁波，自幼对中药产生浓厚兴趣。1955年从北京大学医学院药学系毕业后，进入中国中医科学院工作。1969年，抗疟疾药物研究项目"523任务"启动，屠呦呦被任命为课题组组长。在经历了190次失败后，她从东晋葛洪《肘后备急方》中"青蒿一握，以水二升渍，绞取汁，尽服之"的记载获得灵感，意识到高温可能破坏有效成分，于是改用低沸点溶剂乙醚提取。1971年10月4日，第191号样品对疟原虫抑制率达到100%，青蒿素由此诞生。这一发现拯救了全球数百万疟疾患者的生命，尤其在非洲疟疾高发地区，青蒿素联合疗法成为一线治疗方案。2015年，屠呦呦获得诺贝尔生理学或医学奖，成为中国首位获得诺贝尔科学奖项的本土科学家。她在领奖时说："青蒿素是中医药给世界的一份礼物。"屠呦呦的一生诠释了什么是科学家的执着与坚守——在没有先进设备的年代，她用最朴素的方法，从浩瀚的古籍中寻找答案，用数百次失败的实验铸就了一次改变世界的成功。'
+  },
+  {
+    name: '居里夫人', field: '物理学家·化学家', years: '1867—1934', tag: '两次诺贝尔奖',
+    story: '玛丽亚·斯克沃多夫斯卡出生于波兰华沙一个教师家庭。当时波兰被俄国统治，女性无法接受高等教育。她先后在华沙的"飞行大学"（地下教育组织）秘密学习，后靠做家庭教师积攒学费，于1891年赴巴黎大学求学。在简陋的条件下，她以优异的成绩获得物理学和数学两个学位。1898年，她与丈夫皮埃尔·居里共同发现了钋和镭两种新元素。为提取纯镭，她在漏雨的棚屋里用数吨沥青铀矿废渣进行提炼，花了近四年时间才提取出0.1克纯镭。1903年，她成为首位获得诺贝尔奖的女性。丈夫去世后，她独自继续研究，1911年再获诺贝尔化学奖，成为首位两次获得诺贝尔奖的人。一战期间，她亲自驾驶X光车上前线，为伤员检查弹片位置，挽救了无数生命。居里夫人因长期接触放射性物质，最终死于再生障碍性贫血。她的笔记本至今仍带放射性，需铅盒保存。她用生命点燃了科学的明灯，证明了女性在科学最高殿堂同样可以闪耀。'
+  },
+  {
+    name: '何泽慧', field: '核物理学家', years: '1914—2011', tag: '中国的居里夫人',
+    story: '何泽慧出生于江苏苏州一个书香门第，外祖母王谢长达是近代著名女权先驱。1932年，她以优异的成绩考入清华大学物理系，是全班为数不多的女生之一。毕业后赴德国柏林高等工业学院深造，选择实验弹道学作为研究方向——因为她深知，这个专业与国防密切相关。1940年获得博士学位后，她进入德国海德堡皇家物理研究所，在玻恩教授指导下从事核物理研究。1946年，她与丈夫钱三强在法国巴黎居里实验室发现了铀核三分裂和四分裂现象，在国际物理学界引起轰动，被约里奥·居里称为"十年来的重要发现之一"。1948年，夫妇二人放弃国外优越条件回到祖国。新中国成立后，何泽慧参与了中国原子能事业的创建，领导建立了中子物理和裂变物理实验基地。她一生简朴，始终骑着旧自行车上下班，办公室里只有最简单的桌椅。她说："一个科学家应该是个诚实的人，不仅要对科学诚实，更要对国家和人民诚实。"'
+  },
+  {
+    name: '林徽因', field: '建筑学家·诗人', years: '1904—1955', tag: '建筑与文学的双子星',
+    story: '林徽因出生于浙江杭州，父亲林长民是清末民初著名政治家。她自幼聪慧过人，1920年随父亲游历欧洲，在伦敦受到一位女建筑师的影响，立志学习建筑。1924年，她与梁思成一同赴美国宾夕法尼亚大学留学。由于当时建筑系不收女生，她注册了美术系，同时选修了建筑系的所有课程，成绩优异。1928年回国后，她与梁思成在东北大学创建了中国第一个建筑系。此后数十年，他们遍走中国15个省、190多个县，考察测绘了2738处古建筑。在五台山佛光寺的发现，打破了日本学者"中国境内无唐代木构建筑"的断言。抗日战争期间，她拖着病体在四川李庄坚持学术研究，完成了《中国建筑史》的初稿。新中国成立后，她参与了国徽设计和人民英雄纪念碑的设计，还力主保护北京古城墙。林徽因一生与肺病抗争，1955年年仅51岁便离开人世。她不仅有"人间四月天"的诗意浪漫，更有用脚步丈量中华古建筑的文化担当。'
+  },
+  {
+    name: '宋庆龄', field: '政治家·社会活动家', years: '1893—1981', tag: '国之瑰宝',
+    story: '宋庆龄出生于上海一个基督教家庭，父亲宋嘉澍是实业家兼牧师。1907年，14岁的她赴美国威斯里安女子学院留学，接触到民主革命思想。1913年毕业后，她接替姐姐宋蔼龄成为孙中山的秘书，两年后与孙中山在东京结婚，尽管年龄相差27岁，遭到家人强烈反对。此后十年，她始终陪伴孙中山左右，经历了陈炯明叛变等生死考验。孙中山逝世后，宋庆龄坚守"联俄、联共、扶助农工"三大政策，与背叛革命的国民党右派决裂。抗日战争爆发后，她在香港创建"保卫中国同盟"，向全世界呼吁支援中国抗战，为八路军和新四军筹集了大量医疗物资。她亲自到战区视察，将物资送到最前线。新中国成立后，她担任国家副主席、名誉主席，致力于妇幼保健和儿童文化教育事业，创建了新中国第一所妇幼保健院和第一个儿童艺术剧院。1981年5月，她被接收为中国共产党正式党员，并被授予"中华人民共和国名誉主席"称号。周恩来称她为"国之瑰宝"。'
+  },
+  {
+    name: '花木兰', field: '巾帼英雄', years: '北魏时期', tag: '代父从军',
+    story: '花木兰的故事最早见于北朝民歌《木兰辞》。北魏时期，北方游牧民族柔然不断南侵，朝廷大规模征兵。木兰的父亲年老体弱，弟弟年幼，她毅然决定女扮男装、代父从军。在长达十二年的军旅生涯中，木兰随军转战万里，经历了无数次惨烈的战斗。她凭借过人的勇气和智慧，从普通士兵成长为战功赫赫的将军，却始终没有暴露女儿身。战争结束后，朝廷封她做尚书郎，她婉言谢绝，只求"愿驰千里足，送儿还故乡"。回到家乡，她脱下战袍、换上旧时衣裳，同行的战友才惊觉"同行十二年，不知木兰是女郎"。花木兰的故事跨越千年而不朽，不仅因为她的英勇善战，更因为她身上凝聚了忠与孝的统一、责任与担当的力量。她证明了英雄不问出处，更不问性别——在使命面前，女子亦可提枪上马、万里赴戎机。'
+  },
+  {
+    name: '武则天', field: '政治家·女皇', years: '624—705', tag: '千古一帝',
+    story: '武则天出生于并州文水（今山西文水），14岁因容貌出众被唐太宗选入宫中，赐号"武媚"。太宗死后，她入感业寺出家，后被高宗李治接回宫中。此后她一步步从昭仪到皇后，再到与高宗并称"二圣"临朝听政。高宗去世后，她先后废黜中宗、睿宗，于690年正式称帝，改国号为"周"，成为中国历史上唯一的女皇帝。在位期间，她推行了一系列重要改革：开创武举和殿试制度，不拘一格选拔人才，狄仁杰、张柬之、姚崇等名臣均由她提拔重用；重视农业发展，轻徭薄赋；加强边防，巩固西域。在她的治理下，唐朝国力持续上升，为后来的开元盛世奠定了基础。同时她也任用酷吏、大肆诛杀李唐宗室，留下了不少争议。705年，宰相张柬之发动神龙政变，迫使年迈的武则天退位。她在遗诏中去帝号，以皇后身份与高宗合葬乾陵。无字碑前，功过留给后人评说——但不可否认，她以超凡的政治才能，在男权至上的时代撕开了一道口子。'
+  },
+  {
+    name: '南丁格尔', field: '护理学先驱', years: '1820—1910', tag: '提灯女神',
+    story: '弗洛伦斯·南丁格尔出生于英国佛罗伦萨的一个富裕贵族家庭。她自幼对护理工作充满热情，但当时护理被视为底层职业，家人强烈反对。1851年，她不顾家人反对，赴德国凯撒斯韦特护理机构接受专业培训。1854年克里米亚战争爆发，英国战地医院条件极其恶劣，伤兵死亡率高达42%。南丁格尔率38名护士前往前线，发现医院缺水缺药、卫生极差。她立即着手改革：清洗病房、改善通风、保证伤员营养、建立洗衣房。每个夜晚，她都会提着一盏油灯巡视病房，伤兵们亲吻她的影子。短短半年，死亡率从42%降到2%。1860年，她在伦敦圣托马斯医院创办了世界上第一所护士学校，确立了护理教育的标准，标志着现代护理学的诞生。她还是出色的统计学家，发明了"南丁格尔玫瑰图"来直观展示死亡原因数据，成为数据可视化的先驱。她说："我们要做的不是偶尔做一件伟大的事，而是每时每刻把平凡的事做到最好。"'
+  },
+  {
+    name: '特蕾莎修女', field: '慈善家', years: '1910—1997', tag: '穷人圣母',
+    story: '特蕾莎修女原名阿格妮丝·贡扎·博亚久，出生于前南斯拉夫斯科普里一个阿尔巴尼亚族家庭。12岁时，她感受到神的召唤，决心成为一名传教士。18岁前往印度爱尔兰洛雷托修女会，在加尔各答一所女子学校任教近20年。1946年，她在一次火车旅行中经历"第二次召唤"——她听到基督说"来，为我做光"，要她走出修道院，去服务"穷人中的穷人"。她换上粗布纱丽，走进加尔各答的贫民窟。1950年，她创立了"仁爱传教会"，宗旨是"免费服务最贫困的人"。她建立的"临终关怀院"收留被遗弃的濒死者，让他们"像天使一样死去"；建立的"儿童之家"收养被抛弃的婴儿；建立的"麻风病中心"为麻风病人提供治疗和尊严。半个多世纪里，仁爱传教会从一个小修会发展为拥有4000多名修女、在123个国家开展慈善工作的国际组织。1979年，她获得诺贝尔和平奖，拒绝参加颁奖晚宴，要求把晚宴费用捐给穷人。她说："我们做不了伟大的事，但我们可以用伟大的爱做小事。"'
+  },
+  {
+    name: '简·奥斯汀', field: '小说家', years: '1775—1817', tag: '英国文学之光',
+    story: '简·奥斯汀出生于英国汉普郡史蒂文顿一个乡村牧师家庭，家中七个孩子中排行第六。她几乎没有受过正规学校教育，但从小酷爱阅读和写作。11岁开始创作小说，15岁完成了第一部成熟作品《爱情与友谊》。在那个女性作家不被重视的时代，她的作品均以匿名方式出版，封面只署"一位女士所著"。她一生发表了六部长篇小说：《理智与情感》《傲慢与偏见》《曼斯菲尔德庄园》《爱玛》《诺桑觉寺》和《劝导》。她以敏锐的观察力和精妙的讽刺手法，描绘英国乡绅阶层的婚姻、金钱与社会关系，每一部都成为经典。《傲慢与偏见》开篇那句"凡是有钱的单身汉，必定想娶位太太，这是一条举世公认的真理"，至今仍被广泛引用。奥斯汀终身未嫁，41岁因病早逝。她的作品在当时并未引起巨大反响，但到了维多利亚时代逐渐获得极高评价，如今被公认为英语文学最伟大的小说家之一。她用一支笔证明了：一个乡村女子，同样可以写出洞穿人性的不朽文字。'
+  }
+];
+
+// 继续添加女性人物 11-21
+var WOMEN_LIST_2 = [
+  {
+    name: '杨绛', field: '作家·翻译家', years: '1911—2016', tag: '最贤的妻最才的女',
+    story: '杨绛出生于北京一个知识分子家庭，父亲杨荫杭是著名法学家。她自幼博览群书，1928年考入东吴大学，后转入清华大学外语系研究生院。在清华，她遇到了一生的伴侣——钱锺书。1935年两人结婚后同赴英国牛津大学留学。杨绛在牛津广泛阅读英法文学，自学拉丁文。回国后，她在震旦女子文理学院、清华大学任教。她的创作横跨小说、散文、戏剧和翻译多个领域。剧作《称心如意》《弄假成真》在上海上演后一票难求；长篇小说《洗澡》以知识分子改造为题材，文笔洗练深刻。她翻译的《堂吉诃德》被公认为最优秀的中文译本，为此她自学西班牙语，历时多年。晚年的杨绛遭受了人生最大的打击——1997年女儿钱瑗病逝，1998年丈夫钱锺书离世。她在巨大的悲痛中坚持完成了《我们仨》，用温润的笔触回忆一家三口相守相助的岁月。103岁时又出版《走到人生边上》，以通达的智慧思考生死。她活了105岁，始终平静、从容、优雅。她说："我和谁都不争，和谁争我都不屑。"'
+  },
+  {
+    name: '冰心', field: '作家·诗人', years: '1900—1999', tag: '爱的哲学',
+    story: '冰心原名谢婉莹，出生于福建福州一个海军军官家庭。父亲谢葆璋是北洋海军军官，她自幼随父在烟台海边长大，大海成为她一生创作的灵感源泉。1919年五四运动爆发，正在协和女子大学读书的冰心开始发表文学作品，以《两个家庭》《斯人独憔悴》等"问题小说"引起文坛关注。1923年赴美国威尔斯利女子学院留学，期间创作了著名的《寄小读者》系列散文，成为中国现代儿童文学的奠基之作。她在作品中反复书写母爱、童真和自然之美，形成了独特的"爱的哲学"。1926年回国后，先后在燕京大学、清华大学等校任教。抗战期间，她以"男士"为笔名发表《关于女人》系列散文，以幽默笔调刻画各阶层女性。新中国成立后，冰心继续创作，与丈夫社会学家吴文藻相伴一生。晚年她担任中国作家协会名誉主席，笔耕不辍，写下了大量散文和随笔。她活了99岁，被称为"世纪老人"。她的座右铭是："有了爱，就有了一切。"'
+  },
+  {
+    name: '颜宁', field: '结构生物学家', years: '1977—', tag: '蛋白质结构解码者',
+    story: '颜宁出生于山东莱芜，自幼聪慧好强。1996年考入清华大学生物科学与技术系，2000年毕业后赴美国普林斯顿大学深造，师从结构生物学泰斗施一公。2007年，30岁的颜宁在获得博士学位后，放弃美国优厚条件回到清华，成为当时清华大学最年轻的教授和博导。在清华的十年里，她带领团队在膜蛋白结构生物学领域取得了一系列世界级突破：成功解析了人源葡萄糖转运蛋白GLUT1的晶体结构，这是该领域困扰科学家近半个世纪的难题；又解析了电压门控离子通道的精细结构，为理解心脏和神经系统疾病提供了关键线索。2017年，她回到普林斯顿大学担任讲席教授。2019年，她当选美国国家科学院外籍院士。2022年，她辞去普林斯顿教职回国，创建深圳医学科学院（SMART），致力于推动中国原创新药研发。颜宁常说自己是一个"率性而为"的人，她选择研究方向不看热门冷门，只看科学价值。她说："科学面前没有性别之分，好奇心和坚持才是最重要的。"'
+  },
+  {
+    name: '张桂梅', field: '教育家', years: '1957—', tag: '大山里的女校校长',
+    story: '张桂梅出生于黑龙江牡丹江一个农民家庭。1975年随姐姐到云南支边，后来在大理喜洲一中任教。1996年，丈夫因病去世，她主动要求调到偏远的华坪县中心中学。在华坪，她目睹了大量山区女孩因贫困而辍学、早婚的命运，内心受到极大震动。2002年，她萌生了创办一所全免费女子高中的想法——让山里的女孩读书上大学，斩断贫困的代际传递。为了筹集建校资金，她像"乞丐"一样四处募捐，被人误解、嘲笑甚至放狗咬，但从未放弃。2008年，全国第一所全免费女子高中——华坪女子高级中学正式成立。12年来，她拖着患有二十多种疾病的身体，每天凌晨5点起床、深夜12点后才休息，坚持家访1600多名学生家庭，行程超过11万公里。在她的坚守下，华坪女中先后将2000多名大山女孩送进大学，高考本科上线率连续多年达到100%。2020年，她被授予"时代楷模"称号，2021年获"七一勋章"。她说："只要还有一口气，我就要站在讲台上。"'
+  },
+  {
+    name: '郎平', field: '排球运动员·教练', years: '1960—', tag: '铁榔头',
+    story: '郎平出生于北京一个普通工人家庭，13岁开始在北京少年体校练习排球。1978年入选国家队，很快以凌厉的扣杀成为主力主攻手，因扣球势大力沉被球迷称为"铁榔头"。1981年至1986年，她作为中国女排核心，帮助球队实现了史无前例的"五连冠"——1981年世界杯、1982年世锦赛、1984年洛杉矶奥运会、1985年世界杯和1986年世锦赛。"女排精神"由此成为一代中国人的精神图腾。1986年因伤退役后，郎平赴美国留学，先后在新墨西哥大学担任助教。1995年，在中国女排跌入低谷时，她临危受命出任国家队主教练，率队获得亚特兰大奥运会银牌。2013年，她再次接手低谷中的中国女排，大刀阔斧改革训练理念，引入"大国家队"模式。2016年里约奥运会，她率队奇迹般逆转夺冠，时隔12年再登奥运之巅。2019年世界杯，她又率队以11连胜卫冕。郎平是唯一一位以运动员和教练员身份都获得奥运冠军的排球人。她说："女排精神不是赢球才有，而是知道不会赢也拼尽全力。"'
+  },
+  {
+    name: '李清照', field: '词人', years: '1084—约1155', tag: '千古第一才女',
+    story: '李清照出生于济南章丘一个书香世家，父亲李格非是著名学者，母亲出自名门王氏。她自幼博览群书，才华过人。18岁时与太学生赵明诚结婚，夫妇二人志趣相投，共同致力于金石书画的收藏和研究。早期词作以闺情为主，《如梦令》"知否，知否，应是绿肥红瘦"清新灵动，《一剪梅》"此情无计可消除，才下眉头，却上心头"深情婉约。靖康之变后，北宋灭亡，李清照夫妇南渡。建炎三年，赵明诚病逝于建康，李清照自此孤身漂泊。晚年她独自保护残存的金石文物，辗转于绍兴、金华一带，经历了颠沛流离之苦。这段时期的词作风格大变，《声声慢》"寻寻觅觅，冷冷清清，凄凄惨惨戚戚"字字泣血，《武陵春》"只恐双溪舴艋舟，载不动许多愁"愁绪沉重。她还写下"生当作人杰，死亦为鬼雄"的豪迈诗句，展现了刚烈的一面。李清照的词被誉为"婉约之宗"，她也是中国文学史上最伟大的女词人。她用一阕阕词记录了一个时代的兴衰和一个女子的悲欢。'
+  },
+  {
+    name: '黄道婆', field: '棉纺织技术革新者', years: '约1245—约1330', tag: '衣被天下',
+    story: '黄道婆出生于宋末元初的松江府乌泥泾（今上海徐汇区），家贫，幼年即为童养媳。因不堪公婆虐待，她趁夜逃到黄浦江边的海船上，随船漂流到了海南岛崖州。在崖州，她被黎族同胞收留。黎族妇女擅长棉纺织，技术远超中原。黄道婆虚心学习，掌握了从轧棉、弹棉到纺纱、织布的全套技术，还学会了黎族特有的提花织造工艺。她在崖州生活了近三十年。元朝元贞年间，她乘船回到故乡乌泥泾，将学到的先进棉纺织技术带回中原。她改造了轧花车和弹弓，发明了三锭脚踏纺车，使纺纱效率提高了数倍；她还改进了织布机和提花工艺，能织出精美的"乌泥泾被"，图案如同画就。她的技术迅速传播，松江一带迅速成为全国的棉纺织中心，"松江棉布，衣被天下"。黄道婆没有留下任何文字，她的伟大全在双手之中——一个逃婚的童养媳，凭着一双手和一颗求知的心，改变了中国纺织业的历史，让亿万人穿上了温暖柔软的棉布衣裳。'
+  },
+  {
+    name: '王亚平', field: '航天员', years: '1980—', tag: '太空教师',
+    story: '王亚平出生于山东烟台一个普通农民家庭，从小体育成绩优异。1997年，她被空军长春飞行学院选拔为第七批女飞行员，开始了飞行生涯。2010年，她入选中国第二批航天员。2013年6月，她乘坐神舟十号飞船进入太空，成为中国第二位女航天员。在此次任务中，她在天宫一号内进行了中国首次太空授课，向全国6000多万中小学生实时演示了陀螺运动、水滴表面张力等物理实验，成为无数孩子心中的"太空老师"。2021年10月，她随神舟十三号再次出征，成为中国首位实施出舱活动的女航天员，迈出了中国女性太空行走的第一步。此次任务中，她在轨驻留183天，刷新了中国航天员在轨时长纪录。她还在太空度过了春节，向全国人民送上了来自太空的新春祝福。从烟台农村少女到两次飞天的航天英雄，王亚平说："太空不会因为你是女性就对你温柔以待，但梦想也不会因为性别而设上限。女孩一样可以飞天。"'
+  },
+  {
+    name: '刘洋', field: '航天员', years: '1978—', tag: '中国首位女航天员',
+    story: '刘洋出生于河南郑州一个普通家庭，1997年从空军长春飞行学院毕业，成为空军运输机飞行员。她安全飞行1680小时，多次执行紧急空运任务。2010年入选中国第二批航天员。2012年6月，她随神舟九号飞船进入太空，与天宫一号对接，成为中国第一位进入太空的女性。在为期13天的任务中，她承担了空间医学实验和航天器操作等多项任务，表现沉稳出色。她的太空之旅标志着中国成为世界上第三个自主将女航天员送入太空的国家。在航天员选拔训练期间，她付出了常人难以想象的努力：离心机训练要承受8倍重力加速度，面部变形、泪水飞溅也不能按下暂停按钮；水下失重训练穿着200公斤的水槽训练服，一练就是几个小时。她说："我不觉得我是英雄，我只是一个普通的军人，执行了国家交给我的任务。"2018年研究生毕业后，她继续在航天员大队服役。2022年，她随神舟十四号再次飞天，在轨驻留6个月，参与了中国空间站建造的关键阶段。'
+  },
+  {
+    name: '董明珠', field: '企业家', years: '1954—', tag: '铁娘子',
+    story: '董明珠出生于江苏南京一个普通家庭。30岁前，她是一名安静的行政人员，有一个幸福的家庭。然而丈夫突然病逝，留下她和两岁的儿子。为了生计，她在36岁时辞去铁饭碗，独自南下珠海，加入当时还名不见经传的海利空调厂（格力前身）做业务员。上班第一年，她被派去安徽追讨42万元前任业务员留下的呆账。她连续40天天天守在经销商门口，硬是把钱追了回来，从此崭露头角。此后她的销售额年年翻番，成为格力的"金牌业务员"。1995年，她升任格力销售经理，大刀阔斧整顿经销商体系，推行"先款后货"模式，彻底改变了空调行业"先发货后收款"的积弊。在她的领导下，格力从一家小厂成长为全球最大的空调企业，连续多年占据全球家用空调销量第一。2012年，她正式出任格力电器董事长。她以"对自己狠一点"的作风著称，在男性主导的商业世界中杀出一条血路。她说："女性最大的弱点是太善良、太心软，但在商场上，你必须是战士。"'
+  },
+  {
+    name: '撒切尔夫人', field: '政治家', years: '1925—2013', tag: '铁娘子',
+    story: '玛格丽特·撒切尔出生于英国林肯郡一个杂货店主家庭。父亲阿尔弗雷德是地方政客，从小教育她"走自己的路，不要随波逐流"。她以优异成绩考入牛津大学化学系，毕业后从事化学研究工作，同时攻读法律，成为一名律师。1959年当选下议院议员。1970年入阁担任教育大臣。1975年击败前首相希思当选保守党领袖。1979年，她率领保守党赢得大选，成为英国历史上第一位女首相，此后连续执政11年，是20世纪在位时间最长的英国首相。执政期间，她推行了一系列深刻改革：大规模私有化国企、削减福利开支、放松金融管制、打击工会权力、实行货币主义经济政策。这些改革被称为"撒切尔主义"，深刻改变了英国经济结构，也引发了巨大争议。1982年马岛战争中她态度强硬，最终获胜，支持率飙升。在对外关系上，她与美国总统里根结成紧密同盟，被称为"冷战铁娘子"。她曾四次访华，在香港问题上与中国展开激烈谈判。她的名言是："如果你愿意，撒切尔夫人是可以转身的——但不是U型转弯。"'
+  }
+];
+
+// 继续添加女性人物 22-31
+var WOMEN_LIST_3 = [
+  {
+    name: '海伦·凯勒', field: '作家·社会活动家', years: '1880—1968', tag: '黑暗中的光',
+    story: '海伦·凯勒出生于美国阿拉巴马州一个南方农场主家庭。1882年2月，年仅19个月的她突发高烧，虽然幸存，却从此失去了视力和听力，陷入了一个无声无光的世界。她变得暴躁、易怒，像一头被困的小兽。1887年3月，安妮·莎莉文老师来到她身边。莎莉文把海伦的一只手放在水泵下，让凉水流过她的手掌，同时在另一只手上拼写"water"这个单词。那一刻，海伦突然理解了——万物皆有其名。这个瞬间成为她一生的转折点。此后，她如饥似渴地学习，用手指触摸别人的嘴唇感受震动来学说话，用触觉阅读盲文。1900年，她考入哈佛大学拉德克利夫学院，1904年以优异成绩毕业，成为首位获得文学学士学位的盲聋人。她一生写了14本书，包括自传《我的生活故事》，被译成50多种语言。她还四处演讲，为全球盲聋人权益奔走，足迹遍布39个国家。她说："世界上最美好、最美丽的东西，既看不见也摸不着，它们只能用心去感受。"'
+  },
+  {
+    name: '罗莎·帕克斯', field: '民权运动家', years: '1913—2005', tag: '民权之母',
+    story: '罗莎·帕克斯出生于美国阿拉巴马州塔斯基吉一个非洲裔家庭。她自幼经历种族隔离制度的屈辱——黑人必须给白人让座，只能上"有色人种"学校，饮水机都要分黑白。1932年，她与理发师雷蒙德·帕克斯结婚，加入了美国全国有色人种协进会（NAACP）地方分会，担任秘书长达十余年。1955年12月1日，在阿拉巴马州蒙哥马利市的一辆公共汽车上，42岁的帕克斯拒绝给一名白人乘客让座。司机叫来警察，她被逮捕并罚款14美元。这个看似微小的"不"字，点燃了美国民权运动的燎原之火。在她的被捕事件之后，黑人社区发起了长达381天的蒙哥马利公交车抵制运动，在马丁·路德·金的领导下，最终迫使最高法院裁定公交隔离制度违宪。这一事件被视为现代美国民权运动的起点。帕克斯后来被称为"民权运动之母"。她说："那时候我并没有想过要改变什么，我只是厌倦了总是屈服。一个人应该知道自己应有的权利，并为此挺身而出。"'
+  },
+  {
+    name: '马拉拉', field: '教育活动家', years: '1997—', tag: '最年轻的诺贝尔奖得主',
+    story: '马拉拉·优素福扎伊出生于巴基斯坦斯瓦特山谷明戈拉城一个普什图族家庭。父亲齐亚丁是一所女子学校的校长，从小就鼓励她读书学习。2007年，塔利班武装控制了斯瓦特地区，禁止女孩上学，炸毁了数百所学校。11岁的马拉拉开始为BBC乌尔都语网站撰写匿名博客，用笔名记录塔利班统治下的生活，呼吁女孩受教育的权利。她的勇气引起了国际关注，也引来了塔利班的死亡威胁。2012年10月9日，15岁的马拉拉在校车上被塔利班枪手近距离射击，子弹穿过她的头部、颈部嵌入肩膀。她在英国伯明翰经历了多次手术，奇迹般地存活下来。康复后，她没有沉默，反而更加坚定地为全球女童教育发声。2013年7月，她在联合国发表演讲："他们以为一颗子弹会让我们沉默，但他们失败了。"2014年，17岁的她获得诺贝尔和平奖，成为诺贝尔奖历史上最年轻的获奖者。她创立了马拉拉基金会，为全球女童教育筹集资金。她说："一个孩子、一位教师、一支笔和一本书可以改变世界。"'
+  },
+  {
+    name: '可可·香奈儿', field: '时尚设计师', years: '1883—1971', tag: '时尚革命者',
+    story: '加布里埃尔·香奈儿出生于法国索米尔一个贫寒家庭。母亲早逝后，父亲将她送进修道院孤儿院。在修道院，她学会了缝纫，这成为她一生事业的起点。年轻时她在咖啡馆唱歌，绰号"可可"（Coco）。1909年，她在巴黎开了一家小小的女帽店，很快受到巴黎上流社会女性的青睐。1913年，她开始在多维尔开设服装店。香奈儿最伟大的贡献是解放了女性的身体——她抛弃了束缚女性的紧身胸衣和繁复的裙摆，从男装中汲取灵感，将针织面料引入女装，设计出宽松舒适的日常服饰。1921年，她推出香奈儿5号香水，这是第一款以设计师名字命名的香水，至今仍是全球最畅销的香水之一。1926年，她设计了经典的小黑裙，将原本只用于丧服的黑色变成了优雅的代名词。二战期间她关闭了店铺，战后于1954年以71岁高龄重返时尚界，推出了标志性的粗花呢套装。香奈儿一生未婚，她说："我不在乎你怎么看待我，我从来都不在乎别人怎么想。时尚易逝，风格永存。"'
+  },
+  {
+    name: '奥黛丽·赫本', field: '演员·人道主义者', years: '1929—1993', tag: '永恒的优雅',
+    story: '奥黛丽·赫本出生于比利时布鲁塞尔，母亲是荷兰女男爵。二战期间，她生活在荷兰阿纳姆，亲眼目睹了纳粹的暴行。战争导致食物严重短缺，她一度营养不良，但仍然参加地下抵抗组织，为盟军传递情报，还通过芭蕾舞表演为难民筹款。战后她前往伦敦学习芭蕾舞，因身高和营养问题未能成为专业舞者，转而走上演艺道路。1953年，她主演的《罗马假日》让她一夜成名，荣获奥斯卡最佳女主角。此后她又主演了《龙凤配》《甜姐儿》《蒂凡尼的早餐》《窈窕淑女》等经典影片，成为好莱坞黄金时代最具辨识度的女星。她清丽脱俗的形象和优雅的气质，定义了一个时代的审美。1988年，她出任联合国儿童基金会（UNICEF）亲善大使。在生命的最后五年里，她亲赴埃塞俄比亚、苏丹、萨尔瓦多、危地马拉、洪都拉斯、委内瑞拉、厄瓜多尔、孟加拉国、泰国、越南等国家和地区，考察贫困儿童的生存状况，为他们筹集援助资金。1993年1月，她在访问索马里归来后不久因癌症去世。她留给世界的遗言是："记住，如果你任何时候需要一只帮助的手，你可以在自己手臂的末端找到它。"'
+  },
+  {
+    name: '伊丽莎白二世', field: '英国女王', years: '1926—2022', tag: '在位最长的君主',
+    story: '伊丽莎白·亚历山德拉·玛丽·温莎出生于伦敦，是约克公爵（后来的乔治六世）的长女。1952年2月，父亲突然去世，25岁的她正在肯尼亚出访，当即继位成为英国女王。1953年6月2日，她在威斯敏斯特大教堂加冕，仪式首次通过电视向全球直播。在位70年，她是英国历史上在位时间最长的君主，见证了从丘吉尔到特拉斯的15位首相、从杜鲁门到拜登的14位美国总统。她经历了二战后的帝国解体、冷战、英国加入和退出欧盟等重大历史事件。她以"从不抱怨、从不解释"的自律著称，在公众面前始终保持克制和尊严。她每周与首相秘密会面，提供六十余年的政治智慧和经验，但从不公开表达政治立场。她热爱马术和柯基犬，一生拥有过30多只柯基。2022年9月8日，96岁的她在巴尔莫勒尔堡安详辞世。她的葬礼是全球观看人数最多的直播事件之一。她用一生的恪尽职守诠释了什么是"以服务为使命"——她不是权力的掌控者，而是英国国家认同的象征、一个跨越时代的稳定力量。'
+  },
+  {
+    name: '默克尔', field: '政治家', years: '1954—', tag: '欧洲的锚',
+    story: '安格拉·默克尔出生于汉堡，三个月大时随家人移居东德。父亲是路德派牧师，母亲是英语教师。她在莱比锡大学攻读物理学，1986年获得量子化学博士学位，曾在东德科学院从事科研工作。1989年柏林墙倒塌后，35岁的默克尔加入了一个新成立的小党"民主觉醒"，从此步入政界。1990年德国统一后，她当选联邦议院议员，被科尔总理提拔为妇女和青年部长。科尔称她为"我的女孩"。但1999年科尔陷入献金丑闻时，默克尔在报纸上公开撰文与恩师切割，震惊政界，展现了非凡的政治勇气。2000年，她当选基民盟主席，2005年成为德国历史上第一位女总理。此后连续四次赢得大选，执政16年，成为欧盟最具影响力的领导人。2008年金融危机、2010年欧债危机、2015年难民危机——在每一个重大关头，她都以冷静、理性、科学思维主导欧洲的应对。2015年难民危机中，她做出向数十万难民开放边境的决定，被称为"我们能做到"。她以分析力著称，在男性主导的国际政治舞台上，用理性和稳健赢得了世界的尊重。'
+  },
+  {
+    name: '昂山素季', field: '政治家', years: '1945—', tag: '缅甸之女',
+    story: '昂山素季出生于缅甸仰光，父亲昂山将军是缅甸独立英雄，在她两岁时遭暗杀。1960年她随母亲出使印度，后赴英国牛津大学学习哲学、政治学和经济学。1972年与英国学者迈克尔·阿里斯结婚，此后在英国生活了近三十年。1988年，她回缅甸照顾病重的母亲，恰逢缅甸爆发大规模民主运动。8月26日，她在仰光大金塔前面对百万民众发表演讲，正式踏入政界。她创建全国民主联盟（NLD），推动非暴力民主运动。1989年，军政府将她软禁。此后21年间，她被软禁了15年。1991年，她获得诺贝尔和平奖，儿子代她领奖时念道："在缅甸这样一个国家，争取民主和人权绝不是注定要失败的，更不是徒劳的。"2010年，军政府终于解除对她的软禁。2015年，她领导的民盟赢得大选。2016年，她出任国务资政，成为缅甸实际领导人。然而，2017年罗兴亚危机中，她因未公开谴责军方对罗兴亚人的暴力而遭到国际社会批评，诺贝尔和平奖也引发争议。2021年2月，缅甸军方发动政变，她再次被拘留。她的一生是一部关于信念与代价的史诗。'
+  },
+  {
+    name: '秋瑾', field: '革命家·诗人', years: '1875—1907', tag: '鉴湖女侠',
+    story: '秋瑾出生于福建厦门一个官宦家庭，自幼习文练武，性格豪迈。1896年奉父母之命嫁给湘潭富商之子王廷钧，婚后随丈夫赴北京。1900年八国联军侵华，她目睹山河破碎，愤而写下"浊酒不销忧国泪，救时应仗出群才"。1904年，她毅然东渡日本留学，先后加入光复会和同盟会，成为同盟会第一位女会员。她创办《中国女报》，倡导女权，呼吁放足、入学、参政。1907年，她回国主持绍兴大通学堂，秘密策划皖浙起义。1907年7月6日，徐锡麟在安庆刺杀安徽巡抚失败殉难，清政府循线搜捕秋瑾。部下劝她出逃，她说："革命要流血才会成功。"7月15日凌晨，她在绍兴轩亭口英勇就义，年仅32岁。临刑前她写下了千古绝唱："秋风秋雨愁煞人。"她的就义震惊全国，引发了更大规模的革命浪潮。她是中国近代第一位为革命流血的女性，她用生命践行了自己写下的誓言："身不得，男儿列；心却比，男儿烈。"她不仅是革命者，更是中国女性解放运动的先驱。'
+  },
+  {
+    name: '樊锦诗', field: '考古学家·敦煌守护者', years: '1938—', tag: '敦煌女儿',
+    story: '樊锦诗出生于北京一个工程师家庭。1963年，她从北京大学历史系考古专业毕业，带着对敦煌壁画的向往，来到了甘肃敦煌莫高窟。当时的敦煌条件极其艰苦——住土屋、喝咸水、没有电灯、风沙漫天。与她同来的同学纷纷离开，她却留了下来，这一留就是近六十年。她从最基础的洞窟测绘和壁画临摹做起，逐步成长为敦煌石窟考古研究的领军学者。她主持编写了《敦煌石窟全集》，首次以科学方法对莫高窟进行了全面系统的考古记录。1998年，她出任敦煌研究院院长。面对日益增长的游客量对壁画造成的损害，她推动建立了"数字敦煌"项目，利用高精度数字化技术永久保存莫高窟的壁画和彩塑，让千年文物在虚拟世界中获得永生。她还推动制定了《莫高窟游客承载量标准》，在文物保护与公众开放之间寻找平衡。2018年，她获改革先锋称号。2020年，她将获得的"吕志和奖"奖金1000万港元全部捐出，用于敦煌石窟的保护和研究。她说："我这一生只做了一件事，就是守护敦煌。敦煌是我的宿命。"'
+  }
+];
+
+// 合并所有女性数据
+var ALL_WOMEN = WOMEN_LIST.concat(WOMEN_LIST_2, WOMEN_LIST_3);
+
+function renderWoman() {
+  var woman = pickByDate(ALL_WOMEN, 601);
+  document.getElementById('womanAvatar').textContent = woman.name.charAt(0);
+  document.getElementById('womanName').textContent = woman.name;
+  document.getElementById('womanMeta').textContent = woman.field + ' · ' + woman.years;
+  document.getElementById('womanTag').textContent = woman.tag;
+  document.getElementById('womanStory').textContent = woman.story;
+}
+
+/* ========== 50条励志语录（结合财务专业特色+女性力量感） ========== */
+var QUOTES = [
+  '每一次试算平衡，都是人生的对账——借方付出的努力，贷方终会回报。',
+  '账可以重做，人生不能重来。但每一天的复式记账，都在书写你的资产。',
+  '折旧是资产的减项，但经历的折旧，是智慧的增加项。',
+  '财务报表讲的是过去，预算讲的是未来。而你现在做的每一个选择，都在改写明天的报表。',
+  '审计别人容易，审计自己很难。定期给自己做一次内审，才能发现盲区。',
+  '现金流量表里藏着企业最真实的呼吸——你的时间花在哪里，就是你人生的现金流向。',
+  '不要怕资产负债率高，怕的是资产端没有真正有价值的沉淀。',
+  '一笔分录的借贷必须相等，人生的得失终归也会平衡。只是时间差的问题。',
+  '合并报表要抵消内部交易——人生也要学会剔除内耗，只留下真正增值的部分。',
+  '审计准则要求"合理保证"而非"绝对保证"——人生亦然，尽力就好，不必苛求完美。',
+  '你不需要成为别人报表里的亮点，你只需要做自己资产负债表上最坚实的资产。',
+  '存货周转越快，企业越健康；知识周转越快，人越有竞争力。',
+  '坏账准备是对风险的预估——提前为人生的不确定性做准备，不是悲观，是专业。',
+  '财务自由的本质不是数字，是你对时间的自主权。',
+  '每一条税法背后都有立法意图，每一次挫折背后都有成长意图。',
+  '借贷必相等是会计恒等式，付出与收获必相等是人生恒等式。',
+  '期末结账是为了新期更好的开始——每天归零，才能轻装前行。',
+  '无形资产看不见摸不着，但它是最持久的竞争力。你的品格也是如此。',
+  '审计讲证据链，人生讲因果链。今天的每一步，都是明天的审计底稿。',
+  '递延所得税资产是"可抵扣的未来"——今天的苦，是可以抵扣未来幸福的资产。',
+  '一个优秀的财务人，不是算得最快的人，而是看得最清楚的人。',
+  '报表分析要从三个维度看：盈利能力、偿债能力、运营能力。人生也要多维度评估自己。',
+  '不要把所有鸡蛋放在一个篮子里，这是风险管理的基本功，也是人生的智慧。',
+  '会计估计会变，但方向不能变。人生的战略要坚定，战术可以灵活。',
+  '固定资产要计提折旧，但你的核心竞争力不应该折旧——持续学习是最好的减值测试。',
+  '资本化的条件很严格：只有未来能带来经济利益的支出才能资本化。今天的投资，要看到明天的回报。',
+  '财务分析的核心是比较：与过去比、与同行比、与预算比。成长也需要这样的参照系。',
+  '或有负债可能永远不会发生，但你要知道它的存在。人生的风险也是如此。',
+  '一个方程式：资产 = 负债 + 所有者权益。一个人生式：你拥有的 = 你借来的 + 你自己的。',
+  '结账日是固定的，但准备结账是每天的事。成功不是某天的爆发，是每天的积累。',
+  '她的力量不在于声音有多大，而在于每一次落笔都掷地有声。',
+  '真正的专业不是把自己困在数字里，而是透过数字看见全局。',
+  '在借与贷之间找到平衡，在事业与生活之间找到节奏。',
+  '一个女人的成长曲线，不取决于她起点在哪，而取决于她的斜率。',
+  'CPA考的是知识，但真正让你走得远的，是知识背后的思维方式和坚持的力量。',
+  '每一张凭证都是证据，每一天都是你人生审计的底稿——让它经得起检验。',
+  '预算不是束缚，是方向。自律不是限制，是自由。',
+  '财务人最懂复利的力量——不只是金钱的复利，更是知识、人脉和信用的复利。',
+  '试算不平，差一分钱也要查到深夜。这种较真，就是专业精神。人生也需要这种较真。',
+  '没有人天生就是CFO，每个数字背后都是无数个加班的夜晚和反复的核对。',
+  '经济法条文可以背诵，但法治思维需要内化。规则不是束缚，是保护。',
+  '财管公式可以默写，但财商思维需要践行。管理不只是算账，是决策。',
+  '你不必跑赢所有人，你只需要跑赢昨天的自己。这就是持续经营的前提。',
+  '净利润可以粉饰，但经营性现金流不会说谎。做真实的自己，不需要粉饰。',
+  '成本核算讲究精确到分，人生规划也要精确到天。模糊的目标永远无法实现。',
+  '内部控制的核心是不相容职务分离——人生也要学会角色分离：工作时全力以赴，休息时彻底放下。',
+  '税务筹划不是偷税漏税，而是在规则之内找到最优解。人生也是如此：在约束中找到自由。',
+  '审计报告有四种意见——无保留、保留、否定、无法表示。每天给自己一个真实的评价。',
+  '会计期间可以分期，但成长不能断期。每一天都是新的会计期间，记得及时登账。',
+  '在数字的海洋里，做那个掌舵的人，而不是被数字淹没的人。',
+  '女性的力量如水：至柔却能穿石，至静却能载舟。在财税的世界里，温柔也是一种力量。'
+];
+
+function renderDailyQuote() {
+  var quote = pickByDate(QUOTES, 701);
+  document.getElementById('dailyQuoteArea').textContent = '"' + quote + '"';
+}
+
+/* ========== 悬浮语录 ========== */
+var currentQuoteIdx = 0;
+function initFloatingQuote() {
+  currentQuoteIdx = dateSeed(701) % QUOTES.length;
+  renderFloatingQuote();
+
+  var fq = document.getElementById('floatingQuote');
+  var fqToggle = document.getElementById('fqToggle');
+  var fqText = document.getElementById('fqText');
+
+  // 点击正文换一条
+  fqText.addEventListener('click', function(e) {
+    e.stopPropagation();
+    currentQuoteIdx = (currentQuoteIdx + 1) % QUOTES.length;
+    renderFloatingQuote();
+  });
+
+  // 点击toggle最小化/展开
+  fqToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (fq.classList.contains('minimized')) {
+      fq.classList.remove('minimized');
+      fqToggle.textContent = '—';
+    } else {
+      fq.classList.add('minimized');
+      fqToggle.textContent = '+';
+    }
+  });
+}
+
+function renderFloatingQuote() {
+  document.getElementById('fqText').textContent = QUOTES[currentQuoteIdx];
+}
+
+/* ========== 模块5：中级会计三科章节知识点 ========== */
+var STUDY_CHAPTERS = [
+  // 《中级会计实务》25章
+  { subject: '中级会计实务', chapter: '第1章 存货', point: '存货的初始计量：采购成本包括购买价款、相关税费、运输费、装卸费、保险费等。存货发出计价方法：先进先出法、月末一次加权平均法、移动加权平均法、个别计价法。期末按成本与可变现净值孰低计量。' },
+  { subject: '中级会计实务', chapter: '第2章 固定资产', point: '固定资产初始计量：外购成本包括购买价款、相关税费、使固定资产达到预定可使用状态前发生的可归属于该项资产的运输费、装卸费、安装费和专业人员服务费等。折旧方法：年限平均法、工作量法、双倍余额递减法、年数总和法。' },
+  { subject: '中级会计实务', chapter: '第3章 无形资产', point: '自行研发无形资产：研究阶段支出全部费用化，开发阶段支出满足资本化条件的予以资本化。无形资产摊销：使用寿命有限的摊销，使用寿命不确定的不摊销但每年减值测试。' },
+  { subject: '中级会计实务', chapter: '第4章 投资性房地产', point: '投资性房地产包括已出租的土地使用权、持有并准备增值后转让的土地使用权、已出租的建筑物。后续计量模式：成本模式和公允价值模式。同一企业只能采用一种模式。' },
+  { subject: '中级会计实务', chapter: '第5章 长期股权投资', point: '长期股权投资初始投资成本确定：同一控制下企业合并按被合并方所有者权益账面价值份额确定；非同一控制下按支付对价的公允价值确定。后续计量：成本法和权益法。' },
+  { subject: '中级会计实务', chapter: '第6章 资产减值', point: '资产减值是指资产的可收回金额低于其账面价值。可收回金额为资产的公允价值减去处置费用后的净额与资产预计未来现金流量的现值两者之间的较高者。资产减值损失一经确认，在以后会计期间不得转回。' },
+  { subject: '中级会计实务', chapter: '第7章 收入', point: '收入确认五步法模型：识别与客户订立的合同、识别合同中的单项履约义务、确定交易价格、将交易价格分摊至各单项履约义务、履行每一单项履约义务时确认收入。' },
+  { subject: '中级会计实务', chapter: '第8章 职工薪酬', point: '职工薪酬包括短期薪酬、离职后福利、辞退福利和其他长期职工福利。短期薪酬在职工提供服务的会计期间确认负债并计入当期损益或相关资产成本。' },
+  { subject: '中级会计实务', chapter: '第9章 借款费用', point: '借款费用资本化的条件：资产支出已经发生、借款费用已经发生、购建活动已经开始。资本化金额的计算：专门借款以实际利息费用减去闲置资金投资收益；一般借款按累计资产支出超过专门借款部分的资产支出加权平均数乘以资本化率。' },
+  { subject: '中级会计实务', chapter: '第10章 或有事项', point: '或有事项的结果具有不确定性。预计负债的确认条件：该义务是企业承担的现时义务、履行该义务很可能导致经济利益流出企业、该义务的金额能够可靠计量。' },
+  { subject: '中级会计实务', chapter: '第11章 收入（合同变更）', point: '合同变更的处理：合同变更增加了可明确区分的商品及合同价款，且新增合同价款反映新增商品单独售价的，应当作为单独合同处理；不属于单独合同的，区分已转让和未转让部分分别处理。' },
+  { subject: '中级会计实务', chapter: '第12章 政府补助', point: '政府补助分为与资产相关的政府补助和与收益相关的政府补助。会计处理方法：总额法和净额法。与资产相关的应冲减相关资产的账面价值或确认为递延收益并分期计入损益。' },
+  { subject: '中级会计实务', chapter: '第13章 所得税', point: '所得税会计采用资产负债表债务法。暂时性差异分为应纳税暂时性差异（产生递延所得税负债）和可抵扣暂时性差异（产生递延所得税资产）。所得税费用=当期所得税+递延所得税。' },
+  { subject: '中级会计实务', chapter: '第14章 外币折算', point: '外币交易在初始确认时采用交易发生日的即期汇率折算。资产负债表日，外币货币性项目采用资产负债表日即期汇率折算，产生的汇兑差额计入当期损益。' },
+  { subject: '中级会计实务', chapter: '第15章 租赁', point: '承租人不再区分融资租赁和经营租赁，统一采用单一模型确认使用权资产和租赁负债。使用权资产初始计量按租赁负债的初始计量金额加上初始直接费用等确定。' },
+  { subject: '中级会计实务', chapter: '第16章 持有待售的非流动资产', point: '企业主要通过出售而非持续使用收回其账面价值的非流动资产应划分为持有待售类别。初始计量按账面价值与公允价值减去出售费用后的净额孰低计量。' },
+  { subject: '中级会计实务', chapter: '第17章 企业合并', point: '企业合并分为同一控制下的企业合并和非同一控制下的企业合并。同一控制下合并对价按账面价值计量，不确认商誉；非同一控制下合并对价按公允价值计量，可能确认商誉。' },
+  { subject: '中级会计实务', chapter: '第18章 合并财务报表', point: '合并范围的确定以控制为基础。合并报表抵销处理：内部股权投资与所有者权益抵销、内部债权债务抵销、内部交易及未实现内部销售利润抵销、内部现金流量抵销。' },
+  { subject: '中级会计实务', chapter: '第19章 合并报表（特殊交易）', point: '母公司购买子公司少数股权：在合并财务报表中，因购买少数股权新取得的长期股权投资与按照新增持股比例计算应享有子公司自购买日开始持续计算的可辨认净资产份额之间的差额，调整资本公积。' },
+  { subject: '中级会计实务', chapter: '第20章 会计政策变更', point: '会计政策变更采用追溯调整法，调整期初留存收益和列报前期最早期初其他相关项目。会计估计变更采用未来适用法。前期差错采用追溯重述法更正。' },
+  { subject: '中级会计实务', chapter: '第21章 资产负债表日后事项', point: '资产负债表日后事项分为调整事项和非调整事项。调整事项需调整报表数字，非调整事项只需在附注中披露。调整事项包括已证实的资产减值、已确认的销售退回等。' },
+  { subject: '中级会计实务', chapter: '第22章 公允价值计量', point: '公允价值是市场参与者在计量日发生的有序交易中出售一项资产所能收到或者转移一项负债所需支付的价格。公允价值计量三个层次：第一层次相同资产活跃市场报价，第二层次类似资产可观察输入值，第三层次不可观察输入值。' },
+  { subject: '中级会计实务', chapter: '第23章 政府会计', point: '政府会计由预算会计和财务会计构成。预算会计实行收付实现制，财务会计实行权责发生制。政府会计要素包括预算收入、预算支出、预算结余和资产、负债、净资产、收入、费用。' },
+  { subject: '中级会计实务', chapter: '第24章 民间非营利组织会计', point: '民间非营利组织会计以权责发生制为核算基础。收入按来源分为交换交易收入和非交换交易收入。净资产按是否受限分为限定性净资产和非限定性净资产。' },
+  { subject: '中级会计实务', chapter: '第25章 财务报告', point: '财务报告包括财务报表和其他应当在财务报告中披露的相关信息和资料。财务报表至少应当包括资产负债表、利润表、现金流量表、所有者权益变动表和附注。' },
+  // 《财务管理》10章
+  { subject: '财务管理', chapter: '第1章 总论', point: '财务管理目标理论：利润最大化、股东财富最大化、企业价值最大化、相关者利益最大化。股东财富最大化是本书采纳的观点。利益冲突的协调：所有者与经营者通过解聘、接收、股票期权协调；所有者与债权人通过限制性借款、收回借款协调。' },
+  { subject: '财务管理', chapter: '第2章 财务管理基础', point: '货币时间价值：复利终值F=P(1+i)^n，复利现值P=F/(1+i)^n。普通年金终值F=A×(F/A,i,n)，普通年金现值P=A×(P/A,i,n)。风险与收益：期望收益率=Σ(概率×可能收益率)，标准差衡量风险大小。' },
+  { subject: '财务管理', chapter: '第3章 预算管理', point: '预算编制方法：固定预算与弹性预算、增量预算与零基预算、定期预算与滚动预算。全面预算体系包括业务预算（销售预算、生产预算、直接材料预算等）、专门决策预算和财务预算（现金预算、预计利润表、预计资产负债表）。' },
+  { subject: '财务管理', chapter: '第4章 筹资管理（上）', point: '筹资方式：股权筹资（吸收直接投资、发行股票、留存收益）、债务筹资（银行借款、发行公司债券、融资租赁）、衍生工具筹资（可转换债券、认股权证）。资金需要量预测：因素分析法、销售百分比法、资金习性预测法。' },
+  { subject: '财务管理', chapter: '第5章 筹资管理（下）', point: '资本成本：个别资本成本（债券、银行借款、普通股、留存收益）、加权平均资本成本、边际资本成本。杠杆效应：经营杠杆系数DOL=息税前利润变动率/产销量变动率，财务杠杆系数DFL=每股收益变动率/息税前利润变动率，总杠杆系数DTL=DOL×DFL。' },
+  { subject: '财务管理', chapter: '第6章 投资管理', point: '投资决策指标：净现值NPV=未来现金净流量现值-原始投资额现值，NPV≥0则方案可行。年金净流量ANCF=NPV/(P/A,i,n)。现值指数PVI=未来现金净流量现值/原始投资额现值。内含报酬率IRR是使NPV=0的折现率。投资回收期分为静态和动态两种。' },
+  { subject: '财务管理', chapter: '第7章 营运资金管理', point: '营运资金=流动资产-流动负债。现金管理：最佳现金持有量模型（成本模型、存货模型、随机模型）。应收账款管理：信用政策包括信用期间、信用标准和现金折扣政策。存货管理：经济订货批量EOQ=√(2KD/Kc)，再订货点=交货时间×每日平均需用量+保险储备。' },
+  { subject: '财务管理', chapter: '第8章 成本管理', point: '本量利分析：边际贡献=销售收入-变动成本，息税前利润=边际贡献-固定成本。保本点销量=固定成本/(单价-单位变动成本)。目标利润=（单价-单位变动成本）×销量-固定成本。标准成本差异分析：直接材料差异、直接人工差异、变动制造费用差异。' },
+  { subject: '财务管理', chapter: '第9章 收入与分配管理', point: '股利分配政策：剩余股利政策、固定或稳定增长股利政策、固定股利支付率政策、低正常股利加额外股利政策。股票分割会降低每股市价，增加股数，不改变股东权益结构。股票回购减少流通在外的股数，提高每股收益。' },
+  { subject: '财务管理', chapter: '第10章 财务分析与评价', point: '偿债能力指标：流动比率=流动资产/流动负债，资产负债率=负债总额/资产总额。营运能力指标：应收账款周转率=赊销收入净额/应收账款平均余额，存货周转率=营业成本/存货平均余额。盈利能力指标：营业净利率=净利润/营业收入，净资产收益率=净利润/平均净资产。杜邦分析体系：ROE=营业净利率×总资产周转率×权益乘数。' },
+  // 《经济法》7章
+  { subject: '经济法', chapter: '第1章 总论', point: '法律行为是民事主体通过意思表示设立、变更或终止民事法律关系的行为。法律行为的有效要件：行为人具有相应的民事行为能力、意思表示真实、不违反法律和社会公共利益。无效民事行为自始没有法律约束力。可撤销民事行为包括重大误解、欺诈、胁迫、显失公平。' },
+  { subject: '经济法', chapter: '第2章 公司法律制度', point: '有限责任公司设立条件：股东人数1-50人，有符合公司章程规定的全体股东认缴的出资额，股东共同制定公司章程，有公司名称和住所。股东会职权包括决定公司的经营方针和投资计划、选举和更换非职工代表担任的董事监事等。股权转让：其他股东过半数同意。' },
+  { subject: '经济法', chapter: '第3章 合伙企业法律制度', point: '普通合伙企业由2人以上普通合伙人组成，合伙人对合伙企业债务承担无限连带责任。有限合伙企业由2-50个合伙人设立，至少1个普通合伙人和1个有限合伙人。有限合伙人不得以劳务出资，不得执行合伙事务，不得对外代表有限合伙企业。' },
+  { subject: '经济法', chapter: '第4章 金融法律制度', point: '证券发行：公开发行证券必须符合法律规定的条件，并依法报经证监会核准。股份有限公司申请股票上市的条件包括股票经证监会核准已公开发行、公司股本总额不少于3000万元等。信息披露制度：发行时的信息披露和持续信息披露。保险法：保险利益是保险合同的有效条件。' },
+  { subject: '经济法', chapter: '第5章 合同法律制度', point: '合同订立程序：要约和承诺。要约到达受要约人时生效，承诺通知到达要约人时生效。合同履行的规则：质量要求不明确的按国家标准行业标准履行，价款不明确的按订立合同时履行地市场价格履行。违约责任：继续履行、采取补救措施、赔偿损失。' },
+  { subject: '经济法', chapter: '第6章 增值税法律制度', point: '增值税征税范围：销售货物、提供加工修理修配劳务、销售服务、销售无形资产、销售不动产以及进口货物。税率：基本税率13%，低税率9%（交通运输、邮政、基础电信等）和6%（现代服务、金融服务等）。小规模纳税人征收率3%（特殊情形5%）。进项税额不得抵扣的情形：用于简易计税、免税项目、集体福利或个人消费的购进。' },
+  { subject: '经济法', chapter: '第7章 企业所得税法律制度', point: '企业所得税纳税人为居民企业和非居民企业。基本税率25%，小型微利企业适用20%（实际优惠后更低），高新技术企业适用15%。应纳税所得额=收入总额-不征税收入-免税收入-各项扣除-允许弥补的以前年度亏损。公益性捐赠支出不超过年度利润总额12%的部分准予扣除。研发费用按实际发生额的100%加计扣除。' }
+];
+
+function renderStudyChapter() {
+  var chapter = pickByDate(STUDY_CHAPTERS, 801);
+  var el = document.getElementById('studyChapter');
+  el.innerHTML =
+    '<div class="sc-subject">' + chapter.subject + '</div>' +
+    '<div class="sc-chapter">' + chapter.chapter + '</div>' +
+    '<div class="sc-point">' + chapter.point + '</div>';
+}
+
+/* ========== 模块5：20句英语跟读句子 ========== */
+var ENGLISH_SENTENCES = [
+  { en: 'The balance sheet is a snapshot of a company\'s financial position at a specific point in time.', cn: '资产负债表是公司在某一特定时点财务状况的快照。' },
+  { en: 'Accrual accounting recognizes revenue when it is earned and expenses when they are incurred.', cn: '权责发生制在收入实现时确认收入，在费用发生时确认费用。' },
+  { en: 'Cash flow from operating activities is the lifeblood of any business.', cn: '经营活动产生的现金流量是任何企业的生命线。' },
+  { en: 'Depreciation allocates the cost of a tangible asset over its useful life.', cn: '折旧将固定资产的成本在其使用寿命内进行分摊。' },
+  { en: 'Internal controls are designed to ensure the reliability of financial reporting.', cn: '内部控制旨在确保财务报告的可靠性。' },
+  { en: 'The going concern assumption assumes a business will continue to operate indefinitely.', cn: '持续经营假设假定企业将无限期地持续运营。' },
+  { en: 'VAT is a consumption tax levied on the value added at each stage of production and distribution.', cn: '增值税是对生产和分销各环节增值额征收的消费税。' },
+  { en: 'An audit provides reasonable assurance that financial statements are free from material misstatement.', cn: '审计为财务报表不存在重大错报提供合理保证。' },
+  { en: 'Working capital is the difference between current assets and current liabilities.', cn: '营运资金是流动资产与流动负债之间的差额。' },
+  { en: 'The matching principle requires expenses to be recognized in the same period as related revenues.', cn: '配比原则要求费用在相关收入确认的同一期间确认。' },
+  { en: 'Goodwill is an intangible asset that arises when one company acquires another for a premium price.', cn: '商誉是一家公司以溢价收购另一家公司时产生的无形资产。' },
+  { en: 'Tax planning involves arranging one\'s affairs within the law to minimize tax liability.', cn: '税务筹划是在法律范围内安排事务以最小化税务负担。' },
+  { en: 'The time value of money is the concept that money available now is worth more than the same amount later.', cn: '货币时间价值是指现在可用的货币比未来等额货币更有价值的概念。' },
+  { en: 'Return on equity measures how efficiently a company uses shareholders\' capital to generate profits.', cn: '净资产收益率衡量公司使用股东资本创造利润的效率。' },
+  { en: 'Earnings per share is one of the most widely used indicators of corporate profitability.', cn: '每股收益是衡量企业盈利能力最广泛使用的指标之一。' },
+  { en: 'A consolidated financial statement combines the results of a parent company and its subsidiaries.', cn: '合并财务报表将母公司及其子公司的经营成果合并在一起。' },
+  { en: 'Deferred tax assets arise when taxes have been paid or carried forward but not yet recognized in the income statement.', cn: '递延所得税资产产生于已缴纳或结转但尚未在利润表中确认的税款。' },
+  { en: 'Risk management is the process of identifying, assessing and prioritizing risks to an organization.', cn: '风险管理是识别、评估和确定组织风险优先级的过程。' },
+  { en: 'Corporate governance refers to the system of rules, practices and processes by which a company is directed.', cn: '公司治理是指指导和控制公司的规则、惯例和流程体系。' },
+  { en: 'Financial statements tell the story of a business in numbers, and numbers never lie.', cn: '财务报表用数字讲述企业的故事，而数字从不说谎。' }
+];
+
+function getWeekNumber() {
+  var d = new Date();
+  var onejan = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+}
+
+function renderEnglishCard() {
+  var weekNum = getWeekNumber();
+  var idx = weekNum % ENGLISH_SENTENCES.length;
+  var sentence = ENGLISH_SENTENCES[idx];
+  var today = getTodayStr();
+  var doneKey = 'fw_' + today + '_english_done';
+
+  document.getElementById('ecEn').textContent = sentence.en;
+  document.getElementById('ecCn').textContent = sentence.cn;
+  document.getElementById('ecWeeklyTag').textContent = '第' + weekNum + '周';
+
+  var btn = document.getElementById('ecBtn');
+  if (lsGet(doneKey) === '1') {
+    btn.classList.add('done');
+    btn.textContent = '已完成 ✓';
+  }
+
+  btn.addEventListener('click', function() {
+    if (lsGet(doneKey) === '1') {
+      lsSet(doneKey, '0');
+      btn.classList.remove('done');
+      btn.textContent = '跟读完成';
+      showToast('已取消跟读打卡');
+    } else {
+      lsSet(doneKey, '1');
+      btn.classList.add('done');
+      btn.textContent = '已完成 ✓';
+      showToast('本周英语跟读已完成！');
+    }
+  });
+}
+
+/* ========== 模块5：运动打卡 ========== */
+function renderSportRecord() {
+  var today = getTodayStr();
+  var container = document.getElementById('sportRecord');
+  container.innerHTML = '';
+
+  for (var i = 0; i < 3; i++) {
+    var slot = document.createElement('div');
+    slot.className = 'sport-slot';
+    var contentKey = 'fw_' + today + '_sport_' + i;
+    var content = lsGet(contentKey) || '';
+
+    if (content) {
+      slot.classList.add('done');
+    }
+
+    slot.innerHTML =
+      '<div class="ss-icon">' + ['\u8DD1', '\u745C', '\u8DF3'][i] + '</div>' +
+      '<div class="ss-label">第' + (i + 1) + '次运动</div>' +
+      '<input class="ss-input" type="text" placeholder="填写运动内容" value="' + content.replace(/"/g, '&quot;') + '">';
+
+    container.appendChild(slot);
+
+    (function(key, el) {
+      var input = el.querySelector('.ss-input');
+      input.addEventListener('input', function() {
+        lsSet(key, input.value);
+        if (input.value.trim()) {
+          el.classList.add('done');
+        } else {
+          el.classList.remove('done');
+        }
+      });
+    })(contentKey, slot);
+  }
+}
+
+/* ========== 模块5：备考打卡日历 ========== */
+function renderCheckinCalendar() {
+  var container = document.getElementById('checkinCalendar');
+  container.innerHTML = '';
+  var today = getTodayStr();
+
+  for (var i = 1; i <= 30; i++) {
+    var day = document.createElement('div');
+    day.className = 'checkin-day';
+    day.textContent = i;
+
+    var checkKey = 'fw_checkin_day_' + i;
+    if (lsGet(checkKey) === '1') {
+      day.classList.add('checked');
+    }
+
+    // 标记今天（用日期号数）
+    var todayDate = new Date().getDate();
+    if (i === todayDate) {
+      day.classList.add('today');
+    }
+
+    day.addEventListener('click', function() {
+      var dayNum = parseInt(this.textContent);
+      var key = 'fw_checkin_day_' + dayNum;
+      if (lsGet(key) === '1') {
+        lsSet(key, '0');
+        this.classList.remove('checked');
+        showToast('第' + dayNum + '天打卡已取消');
+      } else {
+        lsSet(key, '1');
+        this.classList.add('checked');
+        showToast('第' + dayNum + '天打卡成功！');
+      }
+    });
+
+    container.appendChild(day);
+  }
+}
+
+/* ========== 模块5：10个优质博客源 ========== */
+var BLOG_SOURCES = [
+  { source: '国家税务总局', title: '关于增值税法实施有关问题的公告解读', summary: '2026年1月1日增值税法正式实施，税务总局发布配套公告，明确过渡期政策安排、税率适用衔接、申报表调整等关键问题。', url: 'https://www.chinatax.gov.cn' },
+  { source: '中国会计视野', title: '2026年会计行业发展趋势：数字化与智能化转型加速', summary: '从财务共享中心到智能财务平台，RPA机器人、AI审核、自动对账正在重塑会计人的工作方式。未来5年基础核算岗位将减少40%。', url: 'https://www.esnai.com' },
+  { source: '税屋', title: '数电发票实操指南：开票、交付、查验、入账全流程', summary: '数电发票全面推行后，企业财务人员需掌握电子发票的开具、交付、查验和归档全流程操作要点，本文附详细图文教程。', url: 'https://www.shui5.cn' },
+  { source: '中国税务报', title: '金税四期大数据预警指标体系详解', summary: '金税四期通过大数据比对实现全链条监控，本文梳理了常见的预警触发指标，包括税负率异常、进销项不匹配、资金流水异常等。', url: 'https://www.ctaxnews.com.cn' },
+  { source: '第一财经', title: '2026年宏观经济展望：财政政策与货币政策协调发力', summary: '中央经济工作会议定调2026年财政政策更加积极，赤字率或突破3%。减税降费政策延续，专项债规模有望扩大。', url: 'https://www.yicai.com' },
+  { source: '财新网', title: '个税改革下一步：综合所得范围扩大与税率优化', summary: '专家建议将经营所得、财产租赁所得等纳入综合所得范围，同时优化税率结构，降低中低收入群体税负。', url: 'https://www.caixin.com' },
+  { source: '东奥会计在线', title: '中级会计实务高频考点：收入准则五步法应用实例', summary: '收入确认五步法是中级会计实务考试的重点和难点，本文通过3个典型案例详解每一步的实务应用和考试技巧。', url: 'https://www.dongao.com' },
+  { source: '正保会计网校', title: '中级会计经济法增值税法核心考点速记口诀', summary: '增值税税率、征收率、不得抵扣进项税额的情形——用口诀帮助记忆，考前冲刺必备。附2026年增值税法新变化对比。', url: 'https://www.chinaacc.com' },
+  { source: '毕马威中国', title: '2026年中国税务快讯：研发费用加计扣除最新政策解读', summary: '研发费用加计扣除比例提升至100%，适用范围扩大。毕马威税务团队为您解读政策要点、备查资料要求和实务操作建议。', url: 'https://kpmg.com/cn' },
+  { source: '中国会计网', title: '合并财务报表编制实务：抵销分录编制技巧与案例', summary: '合并报表抵销分录是中级会计实务的难点。本文从内部股权投资、内部交易、内部债权债务三个维度，结合案例讲解编制方法。', url: 'https://www.canet.com.cn' }
+];
+
+function renderBlogs() {
+  // 每日轮换展示3-5条
+  var count = 3 + (dateSeed(901) % 3); // 3-5条
+  var blogs = pickFromArray(BLOG_SOURCES, count, 901);
+  var container = document.getElementById('blogList');
+  container.innerHTML = '';
+
+  blogs.forEach(function(blog) {
+    var el = document.createElement('div');
+    el.className = 'blog-item';
+    el.innerHTML =
+      '<div class="blog-source"><div class="bs-name">' + blog.source + '</div></div>' +
+      '<div class="blog-content">' +
+        '<div class="blog-title">' + blog.title + '</div>' +
+        '<div class="blog-summary">' + blog.summary + '</div>' +
+        '<a class="blog-link" href="' + blog.url + '" target="_blank" rel="noopener">阅读原文 →</a>' +
+      '</div>';
+    container.appendChild(el);
+  });
+}
+
+/* ========== Tab切换逻辑 ========== */
+function initTabs() {
+  var tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = this.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(function(t) {
+        t.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-content').forEach(function(c) {
+        c.classList.remove('active');
+      });
+      this.classList.add('active');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+}
+
+/* ========== 日期变化检测（每日零点自动刷新） ========== */
+function checkDateChange() {
+  var today = getTodayStr();
+  var storedDate = lsGet('fw_current_date');
+  if (storedDate && storedDate !== today) {
+    // 日期变了，刷新当日内容
+    lsSet('fw_current_date', today);
+    showToast('新的一天，内容已自动更新');
+    setTimeout(function() {
+      location.reload();
+    }, 1500);
+  } else {
+    lsSet('fw_current_date', today);
+  }
+}
+
+/* ========== 初始化 ========== */
+function init() {
+  // 记录今日日期
+  lsSet('fw_current_date', getTodayStr());
+
+  // 渲染所有模块
+  renderNavDate();
+  renderTodos();
+  renderTopics();
+  renderHotspots();
+  renderRewrites();
+  initInspirationNote();
+  initReview();
+  renderWoman();
+  renderDailyQuote();
+  initFloatingQuote();
+  renderStudyChapter();
+  renderEnglishCard();
+  renderSportRecord();
+  renderCheckinCalendar();
+  renderBlogs();
+  initTabs();
+
+  // 每分钟检测日期变化
+  setInterval(checkDateChange, 60000);
+
+  // 每分钟更新倒计时
+  setInterval(renderNavDate, 60000);
+}
+
+// DOM加载完成后初始化
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+</script>
+</body>
+</html>
